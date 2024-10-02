@@ -4,9 +4,8 @@ import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
-import "./NavBar.module.css";
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const showDrawer = () => {
     setVisible(!visible);
@@ -22,7 +21,7 @@ const Navbar: React.FC = () => {
       <Layout>
         <Layout.Header className="nav-header">
           <div className="logo">
-            <h3 className="brand-font">Brand Here</h3>
+            <h3 className="brand-font">Lyric File Maker</h3>
           </div>
           <div className="navbar-menu">
             <div className="leftMenu">
@@ -52,5 +51,3 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
-
-export default Navbar;
