@@ -5,7 +5,9 @@ import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import styles from "./styles/NavBar.module.css";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
 export const Navbar: React.FC = () => {
+  const {user} = useAppSelector(state => state.user)
   const [visible, setVisible] = useState<boolean>(false);
   const showDrawer = () => {
     setVisible(!visible);
@@ -31,7 +33,7 @@ export const Navbar: React.FC = () => {
               <MenuOutlined />
             </Button>
             <div className="rightMenu">
-              <RightMenu mode={"horizontal"} />
+              {user && (<RightMenu mode={"horizontal"} />)}
             </div>
 
             <Drawer
@@ -43,7 +45,7 @@ export const Navbar: React.FC = () => {
               style={{ zIndex: 99999 }}
             >
               <LeftMenu mode={"inline"} />
-              <RightMenu mode={"inline"} />
+              {user && (<RightMenu mode={"inline"} />)}
             </Drawer>
           </div>
         </Layout.Header>

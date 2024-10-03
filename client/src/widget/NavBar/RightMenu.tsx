@@ -8,29 +8,30 @@ interface RightMenuProps {
 }
 
 const RightMenu: React.FC<RightMenuProps> = ({ mode }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
   return (
-    <Menu mode={mode}>
-      <Menu.SubMenu
-        title={
-          <>
-            <Avatar icon={<UserOutlined />} />
-            <span className="username">John Doe</span>
-          </>
-        }
-      >
-        <Menu.Item key="project" onClick={() => navigate("/projects")}>
+      <Menu mode={mode}>
+        <Menu.SubMenu
+          title={
+            <>
+              <Avatar icon={<UserOutlined />} />
+              <span className="username">John Doe</span>
+            </>
+          }
+        >
+          <Menu.Item key="project" onClick={() => navigate("/projects")}>
           <CodeOutlined /> Ваши файлы
         </Menu.Item>
         <Menu.Item key="about-us" onClick={() => navigate("/profile")}>
           <UserOutlined /> Профиль
         </Menu.Item>
-        <Menu.Item key="log-out" onClick={() => navigate("/logout")}>
-          <LogoutOutlined /> Выход
-        </Menu.Item>
-      </Menu.SubMenu>
-    </Menu>
-  );
+          <Menu.Item key="log-out" onClick={() => navigate('/logout')}>
+            <LogoutOutlined /> Выйти
+          </Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    )
 };
 
 export default RightMenu;

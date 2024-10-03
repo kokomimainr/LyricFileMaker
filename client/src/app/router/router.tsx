@@ -2,8 +2,10 @@ import { ROUTES } from "./routes";
 import Layout from "./Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "@/pages/SignInPage";
-import { SignUpPage } from "@/pages/SignUpPage";
+import { SignUpPage } from "@/pages/SignUpPage"
 import MainPage from "@/pages/MainPage/MainPage";
+import { ConstructorPage } from "@/pages/Constructor";
+import { LogoutPage } from "@/pages/LogoutPage";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.SIGNUP,
                 element: <SignUpPage/>
+            },
+            {
+                path: ROUTES.CONSTRUCTOR,
+                element: <ConstructorPage/>
+            },
+            {
+                path: ROUTES.LOGOUT,
+                element: <LogoutPage/>
             }
         ]
     }

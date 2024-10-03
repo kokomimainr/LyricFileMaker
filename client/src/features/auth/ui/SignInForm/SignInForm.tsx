@@ -2,14 +2,13 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input } from 'antd';
 import {
-  selectUserLoading,
   useAppDispatch,
-  useAppSelector,
 } from '@/shared/hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '@/entities/user';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { ROUTES } from '@/app/router/routes';
+import styles from './SignInFprm.module.css'
 
 type SignInFormData  = {
   email: string;
@@ -19,7 +18,7 @@ type SignInFormData  = {
 export const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loading = useAppSelector(selectUserLoading);
+  
 
   const onFinish: FormProps<SignInFormData>['onFinish'] = async (
     values: SignInFormData
@@ -34,6 +33,9 @@ export const SignInForm: React.FC = () => {
   };
 
   return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+    <h1>Авторизация</h1>
     <Form
       name='basic'
       labelCol={{ span: 8 }}
@@ -47,31 +49,32 @@ export const SignInForm: React.FC = () => {
         name='email'
         hasFeedback
         rules={[
-          { required: true, message: 'Please input your email!' },
-          { type: 'email', message: 'The input is not a valid email!!!' },
+          { required: true, message: 'Пожалуйста, введите свой адрес электронной почты!' },
+          { type: 'email', message: 'Введенный адрес электронной почты не валиден!!!' },
         ]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item<SignInFormData>
-        label='Password'
+        label='Пароль'
         name='password'
         hasFeedback
-        help={<p>Ну тв че, не понял? </p>}
-        tooltip={<span>Ну тв че, не понял? </span>}
+        tooltip={<span>Пожалуйста, введите свой пароль</span>}
         validateDebounce={1000}
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: 'Пожалуйста, введите свой пароль!' }]}
       >
         <Input.Password />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type='primary' htmlType='submit'>
-          Submit
+        Войти
         </Button>
       </Form.Item>
     </Form>
+   </div>
+   </div>
   );
 };
 
