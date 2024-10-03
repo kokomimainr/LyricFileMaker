@@ -3,16 +3,17 @@ import Layout from "./Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "@/pages/SignInPage";
 import { SignUpPage } from "@/pages/SignUpPage";
+import MainPage from "@/pages/MainPage/MainPage";
 
 export const router = createBrowserRouter([
     {
         path: ROUTES.HOME,
         element: <Layout/>,
         children: [
-            // {
-            //     path: ROUTES.HOME,
-            //     element: <MainPage/>
-            // },
+            {
+                path: ROUTES.HOME,
+                element: <MainPage/>
+            },
             {
                 path: ROUTES.SIGNIN,
                 element: <SignInPage/>

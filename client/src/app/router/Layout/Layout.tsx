@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect } from "react";
-import { refreshAccessToken, UserService } from "@/entities/user";
+import React, { useEffect } from "react";
+import { refreshAccessToken } from "@/entities/user";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { Navbar } from "@/widget/NavBar";
+import { AppFooter } from "@/widget/Footer";
 
 type LayoutProps = {};
 
@@ -17,6 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({}) => {
     <>
       <Navbar />
       <Outlet />
+      <AppFooter/>
     </>
   );
 };
