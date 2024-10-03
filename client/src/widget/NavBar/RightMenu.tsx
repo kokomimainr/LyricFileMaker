@@ -16,17 +16,18 @@ const RightMenu: React.FC<RightMenuProps> = ({ mode }) => {
           title={
             <>
               <Avatar icon={<UserOutlined />} />
+              <span className="username">John Doe</span>
             </>
           }
         >
-          <Menu.Item key="project">
-            <CodeOutlined /> Projects
-          </Menu.Item>
-          <Menu.Item key="about-us">
-            <UserOutlined /> Profile
-          </Menu.Item>
+          <Menu.Item key="project" onClick={() => navigate("/projects")}>
+          <CodeOutlined /> Ваши файлы
+        </Menu.Item>
+        <Menu.Item key="about-us" onClick={() => navigate("/profile")}>
+          <UserOutlined /> Профиль
+        </Menu.Item>
           <Menu.Item key="log-out" onClick={() => navigate('/logout')}>
-            <LogoutOutlined /> Logout
+            <LogoutOutlined /> Выйти
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>

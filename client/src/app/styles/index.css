@@ -1,113 +1,207 @@
 /* Navbar */
 
 .navbar {
-    padding-bottom: 1px;
-    border-bottom: solid 1px #e8e8e8;
-    background-color: white;
-    box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.12),
-      0 6px 16px -11px rgba(0, 0, 0, 0.08);
-    position: sticky;
-    top: 0;
-    margin-bottom: 20px;
-    z-index: 99990;
-  }
-  
-  .nav-header {
-    background-color: white;
-    border-bottom: 0;
-    padding: 0 4px 0 24px;
-  }
-  
-  .logo {
-    width: 200px;
-    float: left;
-  }
-  
-  .logo a {
-    display: inline-block;
-    font-size: 20px;
-    text-transform: capitalize;
-  }
-  
-  .navbar-menu {
-    width: calc(100% - 200px);
-    float: left;
-  }
-  .navbar-menu .ant-layout-header {
-    padding: 0 20px;
-  }
-  
-  .navbar-menu .ant-menu-horizontal {
-    border-bottom: 0;
-  }
-  
-  .navbar-menu .ant-menu-item {
-    padding-bottom: 0px;
-  }
-  
-  .navbar-menu .leftMenu {
-    float: left;
-  }
-  
-  .navbar-menu .rightMenu {
-    float: right;
-  }
-  
+  padding-bottom: 1px;
+  border-bottom: solid 1px #e8e8e8;
+  background-color: white;
+  box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.222),
+    0 6px 16px -11px rgba(0, 0, 0, 0.14);
+  position: sticky;
+  top: 0;
+  z-index: 99990;
+}
+
+.nav-header {
+  background-color: white;
+  border-bottom: 0;
+  padding: 0 4px 0 24px;
+}
+
+.logo {
+  width: 200px;
+  float: left;
+}
+
+.logo a {
+  display: inline-block;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.navbar-menu {
+  width: calc(100% - 200px);
+  float: left;
+}
+.navbar-menu .ant-layout-header {
+  padding: 0 20px;
+}
+
+.navbar-menu .ant-menu-horizontal {
+  border-bottom: 0;
+}
+
+.navbar-menu .ant-menu-item {
+  padding-bottom: 0px;
+}
+
+.navbar-menu .leftMenu {
+  float: left;
+}
+
+.navbar-menu .rightMenu {
+  float: right;
+}
+
+.menuButton {
+  float: right;
+  height: 32px;
+  padding: 6px;
+  margin-top: 14px;
+  display: none;
+  background: none;
+  margin-right: 10px;
+}
+
+.ant-drawer-body {
+  padding: 0;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item,
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu {
+  display: inline-block;
+  width: 100%;
+}
+
+.ant-drawer-body .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover {
+  border-bottom-color: transparent;
+}
+
+.username {
+  display: none;
+  margin-left: 8px;
+}
+
+@media (max-width: 767px) {
   .menuButton {
-    float: right;
-    height: 32px;
-    padding: 6px;
-    margin-top: 14px;
-    display: none;
-    background: none;
+    display: block;
     margin-right: 10px;
   }
-  
-  .ant-drawer-body {
-    padding: 0;
-  }
-  
-  .ant-drawer-body .ant-menu-horizontal > .ant-menu-item,
-  .ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu {
-    display: inline-block;
-    width: 100%;
-  }
-  
-  .ant-drawer-body .ant-menu-horizontal {
-    border-bottom: none;
-  }
-  
-  .ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover {
-    border-bottom-color: transparent;
-  }
-  
-  .username {
+
+  .leftMenu,
+  .rightMenu {
     display: none;
-    margin-left: 8px;
   }
-  
-  @media (max-width: 767px) {
-    .menuButton {
-      display: block;
-      margin-right: 10px;
-    }
-  
-    .leftMenu,
-    .rightMenu {
-      display: none;
-    }
-  
-    .logo a {
-      margin-left: -10px;
-    }
-  
-    .ant-drawer-title > .brand-font {
-      margin-bottom: 0;
-    }
-  
-    .username {
-      display: inline-block;
-    }
+
+  .logo a {
+    margin-left: -10px;
   }
-  
-  /* Navbar End */
+
+  .ant-drawer-title > .brand-font {
+    margin-bottom: 0;
+  }
+
+  .username {
+    display: inline-block;
+  }
+}
+
+/* Navbar End */
+
+@font-face {
+  font-family: "Reey" !important;
+  src: url("fonts/Reey-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-Reey {
+  font-family: "Reey";
+}
+
+/* Banner */
+
+@keyframes gradient {
+  0% {
+    background-color: #fe9fad;
+  }
+  50% {
+    background-color: #9fcafe;
+  }
+  100% {
+    background-color: #fe9fad;
+  }
+}
+
+.gradient-background {
+  animation: gradient 10s ease infinite; /* Бесконечная анимация */
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  font-size: 50px;
+}
+
+.button {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* Banner End */
+
+/* Product description */
+
+.description-container {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f7faff; /* Цвет фона для контрастности */
+  text-align: center;
+}
+
+.description-title {
+  color: #1e90ff; /* Цвет заголовка */
+}
+
+.description-text {
+  color: #333; /* Цвет текста */
+  font-size: 18px; /* Размер шрифта */
+  max-width: 800px; /* Максимальная ширина текста */
+  margin: 0 auto; /* Центрирование текста */
+}
+
+.glowing-text {
+  color: #fe9fad; /* Розовый цвет текста */
+  text-shadow: 0 0 5px rgb(255, 187, 187), 0 0 10px rgb(255, 177, 190) /* Светящийся эффект */
+}
+
+/* Product description End */
+
+/* Comparison table */
+
+.comparison-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Comparison table End */
