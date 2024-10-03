@@ -1,7 +1,7 @@
 const { TimeCode } = require("../../db/models");
 
 class TimeCodeService {
-  static async getTimeCodesByStringId(stringId) {
+  static getTimeCodesByStringIdService = async (stringId) => {
     try {
       const timeCodes = await TimeCode.findAll({
         where: {
@@ -13,17 +13,16 @@ class TimeCodeService {
     } catch ({ message }) {
       console.error(message);
     }
-  }
+  };
 
-  static async createTimeCode(stringId, time) {
+  static createTimeCodeService = async (stringId, time) => {
     try {
       const timeCode = await TimeCode.create({ stringId, time });
       return timeCode ? timeCode.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
-  }
+  };
 }
 
-module.exports = new TimeCodeService();
-
+module.exports = TimeCodeService;

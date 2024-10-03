@@ -49,20 +49,6 @@ const lyricFileListSlice = createSlice({
         message.error(action.payload?.message || "Failed to get lyric files");
       })
       //////////////////////////////////////////////////////////////////////////
-      .addCase(createLyricFile.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(createLyricFile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.lyricFiles = [...state.lyricFiles, action.payload.lyricFile];
-        state.error = null;
-      })
-      .addCase(createLyricFile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || "Failed to create lyric file";
-        message.error(action.payload?.message || "Failed to create lyric file");
-      })
-      //////////////////////////////////////////////////////////////////////////
       .addCase(updateLyricFile.pending, (state) => {
         state.loading = true;
       })
