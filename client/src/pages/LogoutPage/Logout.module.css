@@ -1,0 +1,38 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px; /* Увеличенные отступы */
+    border-radius: 12px; /* Увеличенные закругленные углы */
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
+    background-color: #ffffff;
+  }
+  
+  .text {
+    font-size: 24px; /* Увеличенный размер текста */
+    margin-bottom: 25px; /* Увеличенный отступ снизу */
+  }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 30px; /* Увеличенный промежуток между кнопками */
+  }
+  
+  .button {
+    padding: 10px 20px; /* Увеличенные отступы для кнопок */
+    font-size: 20px; /* Увеличенный размер текста кнопок */
+  }
+  
+  .cancelButton {
+    background-color: #f0f0f0;
+  }
+  
