@@ -8,6 +8,7 @@ import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 
+
 export const router = createBrowserRouter([
     {
         path: ROUTES.HOME,

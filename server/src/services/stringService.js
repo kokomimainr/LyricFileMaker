@@ -1,6 +1,6 @@
-import { String } from "../db/models";
+const { String } = require( "../../db/models");
 
-export class stringService {
+class StringService {
   static async getStringsByLyricFileId(lyricFileId) {
     try {
       const strings = await String.findAll({
@@ -29,3 +29,4 @@ export class stringService {
   }
 }
 
+module.exports = new StringService;

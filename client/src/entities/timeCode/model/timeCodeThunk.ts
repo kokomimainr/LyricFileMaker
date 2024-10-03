@@ -11,7 +11,7 @@ export const getTimeCodes = createAsyncThunk<
   TimeCodeListResponse,
   { stringId: number },
   { rejectValue: RejectValue }
->("/time-codes", async ({stringId}, { rejectWithValue }) => {
+>("/time-codes/get", async ({stringId}, { rejectWithValue }) => {
   try {
     return await TimeCodeService.getTimeCodes( stringId);
   } catch (error) {
@@ -26,7 +26,7 @@ export const createTimeCode = createAsyncThunk<
   TimeCodeResponse,
   { stringId: number; time: string },
   { rejectValue: RejectValue }
->("/time-codes", async ({stringId, time}, { rejectWithValue }) => {
+>("/time-codes/create", async ({stringId, time}, { rejectWithValue }) => {
   try {
     return await TimeCodeService.createTimeCode( stringId, time);
   } catch (error) {
