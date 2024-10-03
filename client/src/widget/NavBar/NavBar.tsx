@@ -4,8 +4,8 @@ import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
+import styles from "./styles/NavBar.module.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
-
 export const Navbar: React.FC = () => {
   const {user} = useAppSelector(state => state.user)
   const [visible, setVisible] = useState<boolean>(false);

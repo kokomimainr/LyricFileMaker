@@ -2,14 +2,27 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/router";
-import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { ConfigProvider } from "antd";
 
 function App() {
   return (
     <>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <ConfigProvider
+        theme={{
+          token: {
+            // Seed Token
+            colorPrimary: "#ff8698",
+            borderRadius: 4,
+
+            // Alias Token
+            colorBgContainer: "#ffF",
+          },
+        }}
+      >
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </ConfigProvider>
     </>
   );
 }
