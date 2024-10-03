@@ -7,6 +7,7 @@ import MainPage from "@/pages/MainPage/MainPage";
 import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
+import { WorkSpacePage } from "@/pages/WorkSpace";
 
 
 export const router = createBrowserRouter([
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.CONSTRUCTOR,
                 element: <ConstructorPage/>
+            },
+            {
+                path: ROUTES.WORKSPACE,
+                element: <WorkSpacePage/>
             },
             {
                 path: ROUTES.LOGOUT,

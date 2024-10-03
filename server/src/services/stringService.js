@@ -1,7 +1,7 @@
 const { String } = require( "../../db/models");
 
 class StringService {
-  static async getStringsByLyricFileId(lyricFileId) {
+  static getStringsByLyricFileIdService = async(lyricFileId) => {
     try {
       const strings = await String.findAll({
         where: {
@@ -15,7 +15,7 @@ class StringService {
     }
   }
 
-  static async createString(lyricFileId, stringNumber, text) {
+  static createStringService = async(lyricFileId, stringNumber, text) => {
     try {
       const string = await String.create({
         lyricFileId,
@@ -29,4 +29,4 @@ class StringService {
   }
 }
 
-module.exports = new StringService;
+module.exports = StringService;

@@ -37,10 +37,12 @@ export class LyricFileService {
     isPublic: boolean
   ): Promise<LyricFileResponse> {
     try {
+      
       const response = await axiosInstance.post("/lyric-files", {
         trackName,
         public: isPublic,
       });
+      
       return response.data;
     } catch (error) {
       console.error("Error creating lyric file:", error);
