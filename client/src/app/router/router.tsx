@@ -6,6 +6,7 @@ import { SignUpPage } from "@/pages/SignUpPage"
 import MainPage from "@/pages/MainPage/MainPage";
 import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
+import { ProfilePage } from "@/pages/ProfilePage";
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +32,12 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.LOGOUT,
                 element: <LogoutPage/>
+            },
+            {
+                path: ROUTES.PROFILE,
+                element: <ProfilePage/>
             }
+
         ]
     }
 ])
