@@ -3,8 +3,8 @@ import Layout from "./Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "@/pages/SignInPage";
 import { SignUpPage } from "@/pages/SignUpPage";
-import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
+import { ConstructorPage } from "@/pages/Constructor";
 
 export const router = createBrowserRouter([
     {

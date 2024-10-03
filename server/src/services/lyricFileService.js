@@ -1,6 +1,6 @@
-import { LyricFile } from "../db/models";
+const { LyricFile } = require( "../../db/models");
 
-export class lyricFileService {
+class LyricFileService {
   static async getAllLyricFiles() {
     try {
       const lyricFiles = await LyricFile.findAll();
@@ -28,19 +28,19 @@ export class lyricFileService {
     }
   }
 
-  static async createLyricFile(userId, trackName, public) {
+  static async createLyricFile(userId, trackName, isPublic) {
     try {
-      const lyricFile = await LyricFile.create({ userId, trackName, public });
+      const lyricFile = await LyricFile.create({ userId, trackName, public: isPublic });
       return lyricFile ? lyricFile.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
   }
 
-  static async updateLyricFile(lyricFileId, userId, trackName, public) {
+  static async updateLyricFile(lyricFileId, userId, trackName, isPublic) {
     try {
       const lyricFile = await LyricFile.update(
-        { trackName, public },
+        { trackName, public : isPublic },
         { where: { id: lyricFileId, userId } }
       );
       return lyricFile ? lyricFile.get() : null;
@@ -61,3 +61,4 @@ export class lyricFileService {
 }
 
 
+module.exports = new LyricFileService

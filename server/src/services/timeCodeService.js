@@ -1,6 +1,6 @@
-import { TimeCode } from "../db/models";
+const { TimeCode } = require("../../db/models");
 
-export class timeCodeService {
+class TimeCodeService {
   static async getTimeCodesByStringId(stringId) {
     try {
       const timeCodes = await TimeCode.findAll({
@@ -24,4 +24,6 @@ export class timeCodeService {
     }
   }
 }
+
+module.exports = new TimeCodeService();
 
