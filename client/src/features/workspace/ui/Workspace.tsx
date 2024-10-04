@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Howl } from "howler";
 import styles from "./WorkSpace.module.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { FileContext } from "@/features/fileUploader/model/FileContext";
+import { StringList } from "@/widget/StringList";
 
-type WorkSpaceProps = {
-};
+type WorkSpaceProps = {};
 
-export const WorkSpace: React.FC<WorkSpaceProps> = ({
-}) => {
+export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
   const [audio, setAudio] = useState<null | Howl>(null);
   const [progress, setProgress] = useState<number>(0);
-  const {lyricFile} = useAppSelector((state) => state.lyricFile);
+  const { lyricFile } = useAppSelector((state) => state.lyricFile);
+  const { file } = useContext(FileContext) || {};
 
   const handleCreateAudio = (file: File) => {
     const url = URL.createObjectURL(file);
@@ -73,9 +74,9 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({
   };
 
   useEffect(() => {
-    // if(projectFile && !audio){
-    //   handleCreateAudio(projectFile)
-    // }
+    if (file && !audio) {
+      handleCreateAudio(file);
+    }
     return () => {
       audio?.stop();
     };
@@ -83,11 +84,9 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({
 
   return (
     <>
-    <h1>{lyricFile && lyricFile.trackName}</h1>
-      {audio && (
+      {audio && lyricFile && (
         <div className={styles.container}>
-          {/* <h1 className={styles.title}>{projectTitle}</h1> */}
-
+          <h1 className={styles.title}>{lyricFile?.trackName}</h1>
           <div className={styles.player}>
             <div
               style={{ width: "100%", background: "#ccc", marginTop: "10px" }}
@@ -139,11 +138,11 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({
               </div>
             </div>
           </div>
-          <div className={styles.editor}></div>
+          <StringList lyricFileId={lyricFile?.id} progress={progress}/>
+          <div className={styles.editor}>S</div>
           <div className={styles.result}></div>
         </div>
       )}
-      
     </>
   );
 };

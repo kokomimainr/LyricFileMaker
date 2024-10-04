@@ -3,6 +3,7 @@ import store from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/router";
 import { ConfigProvider } from "antd";
+import { FileProvider } from "@/features/fileUploader/model/FileContext";
 
 function App() {
   return (
@@ -13,7 +14,6 @@ function App() {
               // Seed Token
               colorPrimary: "#ff8698",
               borderRadius: 4,
-
               // Alias Token
               colorBgContainer: "#ffffff",
             },
