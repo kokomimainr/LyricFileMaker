@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./CreateForm.module.css";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { createLyricFile } from "@/entities/lyricFile";
 import { createString } from "@/entities/string";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
+import FileUploader from "@/features/fileUploader/components/FileUploader";
+import { FileContext } from "@/features/fileUploader/model/FileContext";
 
 const EOL = "\n";
 
@@ -15,13 +17,8 @@ export const CreateForm: React.FC<CreateFormProps> = ({}) => {
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null);
   const navigate = useNavigate();
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    file ? setFile(file) : console.log("no file");
-  };
+  const {file} = useContext(FileContext) || {};
 
   const splitText = (text: string) => {
     return text.split(EOL).map((text) => text.trim());
@@ -67,7 +64,7 @@ export const CreateForm: React.FC<CreateFormProps> = ({}) => {
               value={title}
               onChange={(event) => setTitle(event.target.value)}
             />
-            <input type="file" accept="audio/*" onChange={handleFileUpload} />
+            <FileUploader/>
             <textarea
               value={text}
               onChange={(event) => setText(event.target.value)}

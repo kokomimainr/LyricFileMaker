@@ -3,6 +3,7 @@ import store from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/router";
 import { ConfigProvider } from "antd";
+import { FileProvider } from "@/features/fileUploader/model/FileContext";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
         }}
       >
         <Provider store={store}>
-          <RouterProvider router={router} />
+          <FileProvider>
+            <RouterProvider router={router} />
+          </FileProvider>
         </Provider>
       </ConfigProvider>
     </>
