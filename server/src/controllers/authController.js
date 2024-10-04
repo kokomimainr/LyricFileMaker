@@ -51,8 +51,31 @@ async function logout(req, res) {
   }
 }
 
+async function requestPasswordReset(req, res) {
+  try {
+    const { email } = req.body;
+    
+    await userService.requestPasswordReset(email);
+    res.status(200).json({ message: 'Ссылка для сброса пароля отправлена на email' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
+async function resetPassword(req, res) {
+  try {
+    const { token, newPassword } = req.body;
+    await userService.resetPassword(token, newPassword);
+    res.status(200).json({ message: 'Пароль успешно сброшен' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 module.exports = {
   signUp,
   signIn,
   logout,
+  requestPasswordReset,
+  resetPassword
 };

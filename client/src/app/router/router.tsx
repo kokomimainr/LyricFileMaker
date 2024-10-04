@@ -1,5 +1,5 @@
 import { ROUTES } from "./routes";
-import Layout from "./Layout/Layout";
+import { AppLayout } from "./Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "@/pages/SignInPage";
 import { SignUpPage } from "@/pages/SignUpPage"
@@ -8,12 +8,14 @@ import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { WorkSpacePage } from "@/pages/WorkSpace";
+import { ResetPasswordPage } from "@/pages/resetPasswordPage";
+
 
 
 export const router = createBrowserRouter([
     {
         path: ROUTES.HOME,
-        element: <Layout/>,
+        element: <AppLayout/>,
         children: [
             {
                 path: ROUTES.HOME,
@@ -42,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.PROFILE,
                 element: <ProfilePage/>
+            },
+            {
+             path: ROUTES.RESET,
+             element: <ResetPasswordPage/>
             }
 
         ]

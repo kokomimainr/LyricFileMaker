@@ -14,17 +14,16 @@ function App() {
             // Seed Token
             colorPrimary: "#ff8698",
             borderRadius: 4,
-
             // Alias Token
-            colorBgContainer: "#ffF",
+            colorBgContainer: "#ffffff",
           },
         }}
       >
-        <Provider store={store}>
-          <FileProvider>
+        <FileProvider>
+          <Provider store={store}>
             <RouterProvider router={router} />
-          </FileProvider>
-        </Provider>
+          </Provider>
+        </FileProvider>
       </ConfigProvider>
     </>
   );

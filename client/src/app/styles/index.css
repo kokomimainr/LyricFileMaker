@@ -2,11 +2,30 @@
 
 @font-face {
   font-family: "DejaVu Serif" !important;
-  src: url("../../../fonts/DejaVuSerif.ttf") format("truetype");
+  src: url("./fonts/DejaVuSerif.otf") format("opentype");
+}
+@font-face {
+  font-family: "Arsenal" !important;
+  src: url("./fonts/Arsenal-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Playfair Display" !important;
+  src: url("./fonts/PlayfairDisplay-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Reey" !important;
+  src: url("./fonts/Reey-Regular.otf") format("opentype");
 }
 
-body, html {
-  font-family: "DejaVu Serif" ;
+* {
+  font-family: "DejaVu Serif" !important;
+  /* font-family: "Reey" !important; */
+  /* font-family: "Arsenal" !important; */
+  /* font-family: "Playfair Display" !important; */
+}
+
+.bold{
+  font-weight: bold;
 }
 
 .reveal {
@@ -18,4 +37,8 @@ body, html {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.pointer{
+  cursor: pointer;
 }

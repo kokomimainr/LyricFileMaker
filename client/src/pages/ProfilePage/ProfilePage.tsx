@@ -1,11 +1,25 @@
 import React from 'react';
-import { Avatar, Button, Card, Col, Flex, Typography } from 'antd';
+
+import { Avatar, Button, Col, Flex, message, Typography } from 'antd';
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
+import { axiosInstance } from '@/shared/lib/axiosInstance';
 
 const { Title, Text } = Typography;
 
 const ProfilePage: React.FC = () => {
-  const {user} = useAppSelector(state => state.user)
+  const {user } = useAppSelector(state => state.user)
+
+  const handleRequestPasswordReset = async () => {
+    try {
+        await axiosInstance.post('/auth/request-reset-password', { email: user?.email });
+        message.success('Ссылка для сброса пароля отправлена на ваш email');
+    } catch (error) {
+        console.log(error);
+      
+        message.error('Ошибка при запросе сброса пароля');
+    }
+};
+
   return (
     <div style={{ padding: '20px', width: '70vw'}}>
       <Flex justify="space-evenly" align="middle" gap='40'>
@@ -21,8 +35,11 @@ const ProfilePage: React.FC = () => {
           <Title level={1}>Email:</Title>
           <Text style={{fontSize: "20px"}}>{user?.email}</Text>
           <br />
-          <Button type="primary" style={{ marginTop: '30px', padding: '20px', fontSize: '20px'}}>
+          {/* <Button type="primary" style={{ marginTop: '30px', padding: '20px', fontSize: '20px'}}>
             Изменить данные
+          </Button> */}
+          <Button type="primary" onClick={handleRequestPasswordReset}>
+            Запросить сброс пароля
           </Button>
         </Col>
       </Flex>
