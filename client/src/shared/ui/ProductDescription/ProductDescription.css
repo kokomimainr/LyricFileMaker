@@ -1,0 +1,26 @@
+/* Product description */
+
+.description-container {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f7faff; /* Цвет фона для контрастности */
+    text-align: center;
+  }
+  
+  .description-title {
+    color: #1e90ff; /* Цвет заголовка */
+  }
+  
+  .description-text {
+    color: #333; /* Цвет текста */
+    font-size: 18px; /* Размер шрифта */
+    max-width: 800px; /* Максимальная ширина текста */
+    margin: 0 auto; /* Центрирование текста */
+  }
+  
+  .glowing-text {
+    color: #fe9fad; /* Розовый цвет текста */
+    text-shadow: 0 0 5px rgb(255, 187, 187), 0 0 10px rgb(255, 177, 190) /* Светящийся эффект */
+  }
+  
+  /* Product description End */

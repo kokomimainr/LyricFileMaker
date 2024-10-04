@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Typography, Layout } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Typography, Layout } from "antd";
+import "./Banner.css";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -8,23 +8,28 @@ const { Content } = Layout;
 type BannerProps = {};
 
 export const Banner: React.FC<BannerProps> = () => {
-  const navigate = useNavigate();
   return (
     <Layout className="gradient-background">
-      <Content
-        className="content"
-      >
-        <Title className="title" style={{ color: "white" }}>
-          Добро пожаловать в LyricFileMaker
-        </Title>
-        <Button
-          className="button"
-          type="primary"
-          size="large"
-          onClick={() => navigate("/signin")}
-        >
-          Перейти
-        </Button>
+      <Content className="content">
+        <div className="left">
+          <img
+            className="cloud"
+            style={{opacity: 0.5}}
+            src="/img/clouds.png"
+            alt=""
+          />
+        </div>
+        <div className="mid">
+          <Title className="title animate__animated animate__fadeIn" style={{ color: "white" }}>
+            Добро пожаловать в
+          </Title>
+          <img
+            className="animate__animated animate__fadeIn"
+            style={{ width: "40%" }}
+            src="/img/LyricFileMaker.png"
+            alt="lol"
+          />
+        </div>
       </Content>
     </Layout>
   );
