@@ -5,6 +5,7 @@ import { getAllStrings } from "@/entities/string";
 import { StringItem } from "@/entities/string/ui/StringItem";
 import { createTimeCode, getTimeCode } from "@/entities/timeCode";
 import { updateTimeCode } from "@/entities/timeCode/model/timeCodeThunk";
+import { getLyricFile } from "@/entities/lyricFile";
 
 type StringListProps = {
   lyricFileId: number;
@@ -26,16 +27,24 @@ type LineType = {
   stringId: number;
 };
 
+const EOL = "\n";
+
 export const StringList: React.FC<StringListProps> = ({
   lyricFileId,
   progress,
 }) => {
   const dispatcher = useAppDispatch();
   const { strings } = useAppSelector((state) => state.stringList);
+  const { lyricFile } = useAppSelector((state) => state.lyricFile);
+  const { timeCodes } = useAppSelector((state) => state.timeCodeList);
   const [resultTable, setResultTable] = useState<LineType[]>([]);
   const [stringIndex, setStringIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedLine, setSelectedLine] = useState<LineType | undefined>(undefined);
+  const [selectedLine, setSelectedLine] = useState<LineType | undefined>(
+    undefined
+  );
+  const [showLrc, setShowLrc] = useState(false);
+  const [lrcContent, setLrcContent] = useState("");
 
   const fetchStrings = async (lyricFileId: number) => {
     await dispatcher(getAllStrings({ lyricFileId }));
@@ -76,18 +85,49 @@ export const StringList: React.FC<StringListProps> = ({
 
   const handleSubmitEdit = () => {
     const formattedTime = formateTime(progress);
-    
-    selectedLine && dispatcher(
-      updateTimeCode({ stringId: selectedLine?.stringId, time: formattedTime })
-    );
 
-    setResultTable((prev) => prev.map((item) => item.stringId === selectedLine?.stringId ? { ...item, time: formattedTime } : item));
+    selectedLine &&
+      dispatcher(
+        updateTimeCode({
+          stringId: selectedLine?.stringId,
+          time: formattedTime,
+        })
+      );
+
+    setResultTable((prev) =>
+      prev.map((item) =>
+        item.stringId === selectedLine?.stringId
+          ? { ...item, time: formattedTime }
+          : item
+      )
+    );
     setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
-    setIsEditing(false); 
-    setSelectedLine(undefined);   
+    setIsEditing(false);
+    setSelectedLine(undefined);
+  };
+
+  const handleCreateLrc = () => {
+    dispatcher(getLyricFile({ lyricFileId: lyricFileId }));
+    setShowLrc(true);
+    setLrcContent(
+      resultTable.map((item) => `${item.time}  ${item.text}`).join(EOL)
+    );
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([lrcContent], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${lyricFile?.trackName.replaceAll(" ","_")}.lrc`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -99,13 +139,14 @@ export const StringList: React.FC<StringListProps> = ({
       <div className={styles.container}>
         {isEditing ? (
           <div>
-            <button onClick={handleSubmitEdit}>
-              🟢
-            </button>
-            <button onClick={handleCancelEdit}>
-              ❌
-            </button>
-            {selectedLine && <StringItem key={selectedLine?.stringId} stringText={selectedLine?.text} />}
+            <button onClick={handleSubmitEdit}>🟢</button>
+            <button onClick={handleCancelEdit}>❌</button>
+            {selectedLine && (
+              <StringItem
+                key={selectedLine?.stringId}
+                stringText={selectedLine?.text}
+              />
+            )}
           </div>
         ) : (
           <div>
@@ -127,6 +168,7 @@ export const StringList: React.FC<StringListProps> = ({
                 )}
           </div>
         )}
+
         <ul>
           {resultTable.map((line) => (
             <div>
@@ -136,6 +178,19 @@ export const StringList: React.FC<StringListProps> = ({
             </div>
           ))}
         </ul>
+
+        {strings.length === stringIndex && (
+          <div>
+            {showLrc ? (
+              <div>
+                <textarea name="" value={lrcContent} id="" cols={100} rows={20}></textarea>
+                <button onClick={handleDownload}>Скачать .lrc файл</button>
+              </div>
+            ) : (
+              <button onClick={handleCreateLrc}>Создать LRC</button>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
