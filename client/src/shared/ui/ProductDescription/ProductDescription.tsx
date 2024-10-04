@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Layout, Image, Flex } from "antd";
+import "./ProductDescription.css";
 
 const { Paragraph } = Typography;
 const { Content } = Layout;

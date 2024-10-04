@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./CreateForm.module.css";
-import { Howl } from "howler";
 
 type CreateFormProps = {
   setProjectTitle: React.Dispatch<React.SetStateAction<string>>;

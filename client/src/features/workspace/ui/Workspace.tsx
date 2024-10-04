@@ -11,7 +11,6 @@ type WorkSpaceProps = {
 export const WorkSpace: React.FC<WorkSpaceProps> = ({
   projectTitle,
   projectFile,
-  projectText,
 }) => {
   const [audio, setAudio] = useState<null | Howl>(null);
   const [progress, setProgress] = useState<number>(0);
