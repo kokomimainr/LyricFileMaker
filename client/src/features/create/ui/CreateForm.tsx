@@ -6,7 +6,7 @@ import { createString } from "@/entities/string";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
-import { FileContext } from "@/features/fileUploader/model/FileContext";
+import { clearBufferTimeCodes } from "@/entities/timeCode";
 
 const { Title } = Typography;
 
@@ -22,6 +22,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
   const navigate = useNavigate();
   const { file } = useContext(FileContext) || {};
 
+
   const splitText = (text: string) => {
     return text.split(EOL).map((text) => text.trim());
   };
@@ -30,7 +31,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
     const response = await dispatcher(
       createLyricFile({ trackName: values.title, isPublic: true })
     );
-
+    
     const payload = response.payload as { lyricFile: { id: number } };
 
     if (payload) {
@@ -50,6 +51,10 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
     } else {
       message.error("Ошибка при создании файла.");
     }
+    setTitle("");
+    setText("");
+    dispatcher(clearBufferTimeCodes())
+    navigate(ROUTES.WORKSPACE);
   };
 
   return (

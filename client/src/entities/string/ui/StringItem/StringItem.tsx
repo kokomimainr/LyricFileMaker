@@ -3,14 +3,14 @@ import styles from "./StringItem.module.css";
 import { String } from "@/entities/string";
 
 type StringItemProps = {
-  string: String;
+  stringText: string;
 };
 
-export const StringItem: React.FC<StringItemProps> = ({ string }) => {
+export const StringItem: React.FC<StringItemProps> = ({ stringText}) => {
   return (
     <>
       <div className={styles.container}>
-        <p>{string.stringNumber} . {string.text}</p>
+        <p>{stringText}</p>
       </div>
     </>
   );
