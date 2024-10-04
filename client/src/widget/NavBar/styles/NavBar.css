@@ -42,7 +42,7 @@
   
   .navbar-menu .ant-menu-item {
     width: auto;
-    padding: 0;
+    padding: 0 24px !important;
   }
   
   .navbar-menu .leftMenu {

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
 import { clearBufferTimeCodes } from "@/entities/timeCode";
+import { FileContext } from "@/features/fileUploader/model/FileContext";
 
 const { Title } = Typography;
 

@@ -1,9 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Howl } from "howler";
-import styles from "./WorkSpace.module.css";
+import "./WorkSpace.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { FileContext } from "@/features/fileUploader/model/FileContext";
 import { StringList } from "@/widget/StringList";
+import {
+  BackwardOutlined,
+  CaretRightOutlined,
+  FastBackwardOutlined,
+  FastForwardOutlined,
+  ForwardOutlined,
+  PauseOutlined,
+} from "@ant-design/icons";
+import { Button } from "antd";
 
 type WorkSpaceProps = {};
 
@@ -54,7 +63,9 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return `${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds}`;
   };
 
   const handleBackward = () => {
@@ -101,74 +112,105 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
   return (
     <>
       {audio && lyricFile && (
-        <div className={styles.container}>
-          <h1 className={styles.title}>{lyricFile?.trackName}</h1>
-          <div className={styles.player}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            textAlign: "center",
+          }}
+        >
+          <h1>{lyricFile?.trackName}</h1>
+          <div className="player">
             <div
-              style={{ width: "100%", background: "#ccc", marginTop: "10px" }}
-              className={styles.progress}
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                width: "38vw",
+                height: "15vh",
+                marginTop: "10px",
+              }}
+              className="progress"
             >
-              <div className={styles.time}>
-                <h2 className={styles.timeProgress}> {formatTime(progress)}</h2>
-                <h2 className={styles.timeDuration}>
-                  {formatTime(audio.duration())}
-                </h2>
+              <div className="time-with-progress" style={{ width: "90%" }}>
+                <div className="time">
+                  <h2 className="timeProgress"> {formatTime(progress)}</h2>
+                  <h2 className="timeDuration">
+                    {formatTime(audio.duration())}
+                  </h2>
+                </div>
+                <input
+                  id="radius"
+                  type="range"
+                  min={0}
+                  max={audio?.duration()}
+                  value={audio?.seek() || 0}
+                  onChange={handleSeek}
+                  style={{ width: "100%", backgroundColor: "transparent" }}
+                />
               </div>
 
-              <input
-                type="range"
-                min={0}
-                max={audio?.duration()}
-                value={audio?.seek() || 0}
-                onChange={handleSeek}
-                style={{ width: "100%" }}
-              />
-              <div className={styles.buttons}>
-                <button onClick={handleBackward} className={styles.buttons}>
-                  <img
-                    className={styles.image}
-                    src="./img/backward.png"
-                    alt=""
-                  />
-                </button>
-                <button onClick={handleLittleBackward} className={styles.buttons}>
-                  <img
-                    className={styles.image}
-                    src="./img/backward.png"
-                    alt=""
-                  />
-                </button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  width: "80%",
+                }}
+                className="buttons"
+              >
+                <Button
+                  className="custom-button"
+                  type="primary"
+                  size="large"
+                  onClick={handleBackward}
+                  icon={<FastBackwardOutlined />}
+                />
+                <Button
+                  className="custom-button"
+                  type="primary"
+                  size="large"
+                  onClick={handleLittleBackward}
+                  icon={<BackwardOutlined />}
+                />
                 {audio?.playing() ? (
-                  <button onClick={handlePause} className={styles.buttons}>
-                    <img
-                      className={styles.image}
-                      src="./img/pause.png"
-                      alt=""
-                    />
-                  </button>
+                  <Button
+                  className="custom-button"
+                    type="primary"
+                    size="large"
+                    onClick={handlePause}
+                    icon={<PauseOutlined />}
+                  />
                 ) : (
-                  <button onClick={handlePlay} className={styles.buttons}>
-                    <img className={styles.image} src="./img/play.png" alt="" />
-                  </button>
+                  <Button
+                  className="custom-button"
+                    type="primary"
+                    size="large"
+                    onClick={handlePlay}
+                    icon={<CaretRightOutlined />}
+                  />
                 )}
-                <button onClick={handleLittleForward} className={styles.buttons}>
-                  <img
-                    className={styles.image}
-                    src="./img/forward.png"
-                    alt=""
-                  />
-                </button>
-                <button onClick={handleForward} className={styles.buttons}>
-                  <img
-                    className={styles.image}
-                    src="./img/forward.png"
-                    alt=""
-                  />
-                </button>
+                <Button
+                  className="custom-button"
+                  type="primary"
+                  size="large"
+                  onClick={handleLittleForward}
+                  icon={<ForwardOutlined />}
+                />
+                <Button
+                  
+                  className="custom-button"
+                  type="primary"
+                  size="large"
+                  onClick={handleForward}
+                  icon={<FastForwardOutlined />}
+                />
               </div>
             </div>
           </div>
-          <StringList lyricFileId={lyricFile?.id} progress={progress}/>
+          <StringList lyricFileId={lyricFile?.id} progress={progress} />
         </div>
       )}
     </>

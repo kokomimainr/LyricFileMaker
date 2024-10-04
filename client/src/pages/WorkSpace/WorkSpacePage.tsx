@@ -7,7 +7,6 @@ type WorkSpacePageProps = {};
 export const WorkSpacePage: React.FC<WorkSpacePageProps> = ({}) => {
   return (
     <>
-      WORKSPACE
       <div className={styles.container}>
         <WorkSpace />
       </div>
