@@ -8,6 +8,8 @@ import { ConstructorPage } from "@/pages/Constructor";
 import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { WorkSpacePage } from "@/pages/WorkSpace";
+import { ResetPasswordPage } from "@/pages/resetPasswordPage";
+
 
 
 export const router = createBrowserRouter([
@@ -42,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.PROFILE,
                 element: <ProfilePage/>
+            },
+            {
+             path: ROUTES.RESET,
+             element: <ResetPasswordPage/>
             }
 
         ]
