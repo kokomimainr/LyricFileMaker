@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Button, Card, Col, Flex, Typography } from 'antd';
+import { Avatar, Button, Col, Flex, Typography } from 'antd';
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
 
 const { Title, Text } = Typography;
