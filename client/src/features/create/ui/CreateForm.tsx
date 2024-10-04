@@ -17,11 +17,9 @@ type CreateFormProps = {};
 
 export const CreateForm: React.FC<CreateFormProps> = () => {
   const dispatcher = useAppDispatch();
-  const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const navigate = useNavigate();
-  const { file } = useContext(FileContext) || {};
 
 
   const splitText = (text: string) => {
@@ -67,7 +65,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
         padding: "20px",
       }}
     >
-      {lyricFile && <Title level={2}>Файл создан</Title>}
+      {/* {lyricFile && <Title level={2}>Файл создан</Title>} */}
       <Title level={2}>Добавление файлов</Title>
       <Form
         style={{ width: "50%" }}
