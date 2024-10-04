@@ -1,5 +1,6 @@
 import React from 'react';
-import { Avatar, Button, Card, Col, Flex, message, Typography } from 'antd';
+
+import { Avatar, Button, Col, Flex, message, Typography } from 'antd';
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
 import { axiosInstance } from '@/shared/lib/axiosInstance';
 
