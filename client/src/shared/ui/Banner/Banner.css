@@ -14,7 +14,7 @@
 
 @keyframes float {
   0% {
-    transform: translateX(-20%);
+    transform: translateX(-50%);
   }
   50% {
     transform: translateX(50%);
@@ -48,7 +48,7 @@
   text-align: center;  
   position: relative;
   overflow: hidden; /* Скрыть элементы за пределами контейнера */
-  box-shadow: inset 0 0 20px rgb(0, 0, 0); /* Add this line */
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.247); /* Add this line */
 }
 
 .content {
@@ -73,7 +73,7 @@
   top: 0%; /* Центрировать по вертикали */
   transform: translateY(-50%);
   z-index: -1; /* Эти элементы будут позади mid */
-  animation: float 600s linear infinite; /* Увеличено время анимации для более медленного движения */
+  animation: float 500s linear infinite; /* Увеличено время анимации для более медленного движения */
   width: 100%; /* Ограничение ширины облаков */
   left: 0%; /* Начальная позиция слева */
 }
