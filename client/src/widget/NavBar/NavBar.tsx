@@ -3,13 +3,14 @@ import { Layout, Button, Drawer } from "antd";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./styles/NavBar.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 export const Navbar: React.FC = () => {
   const {user} = useAppSelector(state => state.user)
   const [visible, setVisible] = useState<boolean>(false);
+  const navigate = useNavigate();
   const showDrawer = () => {
     setVisible(!visible);
   };
@@ -23,8 +24,9 @@ export const Navbar: React.FC = () => {
     <nav className="navbar">
       <Layout>
         <Layout.Header className="nav-header">
-          <div className="logo">
-            <h3 className="brand-font">Lyric File Maker</h3>
+          <div className="logo pointer" style={{ display: "flex", alignItems: "center" }} onClick={() => navigate("/")}>
+            <img style={{ width: "40px" }} src="/img/Icon.png" alt="" />
+            <h3 style={{fontSize: "17px"}} className="brand-font">Lyric File Maker</h3>
           </div>
           <div className="navbar-menu">
             <div className="leftMenu">
@@ -38,7 +40,6 @@ export const Navbar: React.FC = () => {
             </div>
 
             <Drawer
-              title={"Brand Here"}
               placement="right"
               closable={true}
               onClose={showDrawer}
