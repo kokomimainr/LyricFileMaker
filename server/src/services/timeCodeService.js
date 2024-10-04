@@ -1,7 +1,7 @@
-import { TimeCode } from "../db/models";
+const { TimeCode } = require("../../db/models");
 
-export class timeCodeService {
-  static async getTimeCodesByStringId(stringId) {
+class TimeCodeService {
+  static getTimeCodesByStringIdService = async (stringId) => {
     try {
       const timeCodes = await TimeCode.findAll({
         where: {
@@ -13,15 +13,16 @@ export class timeCodeService {
     } catch ({ message }) {
       console.error(message);
     }
-  }
+  };
 
-  static async createTimeCode(stringId, time) {
+  static createTimeCodeService = async (stringId, time) => {
     try {
       const timeCode = await TimeCode.create({ stringId, time });
       return timeCode ? timeCode.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
-  }
+  };
 }
 
+module.exports = TimeCodeService;

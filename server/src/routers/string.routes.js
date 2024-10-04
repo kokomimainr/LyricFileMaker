@@ -2,6 +2,8 @@ const { getStrings, createString } = require("../controllers/stringController");
 
 const router = require("express").Router();
 
-router.route("/").get(getStrings).post(createString);
+router.route("/").post(createString);
+
+router.route('/:lyricFileId').get(getStrings);
 
 module.exports = router;

@@ -1,0 +1,56 @@
+/* UserCard.css */
+.card {
+  width: 100vw;
+  height: 40vw;
+  border-radius: 0px;
+ 
+  padding: 50px;
+ background-color: #fff;
+  margin: auto;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header__avatar {
+  margin-right: 30px;
+  background-color: #fe9fad;
+ 
+ 
+}
+
+.card-header__name {
+  margin: 0;
+  font-weight: normal;
+}
+
+.card-header__email {
+  margin: 0;
+  color: #888;
+}
+
+.card-files {
+  margin-top: 16px;
+}
+
+.card-files__title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.card-file {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.card-file__name {
+  color: #333;
+}
+
+.card-file__link {
+  padding: 0;
+}

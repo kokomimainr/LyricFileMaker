@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Howl } from "howler";
 import styles from "./WorkSpace.module.css";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 type WorkSpaceProps = {
-  projectTitle: string;
-  projectFile: File | undefined;
-  projectText: string;
 };
 
 export const WorkSpace: React.FC<WorkSpaceProps> = ({
-  projectTitle,
-  projectFile,
 }) => {
   const [audio, setAudio] = useState<null | Howl>(null);
   const [progress, setProgress] = useState<number>(0);
+  const {lyricFile} = useAppSelector((state) => state.lyricFile);
 
   const handleCreateAudio = (file: File) => {
     const url = URL.createObjectURL(file);
@@ -76,9 +73,9 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({
   };
 
   useEffect(() => {
-    if(projectFile && !audio){
-      handleCreateAudio(projectFile)
-    }
+    // if(projectFile && !audio){
+    //   handleCreateAudio(projectFile)
+    // }
     return () => {
       audio?.stop();
     };
@@ -86,10 +83,11 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({
 
   return (
     <>
-      
+    <h1>{lyricFile && lyricFile.trackName}</h1>
       {audio && (
         <div className={styles.container}>
-          <h1 className={styles.title}>{projectTitle}</h1>
+          {/* <h1 className={styles.title}>{projectTitle}</h1> */}
+
           <div className={styles.player}>
             <div
               style={{ width: "100%", background: "#ccc", marginTop: "10px" }}

@@ -6,7 +6,7 @@ const {
   updateLyricFile,
   deleteLyricFile,
 } = require("../controllers/lyricFileController");
-const verifyAccessToken = require("../middleware/verifyToken");
+const {verifyAccessToken} = require("../middleware/verifyToken");
 const router = require("express").Router();
 
 router

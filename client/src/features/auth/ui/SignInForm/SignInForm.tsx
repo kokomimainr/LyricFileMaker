@@ -62,7 +62,11 @@ export const SignInForm: React.FC = () => {
         hasFeedback
         tooltip={<span>Пожалуйста, введите свой пароль</span>}
         validateDebounce={1000}
-        rules={[{ required: true, message: 'Пожалуйста, введите свой пароль!' }]}
+        rules={[{ required: true, message: 'Пожалуйста, введите свой пароль!' },  {
+          min: 6,
+          message: 'Пароль должен содержать минимум 6 символов!',
+        },]
+      }
       >
         <Input.Password />
       </Form.Item>
