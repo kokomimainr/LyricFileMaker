@@ -1,12 +1,13 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { userReducer } from "@/entities/user";
-import { timeCodeListReducer } from "@/entities/timeCode";
+import { timeCodeListReducer, timeCodeReducer } from "@/entities/timeCode";
 import { stringListReducer } from "@/entities/string";
 import { lyricFileListReducer, lyricFileReducer } from "@/entities/lyricFile";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    timeCode: timeCodeReducer,
     timeCodeList: timeCodeListReducer,
     stringList: stringListReducer,
     lyricFileList: lyricFileListReducer,

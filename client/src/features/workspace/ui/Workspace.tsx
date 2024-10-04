@@ -54,7 +54,7 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   const handleBackward = () => {
@@ -65,11 +65,27 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
     }
   };
 
+  const handleLittleBackward = () => {
+    if (Math.floor(progress) < 10) {
+      audio?.seek(0);
+    } else {
+      audio?.seek(progress - 1);
+    }
+  };
+
   const handleForward = () => {
     if (audio?.duration() && Math.floor(progress) > audio?.duration() - 10) {
       audio?.seek(audio?.duration());
     } else {
       audio?.seek(progress + 10);
+    }
+  };
+
+  const handleLittleForward = () => {
+    if (audio?.duration() && Math.floor(progress) > audio?.duration() - 10) {
+      audio?.seek(audio?.duration());
+    } else {
+      audio?.seek(progress + 1);
     }
   };
 
@@ -115,6 +131,13 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
                     alt=""
                   />
                 </button>
+                <button onClick={handleLittleBackward} className={styles.buttons}>
+                  <img
+                    className={styles.image}
+                    src="./img/backward.png"
+                    alt=""
+                  />
+                </button>
                 {audio?.playing() ? (
                   <button onClick={handlePause} className={styles.buttons}>
                     <img
@@ -128,6 +151,13 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
                     <img className={styles.image} src="./img/play.png" alt="" />
                   </button>
                 )}
+                <button onClick={handleLittleForward} className={styles.buttons}>
+                  <img
+                    className={styles.image}
+                    src="./img/forward.png"
+                    alt=""
+                  />
+                </button>
                 <button onClick={handleForward} className={styles.buttons}>
                   <img
                     className={styles.image}
@@ -139,8 +169,6 @@ export const WorkSpace: React.FC<WorkSpaceProps> = ({}) => {
             </div>
           </div>
           <StringList lyricFileId={lyricFile?.id} progress={progress}/>
-          <div className={styles.editor}>S</div>
-          <div className={styles.result}></div>
         </div>
       )}
     </>
