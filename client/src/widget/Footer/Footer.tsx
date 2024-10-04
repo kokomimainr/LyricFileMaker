@@ -1,12 +1,13 @@
 import React from "react";
 import { Layout, Typography, Row, Col } from "antd";
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined } from '@ant-design/icons';
+import './AppFooter.css'; // Подключаем CSS файл
 
 const { Footer } = Layout;
 
 export const AppFooter: React.FC = () => {
   return (
-    <Footer style={{ backgroundColor: '#001529', color: 'white', padding: '20px 0' }}>
+    <Footer className="footer">
       <div className="footer-content">
         <Row justify="space-around">
           <Col span={8}>

@@ -8,21 +8,23 @@ import { FileProvider } from "@/features/fileUploader/model/FileContext";
 function App() {
   return (
     <>
-        <ConfigProvider
-          theme={{
-            token: {
-              // Seed Token
-              colorPrimary: "#ff8698",
-              borderRadius: 4,
-              // Alias Token
-              colorBgContainer: "#ffffff",
-            },
-          }}
-        >
+      <ConfigProvider
+        theme={{
+          token: {
+            // Seed Token
+            colorPrimary: "#ff8698",
+            borderRadius: 4,
+            // Alias Token
+            colorBgContainer: "#ffffff",
+          },
+        }}
+      >
+        <FileProvider>
           <Provider store={store}>
             <RouterProvider router={router} />
           </Provider>
-        </ConfigProvider>
+        </FileProvider>
+      </ConfigProvider>
     </>
   );
 }

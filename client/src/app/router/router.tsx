@@ -1,5 +1,5 @@
 import { ROUTES } from "./routes";
-import Layout from "./Layout/Layout";
+import { AppLayout } from "./Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "@/pages/SignInPage";
 import { SignUpPage } from "@/pages/SignUpPage"
@@ -13,7 +13,7 @@ import { WorkSpacePage } from "@/pages/WorkSpace";
 export const router = createBrowserRouter([
     {
         path: ROUTES.HOME,
-        element: <Layout/>,
+        element: <AppLayout/>,
         children: [
             {
                 path: ROUTES.HOME,

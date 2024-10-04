@@ -41,7 +41,8 @@
   }
   
   .navbar-menu .ant-menu-item {
-    padding-bottom: 0px;
+    width: auto;
+    padding: 0;
   }
   
   .navbar-menu .leftMenu {
@@ -86,6 +87,10 @@
   }
   
   @media (max-width: 767px) {
+    .ant-menu{
+    flex-direction: column;
+    }
+
     .menuButton {
       display: block;
       margin-right: 10px;
