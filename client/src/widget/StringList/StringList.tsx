@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import styles from "./StringList.module.css";
+import "./StringList.css";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import { StringItem } from "@/entities/string/ui/StringItem";
 import { createTimeCode, getTimeCode } from "@/entities/timeCode";
 import { updateTimeCode } from "@/entities/timeCode/model/timeCodeThunk";
 import { getLyricFile } from "@/entities/lyricFile";
+import { Button, Input, message, Typography } from "antd";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  DownloadOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
 
 type StringListProps = {
   lyricFileId: number;
@@ -123,30 +131,67 @@ export const StringList: React.FC<StringListProps> = ({
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${lyricFile?.trackName.replaceAll(" ","_")}.lrc`;
+    // a.download = `${lyricFile?.trackName.replaceAll(" ","_")}.lrc`;
+    a.download = `${lyricFile?.trackName.replace(/ /g, "_")}.lrc`;
     document.body.appendChild(a);
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(lrcContent)
+      .then(() => {
+        message.success("Текст скопирован в буфер обмена!");
+      })
+      .catch(() => {
+        message.error("Не удалось скопировать текст.");
+      });
+  };
+
   useEffect(() => {
     fetchStrings(lyricFileId);
   }, [lyricFileId]);
 
+  console.log(resultTable.length === 0);
+
   return (
     <>
-      <div className={styles.container}>
+      <div>
         {isEditing ? (
-          <div>
-            <button onClick={handleSubmitEdit}>🟢</button>
-            <button onClick={handleCancelEdit}>❌</button>
-            {selectedLine && (
-              <StringItem
-                key={selectedLine?.stringId}
-                stringText={selectedLine?.text}
-              />
-            )}
+          <div className="progress" style={{ marginBottom: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "3px",
+                width: "80%",
+              }}
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "3px" }}
+              >
+                <Button
+                  style={{ marginRight: "10px" }}
+                  type="primary"
+                  icon={<CheckOutlined />}
+                  onClick={handleSubmitEdit}
+                ></Button>
+                <Button
+                  icon={<CloseOutlined />}
+                  onClick={handleCancelEdit}
+                ></Button>
+              </div>
+
+              {selectedLine && (
+                <StringItem
+                  key={selectedLine?.stringId}
+                  stringText={selectedLine?.text}
+                />
+              )}
+            </div>
           </div>
         ) : (
           <div>
@@ -156,38 +201,100 @@ export const StringList: React.FC<StringListProps> = ({
                 .map(
                   (string, index) =>
                     index === stringIndex && (
-                      <div>
-                        <button
-                          onClick={() => handleSetTimeCode(string, progress)}
+                      <div style={{ marginBottom: "20px" }} className="progress">
+                        <div
+                          style={{
+                            width: "80%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
-                          🟢
-                        </button>
-                        <StringItem key={string.id} stringText={string.text} />
+                          <Button
+                            type="primary"
+                            icon={<CheckOutlined />}
+                            onClick={() => handleSetTimeCode(string, progress)}
+                          />
+                          <StringItem
+                            key={string.id}
+                            stringText={string.text}
+                          />
+                        </div>
                       </div>
                     )
                 )}
           </div>
         )}
-
-        <ul>
-          {resultTable.map((line) => (
-            <div>
-              <li onClick={() => handleShowEdit(line)}>
-                {line.time} {line.text}
-              </li>
-            </div>
-          ))}
-        </ul>
+        {resultTable.length === 0 ? (
+          <></>
+        ) : (
+          <ul className="progress" style={{ marginBottom: "10px" }}>
+            <Typography.Title level={5}>Результат</Typography.Title>
+            {resultTable.map((line) => (
+              <div className="">
+                <li
+                  style={{
+                    margin: "5px 0",
+                    width: "auto",
+                    textAlign: "center",
+                  }}
+                  className="pointer-text"
+                  onClick={() => handleShowEdit(line)}
+                >
+                  {line.time} {line.text}
+                </li>
+              </div>
+            ))}
+          </ul>
+        )}
 
         {strings.length === stringIndex && (
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             {showLrc ? (
-              <div>
-                <textarea name="" value={lrcContent} id="" cols={100} rows={20}></textarea>
-                <button onClick={handleDownload}>Скачать .lrc файл</button>
+              <div className="progress" style={{marginBottom: "20px"}}>
+                <div
+                  style={{
+                    width: "80%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography.Title level={5}>LRC файл</Typography.Title>
+                  <Input.TextArea
+                    style={{ width: "100%", resize: "none", marginBottom: "10px" }}
+                    value={lrcContent}
+                    readOnly
+                    autoSize={{ minRows: 5, maxRows: 30 }}
+                  ></Input.TextArea>
+                  <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
+                    <Button
+                      type="primary"
+                      icon={<DownloadOutlined />}
+                      onClick={handleDownload}
+                    >
+                      Скачать файл
+                    </Button>
+                    <Button
+                      type="default"
+                      icon={<CopyOutlined />}
+                      onClick={handleCopy}
+                    >
+                      Копировать
+                    </Button>
+                  </div>
+                </div>
               </div>
             ) : (
-              <button onClick={handleCreateLrc}>Создать LRC</button>
+              <Button
+              style={{marginBottom: "15px"}}
+                type="primary"
+                icon={<DownloadOutlined />}
+                onClick={handleCreateLrc}
+              >
+                Создать LRC
+              </Button>
             )}
           </div>
         )}

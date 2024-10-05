@@ -9,7 +9,7 @@ type StringItemProps = {
 export const StringItem: React.FC<StringItemProps> = ({ stringText}) => {
   return (
     <>
-      <div className={styles.container}>
+      <div style={{textAlign: "center", width: "80%"}} className={styles.container}>
         <p>{stringText}</p>
       </div>
     </>

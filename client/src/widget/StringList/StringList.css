@@ -1,0 +1,23 @@
+.progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 1px solid #a9a9a9;
+    box-shadow: #3535353c 0 10px 50px;
+    width: 38vw;
+    margin-top: 2%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.pointer-text{
+    cursor: pointer;
+    transition: 0.3s ease-in-out;   
+}
+
+.pointer-text:hover{
+    color: #ff8698;
+}
