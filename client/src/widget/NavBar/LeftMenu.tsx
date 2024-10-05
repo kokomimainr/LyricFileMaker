@@ -29,6 +29,9 @@ const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
           <Menu.Item key="constructor" onClick={() => navigate("/constructor")}>
             Создать файл
           </Menu.Item>
+          <Menu.Item key="lyric-files" onClick={() => navigate("/lyric-files")}>
+            Готовые файлы
+          </Menu.Item>
         </>
       )}
     </Menu>

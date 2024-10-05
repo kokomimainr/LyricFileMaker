@@ -123,7 +123,7 @@ export const StringList: React.FC<StringListProps> = ({
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${lyricFile?.trackName.replaceAll(" ","_")}.lrc`;
+    a.download =  `${lyricFile?.trackName.replace(/ /g, "_")}.lrc`;
     document.body.appendChild(a);
     a.click();
     a.remove();
