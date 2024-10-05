@@ -1,0 +1,2 @@
+export {LyricFilesPage} from "./LyricFilesPage";
+

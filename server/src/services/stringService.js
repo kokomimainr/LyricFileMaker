@@ -1,4 +1,4 @@
-const { String } = require( "../../db/models");
+const { String, TimeCode } = require( "../../db/models");
 
 class StringService {
   static getStringsByLyricFileIdService = async(lyricFileId) => {
@@ -7,8 +7,10 @@ class StringService {
         where: {
           lyricFileId,
         },
+        include: [{
+          model: TimeCode, // Указываем модель, которую хотим включить   // Убедитесь, что используете правильный алиас, если он задан
+        }],
       });
-
       return strings ? strings.map((string) => string.get()) : null;
     } catch ({ message }) {
       console.error(message);

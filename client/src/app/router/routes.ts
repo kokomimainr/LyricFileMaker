@@ -6,5 +6,7 @@ export enum ROUTES {
   WORKSPACE = "/workspace",
   LOGOUT = "/logout",
   PROFILE = "/profile",
-  RESET = "/reset-password/:token"
+  RESET = "/reset-password/:token",
+  LYRIC_FILES = "/lyric-files",
+  LYRIC_FILE_CARD = "/lyric-file-card/:lyricFileId",
 }
