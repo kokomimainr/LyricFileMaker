@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./StringItem.module.css";
-import { String } from "@/entities/string";
 
 type StringItemProps = {
   stringText: string;

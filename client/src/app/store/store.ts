@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "@/entities/user";
 import { timeCodeListReducer, timeCodeReducer } from "@/entities/timeCode";
 import { stringListReducer } from "@/entities/string";

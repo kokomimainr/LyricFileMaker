@@ -1,13 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Typography, message } from "antd";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { createLyricFile } from "@/entities/lyricFile";
 import { createString } from "@/entities/string";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
 import { clearBufferTimeCodes } from "@/entities/timeCode";
-import { FileContext } from "@/features/fileUploader/model/FileContext";
 
 const { Title } = Typography;
 
@@ -92,11 +91,10 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
           rules={[{ required: true, message: "Пожалуйста, введите текст!" }]}
         >
           <Input.TextArea
-            style={{ height: "200px" }}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Введите текст с переносами строк..."
-            rows={4}
+            autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>
 

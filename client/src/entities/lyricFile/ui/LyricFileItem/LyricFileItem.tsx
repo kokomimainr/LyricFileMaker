@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import styles from "./LyricFileItem.module.css";
+import React from "react";
+import "./LyricFileItem.css";
 import { LyricFile } from "../..";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/app/router/routes";
 
 type LyricFileItemProps = {
   lyricFile: LyricFile;
@@ -17,7 +16,7 @@ export const LyricFileItem: React.FC<LyricFileItemProps> = ({ lyricFile }) => {
 
   return (
     <>
-      <div className={styles.container} onClick={handleShowCard}>
+      <div className="card pointer-card" onClick={handleShowCard}>
         {lyricFile.trackName}
       </div>
     </>

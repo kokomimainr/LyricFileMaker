@@ -1,42 +1,68 @@
 import React, { useEffect } from "react";
-import styles from "./LyricFileCard.module.css";
+import { Button, Card, Typography, message } from "antd";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getLyricFile } from "../..";
 import { getAllStrings } from "@/entities/string";
 
+const { Title, Paragraph } = Typography;
+
 type LyricFileCardProps = {};
 
-export const LyricFileCard: React.FC<LyricFileCardProps> = ({}) => {
-  const {lyricFileId} = useParams();
+export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
+  const { lyricFileId } = useParams();
   const dispatch = useAppDispatch();
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
-  const {strings} = useAppSelector((state) => state.stringList)
+  const { strings } = useAppSelector((state) => state.stringList);
 
-  const getLyricFileCard = async() => {
+  const getLyricFileCard = async () => {
     if (!lyricFileId) return;
     dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
-    const getStrings = await dispatch(getAllStrings({lyricFileId: +lyricFileId}));
+    await dispatch(getAllStrings({ lyricFileId: +lyricFileId }));
   };
 
-  useEffect(() => {getLyricFileCard()}, []);
-  return (
-    <>
-      <div className={styles.container}>
-        <h1>{lyricFile?.trackName}</h1>
-        <div className={styles.text}>
-          {strings && strings.map((string, index) => (
-            <div key={index} className={styles.string}>
+  useEffect(() => {
+    getLyricFileCard();
+  }, [lyricFileId, dispatch]);
 
-              {string.TimeCodes && string.TimeCodes.length > 0 && (
-                <h2>{string.TimeCodes[0].time}</h2>
-              )}
-                            <b className={styles.stringText}>{string.text}</b>
-            </div>
-          ))}
-        </div>
+  const fullText = strings.map((string, index) => {
+    const timeCode = string.TimeCodes && string.TimeCodes.length > 0 ? `${string.TimeCodes[0].time} ` : '';
+    return (
+      <div key={index}>
+        <span>{timeCode}{string.text}</span>
+        <br /> {/* Добавляем перенос строки */}
       </div>
-    </>
+    );
+  });
+
+  const copyToClipboard = () => {
+    const textToCopy = strings
+      .map((string) =>
+        string.TimeCodes && string.TimeCodes.length > 0
+          ? `${string.TimeCodes[0].time} ${string.text}`
+          : string.text
+      )
+      .join("\n");
+    
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      message.success("Текст скопирован в буфер обмена!");
+    });
+  };
+
+  return (
+    <Card className="progress-for-file" bordered={false}>
+      <Title style={{ textAlign: "center" }} level={3}>
+        {lyricFile?.trackName}
+      </Title>
+      <div className="text">
+        <Paragraph className="fullText">{fullText}</Paragraph>
+      </div>
+      <div className="button-container" style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
+        <Button type="primary" onClick={copyToClipboard}>
+          Скопировать весь текст  
+        </Button>
+      </div>
+    </Card>
   );
 };
 
