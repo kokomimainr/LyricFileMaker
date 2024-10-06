@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 interface LeftMenuProps {
-  mode: "horizontal" | "vertical" | "inline";
 }
 
-const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
+const LeftMenu: React.FC<LeftMenuProps> = ({}) => {
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   return (
-    <Menu mode={mode} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
+    <Menu mode={'inline'} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
       <Menu.Item key="home" onClick={() => navigate("/")}>
         Главная
       </Menu.Item>
