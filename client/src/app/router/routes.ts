@@ -6,5 +6,6 @@ export enum ROUTES {
   WORKSPACE = "/workspace",
   LOGOUT = "/logout",
   PROFILE = "/profile",
-  RESET = "/reset-password/:token"
+  RESET = "/reset-password/:token",
+  ERROR = '*'
 }

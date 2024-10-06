@@ -9,6 +9,7 @@ import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { WorkSpacePage } from "@/pages/WorkSpace";
 import { ResetPasswordPage } from "@/pages/resetPasswordPage";
+import { ErrorPage } from "@/pages/ErrorPage";
 
 
 
@@ -48,7 +49,14 @@ export const router = createBrowserRouter([
             {
              path: ROUTES.RESET,
              element: <ResetPasswordPage/>
-            }
+            },
+            {
+                path: ROUTES.ERROR,
+                element: (
+                    <ErrorPage />
+                ),
+        
+              },
 
         ]
     }
