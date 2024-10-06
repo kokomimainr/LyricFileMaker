@@ -3,6 +3,7 @@ import { userReducer } from "@/entities/user";
 import { timeCodeListReducer, timeCodeReducer } from "@/entities/timeCode";
 import { stringListReducer } from "@/entities/string";
 import { lyricFileListReducer, lyricFileReducer } from "@/entities/lyricFile";
+import { PublicationRequestListReducer } from "@/entities/publicationRequest";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     stringList: stringListReducer,
     lyricFileList: lyricFileListReducer,
     lyricFile: lyricFileReducer,
+    publicationRequestList: PublicationRequestListReducer,
   },
 });
 

@@ -11,6 +11,7 @@ import { WorkSpacePage } from "@/pages/WorkSpace";
 import { ResetPasswordPage } from "@/pages/resetPasswordPage";
 import { LyricFilesPage } from "@/pages/LyricFilesPage";
 import { LyricFilePage } from "@/pages/LyricFilePage";
+import { AdminPage } from "@/pages/Admin";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.LYRIC_FILE_CARD,
         element: <LyricFilePage />,
+      },
+      {
+        path: ROUTES.ADMIN,
+        element: <AdminPage />,
       },
       
     ],
