@@ -1,6 +1,26 @@
 const cookiesConfig = require('../configs/cookiesConfig');
 const userService = require('../services/userService');
 const generateTokens = require('../utils/generateToken');
+const emailExistence = require('email-existence');
+
+async function checkEmailExistence(req, res) {
+  const { email } = req.body;
+  if (!email) {
+    return res
+      .status(400)
+      .json({ exists: false, message: 'Email is required' });
+  }
+
+  emailExistence.check(email, (error, result) => {
+    if (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ exists: false, message: 'Internal Server Error' });
+    }
+    return res.status(200).json({ exists: result });
+  });
+}
 
 async function signUp(req, res) {
   const { username, email, password } = req.body;
@@ -77,5 +97,6 @@ module.exports = {
   signIn,
   logout,
   requestPasswordReset,
-  resetPassword
+  resetPassword,
+  checkEmailExistence
 };
