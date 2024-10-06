@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Layout } from "antd";
+import { Layout } from "antd";
 import "./Banner.css";
 
 const { Content } = Layout;
@@ -23,7 +23,7 @@ export const Banner: React.FC<BannerProps> = () => {
             <span style={{textShadow: "0 0 10px #8d8093"}}>Добро пожаловать в</span> 
           </Title> */}
           <img
-            className="animate__animated animate__fadeIn"
+            className="animate__animated animate__fadeIn image-banner"
             style={{ width: "40%", marginTop: "50px" }}
             src="/img/LyricFileMaker.png"
             alt="lol"

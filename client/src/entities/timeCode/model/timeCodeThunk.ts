@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { TimeCodeListResponse, TimeCodeResponse } from ".";
+import { TimeCodeResponse } from ".";
 import { TimeCodeService } from "../api";
 import { AxiosError } from "axios";
 

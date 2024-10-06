@@ -1,0 +1,34 @@
+.card{
+    width: 170px;
+    height: 80px; 
+    text-align: center;
+    word-break: break-all;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #ffffff;
+    display: flex; /* Используем flexbox */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    transition: box-shadow 0.3s ease;
+}
+
+.pointer-card{
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.pointer-card:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 1px #fe3553b6;
+}
+
+@media screen and (max-width: 1200px) {
+    .card{
+        width: 90px !important;
+        height: 45px !important;
+        font-size: small;
+        padding: 10px;
+    }
+}

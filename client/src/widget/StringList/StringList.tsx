@@ -3,7 +3,7 @@ import "./StringList.css";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import { StringItem } from "@/entities/string/ui/StringItem";
-import { createTimeCode, getTimeCode } from "@/entities/timeCode";
+import { createTimeCode } from "@/entities/timeCode";
 import { updateTimeCode } from "@/entities/timeCode/model/timeCodeThunk";
 import { getLyricFile } from "@/entities/lyricFile";
 import { Button, Input, message, Typography } from "antd";
@@ -12,7 +12,6 @@ import {
   CloseOutlined,
   CopyOutlined,
   DownloadOutlined,
-  MenuOutlined,
 } from "@ant-design/icons";
 
 type StringListProps = {
@@ -44,7 +43,6 @@ export const StringList: React.FC<StringListProps> = ({
   const dispatcher = useAppDispatch();
   const { strings } = useAppSelector((state) => state.stringList);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
-  const { timeCodes } = useAppSelector((state) => state.timeCodeList);
   const [resultTable, setResultTable] = useState<LineType[]>([]);
   const [stringIndex, setStringIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
@@ -160,7 +158,7 @@ export const StringList: React.FC<StringListProps> = ({
     <>
       <div>
         {isEditing ? (
-          <div className="progress" style={{ marginBottom: "15px" }}>
+          <div className="progress-for-string" style={{ marginBottom: "15px" }}>
             <div
               style={{
                 display: "flex",
@@ -201,7 +199,7 @@ export const StringList: React.FC<StringListProps> = ({
                 .map(
                   (string, index) =>
                     index === stringIndex && (
-                      <div style={{ marginBottom: "20px" }} className="progress">
+                      <div style={{ marginBottom: "20px" }} className="progress-for-string">
                         <div
                           style={{
                             width: "80%",
@@ -228,7 +226,7 @@ export const StringList: React.FC<StringListProps> = ({
         {resultTable.length === 0 ? (
           <></>
         ) : (
-          <ul className="progress" style={{ marginBottom: "10px" }}>
+          <ul className="progress-for-string" style={{ marginBottom: "10px" }}>
             <Typography.Title level={5}>Результат</Typography.Title>
             {resultTable.map((line) => (
               <div className="">
@@ -251,7 +249,7 @@ export const StringList: React.FC<StringListProps> = ({
         {strings.length === stringIndex && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             {showLrc ? (
-              <div className="progress" style={{marginBottom: "20px"}}>
+              <div className="progress-for-string" style={{marginBottom: "20px"}}>
                 <div
                   style={{
                     width: "80%",

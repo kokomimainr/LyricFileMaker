@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TimeCode, TimeCodeListState } from ".";
-import { clearBufferTimeCodes, createTimeCode, getTimeCode, updateTimeCode } from "./timeCodeThunk";
+import { clearBufferTimeCodes, createTimeCode } from "./timeCodeThunk";
 import { message } from "antd";
 
 

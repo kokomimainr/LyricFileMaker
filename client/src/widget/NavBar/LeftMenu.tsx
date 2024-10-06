@@ -11,7 +11,7 @@ const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   return (
-    <Menu mode={'inline'} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
+    <Menu mode={mode} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
       <Menu.Item key="home" onClick={() => navigate("/")}>
         Главная
       </Menu.Item>

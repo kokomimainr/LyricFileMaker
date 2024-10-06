@@ -1,0 +1,26 @@
+.progress-files {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #a9a9a9;
+    box-shadow: #35353521 0 10px 50px;
+    width: 80vw;
+}
+.cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переходить на новую строку */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.lyric-file-item {
+    margin: 5px; /* Отступы между элементами */
+}
+
+.lyric-file-item:nth-child(5n) {
+    flex-basis: 100%; /* Каждый пятый элемент занимает всю ширину */
+}
