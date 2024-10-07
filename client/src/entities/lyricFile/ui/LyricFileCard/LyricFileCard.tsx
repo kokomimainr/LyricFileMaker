@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getLyricFile } from "../..";
 import { getAllStrings } from "@/entities/string";
+import { addFavorite } from "@/entities/favorite/model/FavoritesThunk";
 
 const { Title, Paragraph } = Typography;
 
@@ -35,6 +36,14 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
     );
   });
 
+  const addInFavorite = () => {
+    if (lyricFileId !== undefined) {
+      dispatch(addFavorite({ lyricFileId: +lyricFileId }));
+    } else {
+      console.error("lyricFileId is not defined");
+    }
+  }
+
   const copyToClipboard = () => {
     const textToCopy = strings
       .map((string) =>
@@ -52,7 +61,8 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
   return (
     <Card className="progress-for-file" bordered={false}>
       <Title style={{ textAlign: "center" }} level={3}>
-        {lyricFile?.trackName}
+        {lyricFile?.trackName} 
+        <Button type="primary" onClick={addInFavorite}>Добавить в избранное</Button>
       </Title>
       <div className="text">
         <Paragraph className="fullText">{fullText}</Paragraph>

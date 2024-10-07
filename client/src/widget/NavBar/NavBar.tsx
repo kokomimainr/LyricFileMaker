@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
           </div>
           <div className="navbar-menu">
             <div className="leftMenu">
-              <LeftMenu mode={"horizontal"} />
+              <LeftMenu />
             </div>
             <Button className="menuButton" type="text" onClick={showDrawer}>
               <MenuOutlined />
@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
               visible={visible}
               style={{ zIndex: 99999 }}
             >
-              <LeftMenu mode={"inline"} />
+              <LeftMenu/>
               {user && (<RightMenu mode={"inline"} />)}
             </Drawer>
           </div>
