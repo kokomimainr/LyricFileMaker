@@ -152,7 +152,6 @@ export const StringList: React.FC<StringListProps> = ({
     fetchStrings(lyricFileId);
   }, [lyricFileId]);
 
-  console.log(resultTable.length === 0);
 
   return (
     <>

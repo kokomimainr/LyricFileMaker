@@ -15,10 +15,11 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
   const dispatch = useAppDispatch();
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const { strings } = useAppSelector((state) => state.stringList);
+  const { user } = useAppSelector((state) => state.user);
 
   const getLyricFileCard = async () => {
     if (!lyricFileId) return;
-    dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
+    await dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
     await dispatch(getAllStrings({ lyricFileId: +lyricFileId }));
   };
 
@@ -27,10 +28,16 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
   }, [lyricFileId, dispatch]);
 
   const fullText = strings.map((string, index) => {
-    const timeCode = string.TimeCodes && string.TimeCodes.length > 0 ? `${string.TimeCodes[0].time} ` : '';
+    const timeCode =
+      string.TimeCodes && string.TimeCodes.length > 0
+        ? `${string.TimeCodes[0].time} `
+        : "";
     return (
       <div key={index}>
-        <span>{timeCode}{string.text}</span>
+        <span>
+          {timeCode}
+          {string.text}
+        </span>
         <br /> {/* Добавляем перенос строки */}
       </div>
     );
@@ -52,27 +59,43 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
           : string.text
       )
       .join("\n");
-    
+
     navigator.clipboard.writeText(textToCopy).then(() => {
       message.success("Текст скопирован в буфер обмена!");
     });
   };
 
   return (
-    <Card className="progress-for-file" bordered={false}>
-      <Title style={{ textAlign: "center" }} level={3}>
-        {lyricFile?.trackName} 
+    <>
+      {lyricFile &&
+        user &&
+        (lyricFile.public ||
+          +user?.id === lyricFile.userId ||
+          user?.isAdmin) && (
+          <Card className="progress-for-file" bordered={false}>
+            <Title style={{ textAlign: "center" }} level={3}>
+              {lyricFile?.trackName}\
         <Button type="primary" onClick={addInFavorite}>Добавить в избранное</Button>
-      </Title>
-      <div className="text">
-        <Paragraph className="fullText">{fullText}</Paragraph>
-      </div>
-      <div className="button-container" style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
-        <Button type="primary" onClick={copyToClipboard}>
-          Скопировать весь текст  
-        </Button>
-      </div>
-    </Card>
+              
+            </Title>
+            <div className="text">
+              <Paragraph className="fullText">{fullText}</Paragraph>
+            </div>
+            <div
+              className="button-container"
+              style={{
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button type="primary" onClick={copyToClipboard}>
+                Скопировать весь текст
+              </Button>
+            </div>
+          </Card>
+        )}
+    </>
   );
 };
 

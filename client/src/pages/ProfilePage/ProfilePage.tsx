@@ -1,4 +1,13 @@
-import React, { useState } from 'react';
+
+import React, { useEffect } from "react";
+
+import { Avatar, Button, Col, Flex, message, Typography } from "antd";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import { axiosInstance } from "@/shared/lib/axiosInstance";
+import { getLyricFileByUserId } from "@/entities/lyricFile";
+import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
+import { createPublicationRequest } from "@/entities/publicationRequest";
+import { useState } from 'react';
 
 import { Avatar, Button, Col, Flex, Typography } from 'antd';
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
@@ -8,12 +17,38 @@ import { ProfileUpdateForm } from '@/entities/user/ui/ProfileUpdateForm';
 const { Title, Text } = Typography;
 
 const ProfilePage: React.FC = () => {
-  const {user } = useAppSelector(state => state.user)
+  const { user } = useAppSelector((state) => state.user);
+  const { lyricFiles } = useAppSelector((state) => state.lyricFileList);
+  const dispatch = useAppDispatch();
+  const [activeButton, setActiveButton] = React.useState(true);
+
+  const handleRequestPasswordReset = async () => {
+    try {
+      await axiosInstance.post("/auth/request-reset-password", {
+        email: user?.email,
+      });
+      message.success("Ссылка для сброса пароля отправлена на ваш email");
+    } catch (error) {
+      console.log(error);
+
+      message.error("Ошибка при запросе сброса пароля");
+    }
+  };
+
+  const getUserFiles = async () => {
+    await dispatch(getLyricFileByUserId());
+  };
+
+  const handleSetPublic = async (lyricFileId: number) => {
+    dispatch(createPublicationRequest({lyricFileId}));
+    setActiveButton(false);
+  };
+
+  useEffect(() => {
+    getUserFiles();
+  }, []);
   
   const [active, setActive] = useState(false)
- 
-
-  
 
   const isActive = () => {
     setActive(prev => !prev)
@@ -42,8 +77,27 @@ const ProfilePage: React.FC = () => {
          
         </Col>
       </Flex>
-
-    
+      {lyricFiles && <div style={{ marginTop: "40px" }}>
+        {/* <Title level={4}>Мои файлы</Title>
+        {userFiles.map((file, index) => (
+          <Card key={index} style={{ marginBottom: '10px' }}>
+            <Row justify="space-between" align="middle">
+              <Text>{file.name}</Text>
+              <Button type="link" href={file.link}>
+                Перейти
+              </Button>
+            </Row>
+          </Card>
+        ))} */}
+        <Title>Мои файлы</Title>
+        {lyricFiles?.map((lyricFile) => (
+          <div>
+          <LyricFileItem key={lyricFile.id} lyricFile={lyricFile} />
+          {!lyricFile.public && activeButton && <button onClick={() => handleSetPublic(lyricFile.id)}>Сделать публичным</button>}
+          {!activeButton && <h2>Заявка на публикацию была отправлена ✔️</h2>}
+          </div>
+        ))}
+      </div>}
     </div>
   );
 };

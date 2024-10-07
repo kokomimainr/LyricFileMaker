@@ -39,9 +39,9 @@ export const getLyricFileByUserId = createAsyncThunk<
 
 export const getLyricFile = createAsyncThunk<
   LyricFileResponse,
-  {lyricFileId: number},
+  { lyricFileId: number },
   { rejectValue: RejectValue }
->("lyricFile/getLyricFile", async ({lyricFileId}, { rejectWithValue }) => {
+>("lyricFile/getLyricFile", async ({ lyricFileId }, { rejectWithValue }) => {
   try {
     return await LyricFileService.getLyricFile(lyricFileId);
   } catch (error) {
@@ -50,43 +50,53 @@ export const getLyricFile = createAsyncThunk<
       message: err.response?.data.message || err.message,
     });
   }
-})
+});
 
 export const createLyricFile = createAsyncThunk<
   LyricFileResponse,
-  {trackName: string, isPublic: boolean},
+  { trackName: string },
   { rejectValue: RejectValue }
->("lyricFile/createLyricFile", async ({trackName, isPublic}, { rejectWithValue }) => {
-  try {
-    return await LyricFileService.createLyricFile(trackName, isPublic);
-  } catch (error) {
-    const err = error as AxiosError<{ message: string }>;
-    return rejectWithValue({
-      message: err.response?.data.message || err.message,
-    });
+>(
+  "lyricFile/createLyricFile",
+  async ({ trackName }, { rejectWithValue }) => {
+    try {
+      return await LyricFileService.createLyricFile(trackName);
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      return rejectWithValue({
+        message: err.response?.data.message || err.message,
+      });
+    }
   }
-})
+);
 
 export const updateLyricFile = createAsyncThunk<
   LyricFileResponse,
-  {lyricFileId: number, trackName: string, isPublic: boolean},
+  { lyricFileId: number; trackName: string; isPublic: boolean },
   { rejectValue: RejectValue }
->("lyricFile/updateLyricFile", async ({lyricFileId, trackName, isPublic}, { rejectWithValue }) => {
-  try {
-    return await LyricFileService.updateLyricFile(lyricFileId, trackName, isPublic);
-  } catch (error) {
-    const err = error as AxiosError<{ message: string }>;
-    return rejectWithValue({
-      message: err.response?.data.message || err.message,
-    });
+>(
+  "lyricFile/updateLyricFile",
+  async ({ lyricFileId, trackName, isPublic }, { rejectWithValue }) => {
+    try {
+      return await LyricFileService.updateLyricFile(
+        lyricFileId,
+        trackName,
+        isPublic
+      );
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      return rejectWithValue({
+        message: err.response?.data.message || err.message,
+      });
+    }
   }
-})
+);
 
 export const deleteLyricFile = createAsyncThunk<
-  {message: string},
-  {lyricFileId: number},
+  { message: string },
+  { lyricFileId: number },
   { rejectValue: RejectValue }
->("lyricFile/deleteLyricFile", async ({lyricFileId}, { rejectWithValue }) => {
+>("lyricFile/deleteLyricFile", async ({ lyricFileId }, { rejectWithValue }) => {
   try {
     return await LyricFileService.deleteLyricFile(lyricFileId);
   } catch (error) {
@@ -95,4 +105,4 @@ export const deleteLyricFile = createAsyncThunk<
       message: err.response?.data.message || err.message,
     });
   }
-})
+});

@@ -2,30 +2,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("LyricFiles", {
+    await queryInterface.createTable("PublicationRequests", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      trackName: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      public: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,     },
       userId: {
-         type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "Users",
           key: "id",
         },
-        onUpdate: "CASCADE",
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      lyricFileId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "LyricFiles",
+          key: "id",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      approved: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +47,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("LyricFiles");
+    await queryInterface.dropTable("PublicationRequests");
   },
 };

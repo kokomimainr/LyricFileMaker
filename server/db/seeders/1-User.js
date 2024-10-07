@@ -11,16 +11,19 @@ module.exports = {
           username: "John Doe",
           email: "example@example.com",
           password: await bcrypt.hash('123', 10),
+          isAdmin: false,
         },
         {
           username: "Jane Doe",
           email: "Jane@example.com",
           password: await bcrypt.hash('123', 10),
+          isAdmin: false,
         },
         {
           username: "Bob Doe",
           email: "1@1.com",
           password: await bcrypt.hash('1', 10),
+          isAdmin: false,
         },
       ],
       {}

@@ -12,6 +12,7 @@ import { ResetPasswordPage } from "@/pages/resetPasswordPage";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { LyricFilesPage } from "@/pages/LyricFilesPage";
 import { LyricFilePage } from "@/pages/LyricFilePage";
+import { AdminPage } from "@/pages/Admin";
 import { FavoritesPage } from "@/pages/FavoritesPage";
 
 
@@ -61,6 +62,9 @@ export const router = createBrowserRouter([
         element: <LyricFilePage />,
       },
       {
+        path: ROUTES.ADMIN,
+        element: <AdminPage />,
+      },
         path: ROUTES.FAVORITES,
         element: <FavoritesPage />,
       },

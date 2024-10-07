@@ -10,5 +10,6 @@ export enum ROUTES {
   ERROR = '*',
   LYRIC_FILES = "/lyric-files",
   LYRIC_FILE_CARD = "/lyric-file-card/:lyricFileId",
+  ADMIN = "/admin",
   FAVORITES = "/favorites",
 }
