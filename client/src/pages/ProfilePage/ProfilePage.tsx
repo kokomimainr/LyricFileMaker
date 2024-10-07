@@ -1,62 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Avatar, Button, Col, Flex, message, Typography } from 'antd';
+import { Avatar, Button, Col, Flex, Typography } from 'antd';
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
-import { axiosInstance } from '@/shared/lib/axiosInstance';
+
+import { ProfileUpdateForm } from '@/entities/user/ui/ProfileUpdateForm';
 
 const { Title, Text } = Typography;
 
 const ProfilePage: React.FC = () => {
   const {user } = useAppSelector(state => state.user)
+  
+  const [active, setActive] = useState(false)
+ 
 
-  const handleRequestPasswordReset = async () => {
-    try {
-        await axiosInstance.post('/auth/request-reset-password', { email: user?.email });
-        message.success('Ссылка для сброса пароля отправлена на ваш email');
-    } catch (error) {
-        console.log(error);
-      
-        message.error('Ошибка при запросе сброса пароля');
-    }
-};
+  
 
+  const isActive = () => {
+    setActive(prev => !prev)
+  }
+  
   return (
     <div style={{ padding: '20px', width: '70vw'}}>
-      <Flex justify="space-evenly" align="middle" gap='40'>
+      <Flex justify="space-evenly" align="middle" gap='40' >
         <Col style={{margin: "70px"}}>
-          <Avatar size={169} style={{backgroundColor: '#fe9fad', verticalAlign: 'middle', fontSize: '50px', textShadow: 'unset' }}>
+          <Avatar size={169} style={{backgroundColor: '#fe9fad', verticalAlign: 'middle', fontSize: '50px', textShadow: 'unset', marginBottom: '50px'}}>
           {user?.username ? user.username.charAt(0).toUpperCase() : '-'}
           </Avatar>
         </Col>
-        <Col style={{margin: "20px" }}>
-          <Title level={1}>Имя:</Title>
+        <Col style={{marginTop: "50px" } }>
+          <Title level={3} className='column'>Имя:</Title>
           <Text style={{fontSize: "20px"}}>{user?.username}</Text>
           <br />
-          <Title level={1}>Email:</Title>
+          <Title level={3} className='column'>Email:</Title>
           <Text style={{fontSize: "20px"}}>{user?.email}</Text>
           <br />
-          {/* <Button type="primary" style={{ marginTop: '30px', padding: '20px', fontSize: '20px'}}>
+          {!active ? ( <Button type="primary" onClick={isActive} style={{marginTop: '20px'}}>
             Изменить данные
-          </Button> */}
-          <Button type="primary" onClick={handleRequestPasswordReset}>
-            Запросить сброс пароля
-          </Button>
+          </Button>) : ( <ProfileUpdateForm isActive={isActive}/>)}
+         
+         
+         
         </Col>
       </Flex>
 
-      <div style={{ marginTop: '40px' }}>
-        {/* <Title level={4}>Мои файлы</Title>
-        {userFiles.map((file, index) => (
-          <Card key={index} style={{ marginBottom: '10px' }}>
-            <Row justify="space-between" align="middle">
-              <Text>{file.name}</Text>
-              <Button type="link" href={file.link}>
-                Перейти
-              </Button>
-            </Row>
-          </Card>
-        ))} */}
-      </div>
+    
     </div>
   );
 };

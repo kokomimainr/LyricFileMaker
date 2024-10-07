@@ -37,6 +37,19 @@ export class UserService {
     return response.data;
   }
 
+  static async updateUser(
+    id: number,
+    username: string,
+    email: string,
+  ): Promise<{ user: User }> {
+    const response = await axiosInstance.put(`/auth/update/${id}`, {
+      username,
+      email,
+    });
+    setAccessToken(response.data.accessToken);
+    return response.data;
+  }
+
   static async logout(): Promise<void> {
     await axiosInstance.get("/auth/logout");
     setAccessToken("");

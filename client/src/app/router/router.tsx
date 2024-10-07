@@ -9,9 +9,11 @@ import { LogoutPage } from "@/pages/LogoutPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { WorkSpacePage } from "@/pages/WorkSpace";
 import { ResetPasswordPage } from "@/pages/resetPasswordPage";
+import { ErrorPage } from "@/pages/ErrorPage";
 import { LyricFilesPage } from "@/pages/LyricFilesPage";
 import { LyricFilePage } from "@/pages/LyricFilePage";
 import { FavoritesPage } from "@/pages/FavoritesPage";
+
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +63,12 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.FAVORITES,
         element: <FavoritesPage />,
-      }
+      },
+      {
+        path: ROUTES.ERROR,
+        element: <ErrorPage />,
+      },
     ],
   },
 ]);
+
