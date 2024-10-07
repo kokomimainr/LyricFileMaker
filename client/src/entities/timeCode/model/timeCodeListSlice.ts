@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TimeCodeListState } from ".";
-import { createTimeCode, getTimeCodes } from "./timeCodeThunk";
+import { TimeCode, TimeCodeListState } from ".";
+import { clearBufferTimeCodes, createTimeCode } from "./timeCodeThunk";
 import { message } from "antd";
 
 
@@ -16,19 +16,6 @@ const timeCodeListSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-        .addCase(getTimeCodes.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(getTimeCodes.fulfilled, (state, action) => {
-            state.loading = false;
-            state.timeCodes = action.payload.timeCodes;
-            state.error = null;
-        })
-        .addCase(getTimeCodes.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload?.message || "Failed to get time codes";
-            message.error(action.payload?.message || "Failed to get time codes");
-        })
         /////////////////////////////////////////////////////////////////////////////
         .addCase(createTimeCode.pending, (state) => {
             state.loading = true;
@@ -43,6 +30,11 @@ const timeCodeListSlice = createSlice({
             state.error = action.payload?.message || "Failed to create time code";
             message.error(action.payload?.message || "Failed to create time code");
         })
+        .addCase(clearBufferTimeCodes.fulfilled, (state) => {
+            state.timeCodes = [] as TimeCode[];
+        })
+        ////////////////////////////////////////////////////////////////////////////
+
     },
 })
 

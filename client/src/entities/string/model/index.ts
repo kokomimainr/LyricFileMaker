@@ -1,4 +1,4 @@
-import { type } from "os";
+import { TimeCode } from "@/entities/timeCode";
 
 export type String = {
     id: number;
@@ -7,6 +7,7 @@ export type String = {
     text: string;
     createdAt: Date;
     updatedAt: Date;
+    TimeCodes: TimeCode[];
 };
 
 export type StringList = String[];

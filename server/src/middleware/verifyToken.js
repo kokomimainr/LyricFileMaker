@@ -21,7 +21,7 @@ const verifyAccessToken = (req, res, next) => {
     next();
   } catch (error) {
     console.error('Invalid access token');
-    res.sendStatus(400);
+    res.sendStatus(403);
   }
 };
 

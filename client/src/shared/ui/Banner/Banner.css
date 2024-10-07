@@ -67,6 +67,10 @@
 }
 
 @media (max-width: 1024px) {
+  .image-banner{
+    width: 80% !important ;
+  }
+
   .gradient-background {
     background: url("/img/phone_Mains.png");
     background-size: cover;

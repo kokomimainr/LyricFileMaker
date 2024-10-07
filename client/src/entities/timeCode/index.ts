@@ -1,5 +1,7 @@
 import timeCodeListReducer from "./model/timeCodeListSlice";
+import timeCodeReducer from "./model/timeCodeSlice";
 export { TimeCodeService } from "./api";
 export type { TimeCode, TimeCodeList } from "./model";
-export { getTimeCodes, createTimeCode } from "./model/timeCodeThunk";
+export { clearBufferTimeCodes, getTimeCode, createTimeCode } from "./model/timeCodeThunk";
 export { timeCodeListReducer };
+export {timeCodeReducer}

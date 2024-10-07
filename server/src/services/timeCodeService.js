@@ -1,15 +1,14 @@
 const { TimeCode } = require("../../db/models");
 
 class TimeCodeService {
-  static getTimeCodesByStringIdService = async (stringId) => {
+  static getTimeCode = async (stringId) => {
     try {
-      const timeCodes = await TimeCode.findAll({
+      const timeCode = await TimeCode.findOne({
         where: {
           stringId,
         },
       });
-
-      return timeCodes ? timeCodes.map((tc) => tc.get()) : null;
+      return timeCode ? timeCode.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
@@ -19,6 +18,15 @@ class TimeCodeService {
     try {
       const timeCode = await TimeCode.create({ stringId, time });
       return timeCode ? timeCode.get() : null;
+    } catch ({ message }) {
+      console.error(message);
+    }
+  };
+
+  static updateTimeCodeService = async (stringId, time) => {
+    try {
+      const timeCode = await TimeCode.update({ time }, { where: { stringId } });
+      return timeCode ? true : null;
     } catch ({ message }) {
       console.error(message);
     }

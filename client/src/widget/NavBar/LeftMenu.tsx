@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 interface LeftMenuProps {
-  mode: "horizontal" | "vertical" | "inline";
 }
 
-const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
+const LeftMenu: React.FC<LeftMenuProps> = ({}) => {
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   return (
@@ -28,6 +27,12 @@ const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
         <>
           <Menu.Item key="constructor" onClick={() => navigate("/constructor")}>
             Создать файл
+          </Menu.Item>
+          <Menu.Item key="lyric-files" onClick={() => navigate("/lyric-files")}>
+            Готовые файлы
+          </Menu.Item>
+          <Menu.Item key="favorites" onClick={() => navigate("/favorites")}>
+            Избранное
           </Menu.Item>
         </>
       )}

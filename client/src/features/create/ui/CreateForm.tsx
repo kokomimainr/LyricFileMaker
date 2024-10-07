@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Typography, message } from "antd";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { createLyricFile } from "@/entities/lyricFile";
 import { createString } from "@/entities/string";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
-import { FileContext } from "@/features/fileUploader/model/FileContext";
+import { clearBufferTimeCodes } from "@/entities/timeCode";
 
 const { Title } = Typography;
 
@@ -16,11 +16,10 @@ type CreateFormProps = {};
 
 export const CreateForm: React.FC<CreateFormProps> = () => {
   const dispatcher = useAppDispatch();
-  const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const navigate = useNavigate();
-  const { file } = useContext(FileContext) || {};
+
 
   const splitText = (text: string) => {
     return text.split(EOL).map((text) => text.trim());
@@ -30,7 +29,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
     const response = await dispatcher(
       createLyricFile({ trackName: values.title, isPublic: true })
     );
-
+    
     const payload = response.payload as { lyricFile: { id: number } };
 
     if (payload) {
@@ -50,6 +49,10 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
     } else {
       message.error("Ошибка при создании файла.");
     }
+    setTitle("");
+    setText("");
+    dispatcher(clearBufferTimeCodes())
+    navigate(ROUTES.WORKSPACE);
   };
 
   return (
@@ -61,7 +64,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
         padding: "20px",
       }}
     >
-      {lyricFile && <Title level={2}>Файл создан</Title>}
+      {/* {lyricFile && <Title level={2}>Файл создан</Title>} */}
       <Title level={2}>Добавление файлов</Title>
       <Form
         style={{ width: "50%" }}
@@ -88,11 +91,10 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
           rules={[{ required: true, message: "Пожалуйста, введите текст!" }]}
         >
           <Input.TextArea
-            style={{ height: "200px" }}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Введите текст с переносами строк..."
-            rows={4}
+            autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>
 

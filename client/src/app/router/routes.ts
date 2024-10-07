@@ -7,5 +7,8 @@ export enum ROUTES {
   LOGOUT = "/logout",
   PROFILE = "/profile",
   RESET = "/reset-password/:token",
-  ERROR = '*'
+  ERROR = '*',
+  LYRIC_FILES = "/lyric-files",
+  LYRIC_FILE_CARD = "/lyric-file-card/:lyricFileId",
+  FAVORITES = "/favorites",
 }

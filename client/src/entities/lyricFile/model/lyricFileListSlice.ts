@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LyricFileListState } from ".";
 import {
-  createLyricFile,
   deleteLyricFile,
   getAllLyricFiles,
   getLyricFileByUserId,
