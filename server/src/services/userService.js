@@ -33,17 +33,35 @@ class UserService {
     return { user: plainUser };
   }
 
+  async updateUser(id, username, email) {
+    try {
+      const user = await User.findOne({ where: { id } });
+      
+      if (user) {
+        user.username = username;
+        user.email = email;
+        
+        await user.save();
+        return user;
+      } else {
+        return null; 
+      }
+    } catch (error) {
+      console.error(error);
+      throw new Error('Database error occurred while updating the user.');
+    }
+  }
+
 
   async requestPasswordReset(email) {
 
-   
     const user = await User.findOne({ where: { email } });
     if (!user) throw new Error('User not found');
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
     
-    
     const resetLink = `http://localhost:5173/reset-password/${token}`; 
+
     // Настройка Nodemailer
     const transporter = nodemailer.createTransport({
       host: "smtp.mail.ru",
@@ -55,7 +73,6 @@ class UserService {
         },
     });
 
-    
        await transporter.sendMail({
        from: '"👻" <shifrina19anna@mail.ru>',
         to: email,
