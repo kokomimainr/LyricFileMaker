@@ -1,8 +1,12 @@
-const { verifyAccessToken, verifyRefreshToken } = require("../middleware/verifyToken");
+const {
+  verifyAccessToken,
+  verifyRefreshToken,
+} = require("../middleware/verifyToken");
 const {
   createPublicationRequest,
   getPublicationRequests,
   deletePublicationRequest,
+  updatePublicationRequest,
 } = require("../controllers/publicationRequestController");
 
 const router = require("express").Router();
@@ -10,10 +14,11 @@ const router = require("express").Router();
 router
   .route("/")
   .post(verifyAccessToken, createPublicationRequest)
-  .get(verifyAccessToken, getPublicationRequests);
+  .get(verifyRefreshToken, getPublicationRequests);
 
 router
   .route("/:publicationRequestId")
-  .delete(verifyAccessToken, deletePublicationRequest);
+  .delete(verifyRefreshToken, deletePublicationRequest)
+  .put(verifyRefreshToken, updatePublicationRequest);
 
 module.exports = router;

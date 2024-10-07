@@ -2,7 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PublicationRequestListState } from ".";
 
 import { message } from "antd";
-import { createPublicationRequest, deletePublicationRequest, getAllPublicationRequests } from "..";
+import {
+  createPublicationRequest,
+  deletePublicationRequest,
+  getAllPublicationRequests,
+} from "..";
+import { updatePublicationRequest } from "./PublicationRequestThunk";
 
 const initialState: PublicationRequestListState = {
   publicationRequests: [],
@@ -68,6 +73,27 @@ const PublicationRequestListSlice = createSlice({
           action.payload?.message || "Failed to delete publication request";
         message.error(
           action.payload?.message || "Failed to delete publication request"
+        );
+      })
+      .addCase(updatePublicationRequest.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updatePublicationRequest.fulfilled, (state, action) => {
+        state.loading = false;
+        state.publicationRequests = [...state.publicationRequests].map(
+          (publicationRequest) =>
+            publicationRequest.id === action.payload.publicationRequest.id
+              ? action.payload.publicationRequest
+              : publicationRequest
+        );
+        state.error = null;
+      })
+      .addCase(updatePublicationRequest.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.payload?.message || "Failed to update publication request";
+        message.error(
+          action.payload?.message || "Failed to update publication request"
         );
       });
   },

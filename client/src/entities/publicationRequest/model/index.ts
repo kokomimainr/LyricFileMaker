@@ -2,6 +2,7 @@ export type PublicationRequest = {
     id: number;
     userId: number;
     lyricFileId: number;
+    approved: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

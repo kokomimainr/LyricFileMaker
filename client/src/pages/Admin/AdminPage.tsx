@@ -19,7 +19,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({}) => {
         ? true
         : navigate(ROUTES.HOME)
       : dispatch(refreshAccessToken());
-  });
+  }, [user, dispatch]);
   return (
     <>
       <div className={styles.container}>

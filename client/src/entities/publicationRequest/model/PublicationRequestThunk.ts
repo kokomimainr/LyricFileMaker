@@ -52,3 +52,19 @@ export const deletePublicationRequest = createAsyncThunk<
         });
     }
 })
+
+export const updatePublicationRequest = createAsyncThunk<
+    PublicationRequestResponse,
+    {publicationRequestId: number; status: boolean},
+    { rejectValue: RejectValue }
+>("publicationRequest/updatePublicationRequest", async ({publicationRequestId, status}, { rejectWithValue }) => {
+    try { 
+        
+        return await PublicationRequestService.updatePublicationRequest(publicationRequestId, status);
+    } catch (error) {
+        const err = error as AxiosError<{ message: string }>;
+        return rejectWithValue({
+            message: err.response?.data.message || err.message,
+        });
+    }
+})

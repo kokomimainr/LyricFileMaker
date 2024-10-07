@@ -35,4 +35,17 @@ export class PublicationRequestService {
         }
     }
 
+    static async updatePublicationRequest(publicationRequestId: number, status: boolean) {
+        try {
+            
+            const response = await axiosInstance.put(`/publication-requests/${publicationRequestId}`, {
+                approved: status
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error updating publication request:", error);
+            throw new Error("Failed to update publication request");
+        }
+    }
+
 }

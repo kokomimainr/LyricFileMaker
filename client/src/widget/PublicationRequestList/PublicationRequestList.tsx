@@ -17,7 +17,7 @@ export const PublicationRequestList: React.FC<
 
   useEffect(() => {
     dispatch(getAllPublicationRequests());
-  }, [publicationRequests]);
+  }, []);
 
   return (
     <>
