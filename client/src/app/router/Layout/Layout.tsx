@@ -15,7 +15,6 @@ export const AppLayout: React.FC<LayoutProps> = ({}) => {
 
   useEffect(() => {
     dispatch(refreshAccessToken());
-    
   }, [dispatch]);
 
   return (
