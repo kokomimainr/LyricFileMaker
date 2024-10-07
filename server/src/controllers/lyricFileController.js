@@ -32,11 +32,10 @@ exports.getLyricFile = async (req, res) => {
 exports.createLyricFile = async (req, res) => {
   try {
     const { id } = res.locals.user;
-    const { trackName, public } = req.body;
+    const { trackName } = req.body;
     const lyricFile = await LyricFileService.createLyricFileService(
       id,
       trackName,
-      public
     );
     res.status(201).json({ message: "Success", lyricFile: lyricFile });
   } catch ({ message }) {

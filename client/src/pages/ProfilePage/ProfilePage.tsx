@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Avatar, Button, Col, Flex, message, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { getAllLyricFiles, getLyricFileByUserId } from "@/entities/lyricFile";
+import { getLyricFileByUserId } from "@/entities/lyricFile";
 import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import { createPublicationRequest } from "@/entities/publicationRequest";
 
@@ -13,6 +13,7 @@ const ProfilePage: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
   const { lyricFiles } = useAppSelector((state) => state.lyricFileList);
   const dispatch = useAppDispatch();
+  const [activeButton, setActiveButton] = React.useState(true);
 
   const handleRequestPasswordReset = async () => {
     try {
@@ -33,6 +34,7 @@ const ProfilePage: React.FC = () => {
 
   const handleSetPublic = async (lyricFileId: number) => {
     dispatch(createPublicationRequest({lyricFileId}));
+    setActiveButton(false);
   };
 
   useEffect(() => {
@@ -87,7 +89,8 @@ const ProfilePage: React.FC = () => {
         {lyricFiles?.map((lyricFile) => (
           <div>
           <LyricFileItem key={lyricFile.id} lyricFile={lyricFile} />
-          {!lyricFile.public && <button onClick={() => handleSetPublic(lyricFile.id)}>Сделать публичным</button>}
+          {!lyricFile.public && activeButton && <button onClick={() => handleSetPublic(lyricFile.id)}>Сделать публичным</button>}
+          {!activeButton && <h2>Заявка на публикацию была отправлена ✔️</h2>}
           </div>
         ))}
       </div>}

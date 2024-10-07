@@ -5,9 +5,11 @@ type LyricFilePageProps = {};
 
 export const LyricFilePage: React.FC<LyricFilePageProps> = () => {
   return (
-    <div>
-      <LyricFileCard />
-    </div>
+    <>
+      <div>
+        <LyricFileCard />
+      </div>
+    </>
   );
 };
 
