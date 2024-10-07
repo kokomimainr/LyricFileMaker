@@ -14,7 +14,7 @@ export class LyricFileService {
 
   static async getLyricFilesByUserId(): Promise<LyricFileListResponse> {
     try {
-      const response = await axiosInstance.get(`/lyric-files/my-files`);
+      const response = await axiosInstance.get(`/my-files`);
       return response.data;
     } catch (error) {
       console.error("Error fetching lyric file:", error);
@@ -34,15 +34,12 @@ export class LyricFileService {
 
   static async createLyricFile(
     trackName: string,
-    isPublic: boolean
   ): Promise<LyricFileResponse> {
     try {
-      
       const response = await axiosInstance.post("/lyric-files", {
         trackName,
-        public: isPublic,
       });
-      
+
       return response.data;
     } catch (error) {
       console.error("Error creating lyric file:", error);
@@ -67,9 +64,13 @@ export class LyricFileService {
     }
   }
 
-  static async deleteLyricFile(lyricFileId: number): Promise<{message: string}> {
+  static async deleteLyricFile(
+    lyricFileId: number
+  ): Promise<{ message: string }> {
     try {
-      const response = await axiosInstance.delete(`/lyric-files/${lyricFileId}`);
+      const response = await axiosInstance.delete(
+        `/lyric-files/${lyricFileId}`
+      );
       return response.data;
     } catch (error) {
       console.error("Error deleting lyric file:", error);

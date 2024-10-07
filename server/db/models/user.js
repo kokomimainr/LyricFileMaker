@@ -22,12 +22,17 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Comments, {
         foreignKey: 'userId'
       })
+
+      this.hasMany(models.PublicationRequest, {
+        foreignKey: 'userId'
+      })
     }
   }
   User.init({
     username: DataTypes.TEXT,
     email: DataTypes.TEXT,
-    password: DataTypes.TEXT
+    password: DataTypes.TEXT,
+    isAdmin: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

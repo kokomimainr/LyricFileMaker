@@ -22,10 +22,11 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
   const dispatch = useAppDispatch();
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const { strings } = useAppSelector((state) => state.stringList);
+  const { user } = useAppSelector((state) => state.user);
 
   const getLyricFileCard = async () => {
     if (!lyricFileId) return;
-    dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
+    await dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
     await dispatch(getAllStrings({ lyricFileId: +lyricFileId }));
   };
 
@@ -86,9 +87,15 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
   };
 
   return (
-    <Card className="progress-for-file" bordered={false}>
-      <Title style={{ textAlign: "center" }} level={3}>
-        {lyricFile?.trackName}
+    <>
+      {lyricFile &&
+        user &&
+        (lyricFile.public ||
+          +user?.id === lyricFile.userId ||
+          user?.isAdmin) && (
+          <Card className="progress-for-file" bordered={false}>
+            <Title style={{ textAlign: "center" }} level={3}>
+              {lyricFile?.trackName}
         {isLiked ? (
           <Button type="primary" onClick={deleteInFavorite}>
             Удалить из избранного
@@ -98,23 +105,26 @@ export const LyricFileCard: React.FC<LyricFileCardProps> = () => {
             Добавить в избранное
           </Button>
         )}
-      </Title>
-      <div className="text">
-        <Paragraph className="fullText">{fullText}</Paragraph>
-      </div>
-      <div
-        className="button-container"
-        style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button type="primary" onClick={copyToClipboard}>
-          Скопировать весь текст
-        </Button>
-      </div>
-    </Card>
+              
+            </Title>
+            <div className="text">
+              <Paragraph className="fullText">{fullText}</Paragraph>
+            </div>
+            <div
+              className="button-container"
+              style={{
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button type="primary" onClick={copyToClipboard}>
+                Скопировать весь текст
+              </Button>
+            </div>
+          </Card>
+        )}
+    </>
   );
 };
 

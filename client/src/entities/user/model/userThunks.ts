@@ -51,6 +51,21 @@ export const signUp = createAsyncThunk<
   }
 });
 
+export const updateUser = createAsyncThunk<
+  {user: User},
+  { username: string; email: string; id: number;},
+  { rejectValue: RejectValue }
+>('user/update', async ({ username, email, id}, { rejectWithValue }) => {
+  try {
+    return await UserService.updateUser(id, username, email);
+  } catch (error) {
+    const err = error as AxiosError<{ message: string }>;
+    return rejectWithValue({
+      message: err.response?.data.message || err.message,
+    });
+  }
+});
+
 export const logout = createAsyncThunk<
     void,
     void,

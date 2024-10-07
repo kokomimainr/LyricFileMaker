@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Comments, {
         foreignKey: "lyricFileId",
       });
+
+      this.hasOne(models.PublicationRequest, {
+        foreignKey: "lyricFileId",
+      });
     }
   }
   LyricFile.init(

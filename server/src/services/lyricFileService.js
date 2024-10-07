@@ -1,7 +1,7 @@
 const { LyricFile } = require("../../db/models");
 
 class LyricFileService {
-  static getAllLyricFilesService = async () => {
+  static getAllLyricFilesService = async (user) => {
     try {
       const lyricFiles = await LyricFile.findAll();
       return lyricFiles ? lyricFiles.map((lyricFile) => lyricFile.get()) : null;
@@ -28,12 +28,11 @@ class LyricFileService {
     }
   };
 
-  static createLyricFileService = async (userId, trackName, isPublic) => {
+  static createLyricFileService = async (userId, trackName) => {
     try {
       const lyricFile = await LyricFile.create({
         userId,
         trackName,
-        public: isPublic,
       });
       return lyricFile ? lyricFile.get() : null;
     } catch ({ message }) {
