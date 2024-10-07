@@ -19,7 +19,6 @@ export class UserService {
       email,
       password,
     });
-    console.log(response.data);
     setAccessToken(response.data.accessToken);
     return response.data;
   }

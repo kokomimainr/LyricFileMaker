@@ -31,6 +31,9 @@ const LeftMenu: React.FC<LeftMenuProps> = ({}) => {
           <Menu.Item key="lyric-files" onClick={() => navigate("/lyric-files")}>
             Готовые файлы
           </Menu.Item>
+          <Menu.Item key="favorites" onClick={() => navigate("/favorites")}>
+            Избранное
+          </Menu.Item>
         </>
       )}
     </Menu>
