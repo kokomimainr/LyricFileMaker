@@ -5,14 +5,13 @@ import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { ROUTES } from "@/app/router/routes";
 
 interface LeftMenuProps {
-  mode: "horizontal" | "vertical" | "inline";
 }
 
-const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
+const LeftMenu: React.FC<LeftMenuProps> = ({}) => {
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   return (
-    <Menu mode={mode} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
+    <Menu mode={'inline'} style={{ display: "flex", margin: "10px 0", justifyContent: "start", alignItems: "center" }}>
       <Menu.Item key="home" onClick={() => navigate("/")}>
         Главная
       </Menu.Item>
@@ -33,11 +32,15 @@ const LeftMenu: React.FC<LeftMenuProps> = ({ mode }) => {
           <Menu.Item key="lyric-files" onClick={() => navigate(ROUTES.LYRIC_FILES)}>
             Готовые файлы
           </Menu.Item>
+
           {user.isAdmin && (
             <Menu.Item key="admin-panel" onClick={() => navigate(ROUTES.ADMIN)}>
               Панель администратора
             </Menu.Item>
           )}
+          <Menu.Item key="favorites" onClick={() => navigate("/favorites")}>
+            Избранное
+          </Menu.Item>
         </>
       )}
     </Menu>

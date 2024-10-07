@@ -45,10 +45,12 @@ import axios, {
       if (error.response?.status === 403 && prevRequest && !prevRequest.sent) {
         try {
           //? Делаем запрос на обновление токенов.
-          const response = await axios.get('/api/tokens/refresh');
+          const response = await axios.get('http://localhost:3000/api/tokens/refresh', {
+            withCredentials:true
+          });          
   
           //? Достаём новый токен из ответа.
-          accessToken = response.data.accessToken;
+          accessToken = response.data.data.accessToken;
   
           //? Устанавливаем метку повторного запроса.
           prevRequest.sent = true;
