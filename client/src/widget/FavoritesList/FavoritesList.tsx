@@ -18,6 +18,7 @@ export const FavoritesList: React.FC<FavoritesListProps> = ({}) => {
   }, [dispatch]);
 
   const lyricFiles = favorites.map((favorite) => favorite.LyricFile);
+  
 
   if(!favorites) {
     return (

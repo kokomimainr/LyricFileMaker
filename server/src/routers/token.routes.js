@@ -15,7 +15,7 @@ router.get('/refresh', verifyRefreshToken, (req, res) => {
   .cookie('refreshToken', refreshToken, cookiesConfig.refresh)
   .status(200)
   .json({
-    data: { user: res.locals.user, accessToken },
+     user: res.locals.user, accessToken ,
     message: 'Token refreshed successfully',
   });
 });

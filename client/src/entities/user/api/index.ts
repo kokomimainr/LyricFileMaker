@@ -3,6 +3,7 @@ import { User } from "../model";
 
 export class UserService {
   static async refreshAccessToken(): Promise<{
+    data(data: any): unknown;
     accessToken: string;
     user: User;
   }> {
