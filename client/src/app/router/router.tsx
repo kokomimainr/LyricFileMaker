@@ -65,6 +65,7 @@ export const router = createBrowserRouter([
         path: ROUTES.ADMIN,
         element: <AdminPage />,
       },
+      {
         path: ROUTES.FAVORITES,
         element: <FavoritesPage />,
       },

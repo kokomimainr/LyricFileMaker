@@ -15,9 +15,6 @@ export const Navbar: React.FC = () => {
     setVisible(!visible);
   };
 
-  console.log(user);
-  
-
   let { pathname: location } = useLocation();
   useEffect(() => {
     setVisible(false);
