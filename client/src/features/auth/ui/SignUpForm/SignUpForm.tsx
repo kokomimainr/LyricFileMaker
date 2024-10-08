@@ -1,11 +1,13 @@
-import React from "react";
-import type { FormProps } from "antd";
-import { Button, Form, Input } from "antd";
-import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import { useNavigate } from "react-router-dom";
-import { signUp } from "@/entities/user";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { ROUTES } from "@/app/router/routes";
+import React from 'react';
+import type { FormProps } from 'antd';
+import { Button, Form, Input, message } from 'antd';
+import { useAppDispatch } from '@/shared/hooks/reduxHooks';
+import { useNavigate } from 'react-router-dom';
+import { signUp } from '@/entities/user';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { ROUTES } from '@/app/router/routes';
+import styles from './SignUpForm.module.css'
+import { checkEmailExists } from '@/shared/utils/checkEmailExists';
 import "./SignUpForm.css";
 
 type SignUpFormData = {
@@ -22,6 +24,11 @@ export const SignUpForm: React.FC = () => {
     values: SignUpFormData
   ) => {
     try {
+        const emailExists = await checkEmailExists(values.email);
+        if (!emailExists) {
+          message.error('Email does not exist. Please enter a valid email.');
+          return;
+        }
       const resultAction = await dispatch(signUp(values));
       unwrapResult(resultAction);
       navigate(ROUTES.HOME);

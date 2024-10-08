@@ -13,10 +13,18 @@ export const LyricFileCard: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const { strings } = useAppSelector((state) => state.stringList);
-
   const { lyricFileId } = useParams<{ lyricFileId: string }>();
   const dispatch = useAppDispatch();
   const userId = user?.id;
+  const getLyricFileCard = async () => {
+    if (!lyricFileId) return;
+    await dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
+    await dispatch(getAllStrings({ lyricFileId: +lyricFileId }));
+  };
+
+  useEffect(() => {
+    getLyricFileCard();
+  }, [lyricFileId, dispatch]);
 
   const lyricFileIdNum = Number(lyricFileId);
 

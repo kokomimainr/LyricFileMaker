@@ -1,10 +1,29 @@
 const cookiesConfig = require('../configs/cookiesConfig');
 const userService = require('../services/userService');
 const generateTokens = require('../utils/generateToken');
+const emailExistence = require('email-existence');
+
+async function checkEmailExistence(req, res) {
+  const { email } = req.body;
+  if (!email) {
+    return res
+      .status(400)
+      .json({ exists: false, message: 'Email is required' });
+  }
+
+  emailExistence.check(email, (error, result) => {
+    if (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ exists: false, message: 'Internal Server Error' });
+    }
+    return res.status(200).json({ exists: result });
+  });
+}
 
 async function signUp(req, res) {
   const { username, email, password } = req.body;
-
   if (!(username && email && password)) {
     return res.status(400).json({ message: 'All fields are required' });
   }
@@ -72,10 +91,50 @@ async function resetPassword(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  const { id } = req.params;
+  const { username, email } = req.body;
+
+  if (!username || !email) {
+    return res.status(400).json({
+      data: null,
+      message: 'Username and email are required.',
+    });
+  }
+
+  try {
+    // Обновляем пользователя
+    const updatedUser = await userService.updateUser(+id, username, email);
+    
+    if (updatedUser) {
+      // Генерация токенов после успешного обновления
+      const { accessToken, refreshToken } = generateTokens({ user: updatedUser });
+
+      // Удаляем старый refreshToken и устанавливаем новый
+      res.clearCookie('refreshToken')
+        .status(200)
+        .cookie('refreshToken', refreshToken, cookiesConfig.refresh)
+        .json({ user: updatedUser, accessToken });
+    } else {
+      res.status(404).json({
+        data: null,
+        message: 'User not found',
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      data: null,
+      message: error.message || 'An error occurred while updating the user.',
+    });
+  }
+}
 module.exports = {
   signUp,
   signIn,
   logout,
   requestPasswordReset,
-  resetPassword
+  resetPassword,
+  checkEmailExistence,
+  updateUser
 };

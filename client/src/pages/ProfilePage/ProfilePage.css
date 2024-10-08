@@ -21,6 +21,9 @@
  
  
 }
+.column {
+  margin: 15px 0 ;
+}
 
 .card-header__name {
   margin: 0;

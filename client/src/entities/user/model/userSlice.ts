@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from ".";
-import { logout, refreshAccessToken, signIn, signUp } from "./userThunks";
+import { logout, refreshAccessToken, signIn, signUp, updateUser } from "./userThunks";
 import { message } from "antd";
 
 type UserState = {
@@ -60,6 +60,20 @@ const userSlice = createSlice({
                 state.loading = false
                 state.error = action.payload?.message || 'Failed to sign up'
                 message.warning(action.payload?.message || 'Failed to sign up')
+            })
+             //! -------------------------------------
+             .addCase(updateUser.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                state.loading = false
+                state.user =action.payload.user
+                state.error = null
+            })
+            .addCase(updateUser.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload?.message || 'Failed to update user'
+                message.warning(action.payload?.message || 'Failed to update user')
             })
             //! -------------------------------------
             .addCase(logout.pending, (state) => {
