@@ -1,5 +1,6 @@
 import { axiosInstance, setAccessToken } from "@/shared/lib/axiosInstance";
 import { User } from "../model";
+import { UpdateFormData } from "../ui/ProfileUpdateForm/ProfileUpdateForm";
 
 export class UserService {
   static async refreshAccessToken(): Promise<{
@@ -39,14 +40,13 @@ export class UserService {
   }
 
   static async updateUser(
-    id: number,
-    username: string,
-    email: string,
+   formData: FormData
   ): Promise<{ user: User }> {
-    const response = await axiosInstance.put(`/auth/update/${id}`, {
-      username,
-      email,
+    const response = await axiosInstance.put(`/auth/update`, formData, {
+      headers: {'Content-Type': 'multipart/form-data',}
     });
+    console.log(response);
+    
     setAccessToken(response.data.accessToken);
     return response.data;
   }

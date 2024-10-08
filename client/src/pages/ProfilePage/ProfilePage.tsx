@@ -50,6 +50,9 @@ const ProfilePage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  console.log(`${import.meta.env.VITE_IMG}/${user?.avatar}`);
+  
+
   return (
     <div className="profile-page-container">
       <Card
@@ -63,6 +66,7 @@ const ProfilePage: React.FC = () => {
         <Row gutter={[16, 16]} justify="center" align="middle">
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
             <Avatar
+            src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
               size={screens.md ? 169 : 100}
               style={{
                 backgroundColor: "#fe9fad",

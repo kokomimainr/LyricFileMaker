@@ -90,14 +90,17 @@ class UserService {
     return { user: plainUser };
   }
 
-  async updateUser(id, username, email) {
+  async updateUser( {id, username, email, avatar}) {
     try {
       const user = await User.findOne({ where: { id } });
       
       if (user) {
         user.username = username;
         user.email = email;
-        
+        if ( avatar !== '') {
+          user.avatar = avatar;
+        }
+ 
         await user.save();
         return user;
       } else {
@@ -153,6 +156,8 @@ class UserService {
 }
   async resetPassword(token, newPassword) {
     try {
+      console.log(jwt.verify());
+      
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findOne({ where: { email: decoded.email } });
       if (!user) throw new Error('User not found');
