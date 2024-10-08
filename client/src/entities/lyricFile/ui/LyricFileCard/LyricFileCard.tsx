@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Typography, message } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import {
@@ -9,10 +9,12 @@ import {
   deleteFavorite,
 } from "@/entities/favorite/model/FavoritesThunk";
 import { getLyricFile } from "../../model/lyricFileThunk";
+import { ROUTES } from "@/app/router/routes";
 const { Title, Paragraph } = Typography;
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { favorites } = useAppSelector((state) => state.favoriteList);
   const { user } = useAppSelector((state) => state.user);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
@@ -59,7 +61,10 @@ export const LyricFileCard: React.FC = () => {
   }, [dispatch, lyricFileId]);
 
   return (
-    <Card className="progress-for-file" bordered={false}>
+    <>
+    {lyricFile && !lyricFile.public && user?.id !== lyricFile.userId && !user?.isAdmin ? (<div>
+      <Title style={{ textAlign: "center" }}>Такого файла нет</Title>
+    </div>) : ( <Card className="progress-for-file" bordered={false}>
       <div
         style={{
           display: "flex",
@@ -115,7 +120,9 @@ export const LyricFileCard: React.FC = () => {
           Скопировать весь текст
         </Button>
       </div>
-    </Card>
+    </Card>)}
+    </>
+   
   );
 };
 

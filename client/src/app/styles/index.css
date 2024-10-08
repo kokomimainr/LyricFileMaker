@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "DejaVu Serif" !important;
-  src: url("./fonts/DejaVuSerif.otf") format("opentype");
+  src: url("./fonts/DejaVuSerif.ttf") format("truetype");
 }
 @font-face {
   font-family: "Arsenal" !important;
@@ -16,12 +16,23 @@
   font-family: "Reey" !important;
   src: url("./fonts/Reey-Regular.otf") format("opentype");
 }
+@font-face {
+  font-family: "Kelvinch" !important;
+  src: url('./fonts/Kelvinch.otf') format('opentype');
+}
+@font-face {
+  font-family: "Cormorant Infant" !important;
+  src: url('./fonts/CormorantInfant-Regular.ttf') format('truetype');
+}
 
 * {
+
   font-family: "DejaVu Serif" !important;
   /* font-family: "Reey" !important; */
   /* font-family: "Arsenal" !important; */
   /* font-family: "Playfair Display" !important; */
+  /* font-family: "Kelvinch" !important; */
+  /* font-family: "Cormorant Infant" !important; */
 }
 
 .bold{
