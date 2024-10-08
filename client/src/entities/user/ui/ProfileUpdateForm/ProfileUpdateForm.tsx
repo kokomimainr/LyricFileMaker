@@ -6,7 +6,6 @@ import {
   useAppSelector,
 } from '@/shared/hooks/reduxHooks';
 import { unwrapResult } from '@reduxjs/toolkit';
-import styles from './ProfileUpdateForm.module.css'
 import { checkEmailExists } from '@/shared/utils/checkEmailExists';
 import { axiosInstance } from '@/shared/lib/axiosInstance';
 import { updateUser } from '../../model/userThunks';
@@ -23,23 +22,8 @@ type UpdateFormProps = {
 }
 
 export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({isActive}) => {
-  const {user } = useAppSelector(state => state.user)
+  const { user } = useAppSelector(state => state.user)
   const dispatch = useAppDispatch();
-
-
-  const handleRequestPasswordReset = async () => {
-    try {
-        await axiosInstance.post('/auth/request-reset-password', { email: user?.email });
-        message.success({
-            content: 'Инструкция по сбросу пароля отправлена на ваш email!',
-            className: styles.message, // Применяем модульный стиль
-          });
-    } catch (error) {
-        console.log(error);
-      
-        message.error('Ошибка при запросе сброса пароля');
-    }
-};
 
 
   const onFinish: FormProps<UpdateFormData>['onFinish'] = async (
@@ -63,9 +47,6 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({isActive}) => {
   };
 
   return (
-   
-      <div className={styles.container}>
-     
     <Form
       name='basic'
       labelCol={{ span: 8 }}
@@ -100,9 +81,6 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({isActive}) => {
       >
         <Input />
       </Form.Item>
-        <Button type="primary" htmlType='button' style={{margin: '20px', marginLeft: '78px'}} onClick={handleRequestPasswordReset}>
-          Изменить пароль
-        </Button>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type='primary' htmlType='submit'>
@@ -112,8 +90,6 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({isActive}) => {
       </Form.Item>
      
     </Form>
-    </div>
-
   );
 };
 

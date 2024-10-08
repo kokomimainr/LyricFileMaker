@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const verifyRefreshToken = (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
-    const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);    
+    if (!user) throw new Error('Invalid refresh token');  
     res.locals.user = user;
     next();
   } catch (error) {

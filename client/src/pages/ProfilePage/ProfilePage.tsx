@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Col, Row, message, Typography, Card, Grid, Space } from "antd";
+import { Avatar, Button, Col, Row, message, Typography, Card, Space, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
+import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm"; 
 import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import { createPublicationRequest, getAllPublicationRequests } from "@/entities/publicationRequest";
 import { useState } from "react";
-import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
 import './ProfilePage.css';
 import { useNavigate } from "react-router-dom";
+import './ProfilePage.css';
 
 
 const { Title, Text } = Typography;
-const { useBreakpoint } = Grid;
 
 const ProfilePage: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -22,9 +22,10 @@ const ProfilePage: React.FC = () => {
     (state) => state.publicationRequestList
   );
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false); // Управляем модальным окном
   const [activeButton, setActiveButton] = useState(true);
-  const [active, setActive] = useState(false);
-  const screens = useBreakpoint();
+  
+  const navigate = useNavigate();
 
 
   const handleRequestPasswordReset = async () => {
@@ -57,11 +58,13 @@ const ProfilePage: React.FC = () => {
   }, [dispatch]);
 
 
-  const isActive = () => {
-    setActive((prev) => !prev);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  const navigate = useNavigate();
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="profile-page-container">
@@ -76,10 +79,10 @@ const ProfilePage: React.FC = () => {
         <Row gutter={[16, 16]} justify="center" align="middle">
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
             <Avatar
-              size={screens.md ? 169 : 100}
+              size={169}
               style={{
                 backgroundColor: "#fe9fad",
-                fontSize: screens.md ? "50px" : "30px",
+                fontSize: "50px",
                 marginBottom: "20px",
               }}
             >
@@ -93,13 +96,9 @@ const ProfilePage: React.FC = () => {
               <Title level={3}>Email:</Title>
               <Text style={{ fontSize: "20px" }}>{user?.email}</Text>
               <div className="button-profile">
-                {!active ? (
-                  <Button type="primary" onClick={isActive}>
-                    Изменить данные
-                  </Button>
-                ) : (
-                  <ProfileUpdateForm isActive={isActive} />
-                )}
+                <Button type="primary" onClick={showModal}>
+                  Изменить данные
+                </Button>
                 <Button onClick={handleRequestPasswordReset}>
                   Сбросить пароль
                 </Button>
@@ -109,7 +108,17 @@ const ProfilePage: React.FC = () => {
         </Row>
       </Card>
 
-      {lyricFiles && lyricFiles.length > 0 && !user?.isAdmin && (
+      <Modal
+        title="Редактирование профиля"
+        visible={isModalOpen}
+        onCancel={closeModal}
+        footer={null}
+        destroyOnClose // Удаляем форму при закрытии модального окна
+      >
+        <ProfileUpdateForm isActive={closeModal} />
+      </Modal>
+
+      {lyricFiles && lyricFiles.length > 0 && (
         <div className="files-section">
           <Title level={4}>Мои файлы</Title>
           <Row gutter={[16, 16]} justify="center">
