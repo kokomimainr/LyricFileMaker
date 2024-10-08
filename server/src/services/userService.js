@@ -17,6 +17,34 @@ class UserService {
     const plainUser = user.get();
     delete plainUser.password;
 
+    const transporter = nodemailer.createTransport({
+      host: "smtp.mail.ru",
+      port: 465,
+      secure: true, 
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+       await transporter.sendMail({
+       from: '"👻" <shifrina19anna@mail.ru>',
+        to: email,
+        subject: 'Добро пожаловать на Lyric File Maker!',
+        html: `<h1>Здравствуйте, ${user.username}!</h1>
+
+<p> Спасибо за регистрацию на <a href="http://localhost:5173/">Lyric File Maker</a>! <br/><br/>
+
+Мы рады приветствовать вас в нашем сообществе.<br/>
+
+Теперь вы можете войти в свою учетную запись и воспользоваться всеми возможностями нашего сайта.<br/>
+
+Если у вас возникли вопросы или нужна помощь, не стесняйтесь обращаться в нашу службу поддержки.<br/>
+<br/>
+
+С уважением,  <br/>
+Команда LFM</p>`,
+    });
     return { user: plainUser };
   }
 
@@ -30,6 +58,35 @@ class UserService {
     const plainUser = user.get();
     delete plainUser.password;
 
+    const transporter = nodemailer.createTransport({
+      host: "smtp.mail.ru",
+      port: 465,
+      secure: true, 
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+       await transporter.sendMail({
+       from: '"👻" <shifrina19anna@mail.ru>',
+        to: email,
+        subject: 'Успешная авторизация на Lyric File Maker!',
+        html: `<h1>Здравствуйте, ${user.username}!</h1>
+
+<p> Вы успешно вошли в свою учетную запись на <a href="http://localhost:5173/">Lyric File Maker</a>. <br/> <br/> 
+
+Теперь вы можете наслаждаться всеми функциями и возможностями, которые мы предлагаем. <br/> 
+
+Если у вас возникли вопросы или вам нужна помощь, наша служба поддержки всегда готова помочь. <br/> 
+
+Спасибо, что выбрали нас! <br/> 
+
+<br/>
+
+С уважением,  <br/>
+Команда LFM</p>`,
+    });
     return { user: plainUser };
   }
 

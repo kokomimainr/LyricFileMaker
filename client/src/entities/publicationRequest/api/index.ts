@@ -15,6 +15,16 @@ export class PublicationRequestService {
         }
     }
 
+    static async getPublicationRequestsByUserId() {
+        try {
+            const publicationRequests = await axiosInstance.get(`/publication-requests/0`);
+            return publicationRequests.data;
+        } catch (error) {
+            console.error("Error fetching publication requests:", error);   
+            throw new Error("Failed to fetch publication requests");
+        }
+    }
+
     static async getPublicationRequests() {
         try {
             const publicationRequests = await axiosInstance.get(`/publication-requests`);

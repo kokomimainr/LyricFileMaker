@@ -17,6 +17,21 @@ exports.createPublicationRequest = async (req, res) => {
   }
 };
 
+exports.getPublicationRequestsByUserId = async (req, res) => {
+  try {
+    const userId = res.locals.user.id;
+    const publicationRequests =
+      await PublicationRequestService.getPublicationRequestsByUserId(
+        userId
+      );
+    res
+      .status(200)
+      .json({ message: "Success", publicationRequests: publicationRequests });
+  } catch ({ message }) {
+    res.status(500).json({ message });
+  }
+}
+
 exports.getPublicationRequests = async (req, res) => {
   try {
     const isAdmin = res.locals.user.isAdmin;

@@ -3,21 +3,30 @@ import { Avatar, Button, Col, Row, message, Typography, Card, Space, Modal } fro
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
-import { createPublicationRequest } from "@/entities/publicationRequest";
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm"; 
+import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
+import { createPublicationRequest, getAllPublicationRequests } from "@/entities/publicationRequest";
+import { useState } from "react";
+import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
+import './ProfilePage.css';
 import { useNavigate } from "react-router-dom";
 import './ProfilePage.css';
+
 
 const { Title, Text } = Typography;
 
 const ProfilePage: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
   const { lyricFiles } = useAppSelector((state) => state.lyricFileList);
+  const { publicationRequests } = useAppSelector(
+    (state) => state.publicationRequestList
+  );
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false); // Управляем модальным окном
   const [activeButton, setActiveButton] = useState(true);
   
   const navigate = useNavigate();
+
 
   const handleRequestPasswordReset = async () => {
     try {
@@ -35,14 +44,19 @@ const ProfilePage: React.FC = () => {
     await dispatch(getLyricFileByUserId());
   };
 
+  const getUserPublicationRequests = async () => {
+    await dispatch(getPublicationRequestsByUserId());
+  };
+
   const handleSetPublic = async (lyricFileId: number) => {
-    dispatch(createPublicationRequest({ lyricFileId }));
-    setActiveButton(false);
+    await dispatch(createPublicationRequest({ lyricFileId }));
   };
 
   useEffect(() => {
     getUserFiles();
-  }, []);
+    getUserPublicationRequests();
+  }, [dispatch]);
+
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -150,6 +164,18 @@ const ProfilePage: React.FC = () => {
                   )}
                 </Card>
               </Col>
+              {!lyricFile.public &&
+                  publicationRequests &&
+                  publicationRequests.length > 0 &&
+                  (publicationRequests.some(
+                    (request) => request.lyricFileId === lyricFile.id
+                  ) ? (
+                    <p>Ваша заявка на публикацию отправлена ✔️</p>
+                  ) : (
+                    <button onClick={() => handleSetPublic(lyricFile.id)}>
+                      Сделать публичным
+                    </button>
+                  ))}
             ))}
           </Row>
         </div>

@@ -8,8 +8,6 @@ router.get('/refresh', verifyRefreshToken, (req, res) => {
     user: res.locals.user,
   });
 
-  
-
   return res
   .cookie('refreshToken', refreshToken, cookiesConfig.refresh)
   .status(200)

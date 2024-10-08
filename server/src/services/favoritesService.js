@@ -7,7 +7,7 @@ class FavoriteService {
         lyricFileId: lyricFileId,
         userId: userId,
       });
-      return favorite.get();
+      return favorite ? favorite.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
@@ -25,7 +25,7 @@ class FavoriteService {
           },
         ],
       });
-      return favorites.map((favorite) => favorite.get());
+      return favorites ? favorites.map((favorite) => favorite.get()) : null;
     } catch ({ message }) {
       console.error(message);
     }
@@ -33,13 +33,14 @@ class FavoriteService {
 
   static deleteFavorite = async (userId, lyricFileId) => {
     try {
-      const favorite = await Favorites.destroy({
+      const favorite = await Favorites.findOne({
         where: {
           userId,
           lyricFileId,
         },
       });
-      return favorite;
+      const isDeleted = await favorite.destroy();
+      return isDeleted ? favorite.get().id : 0;
     } catch ({ message }) {
       console.error(message);
     }
