@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.TEXT,
     email: DataTypes.TEXT,
     password: DataTypes.TEXT,
-    isAdmin: DataTypes.BOOLEAN
+    isAdmin: DataTypes.BOOLEAN,
+    avatar: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'User',
