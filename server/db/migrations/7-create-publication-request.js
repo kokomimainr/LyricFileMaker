@@ -45,8 +45,13 @@ module.exports = {
         defaultValue: Sequelize.fn("NOW"),
       },
     });
+    await queryInterface.addIndex("PublicationRequests", ["lyricFileId", "userId"], {
+      unique: true,
+      name: "unique_publicationRequest_lyricFileId_userId",
+    });
   },
   async down(queryInterface, Sequelize) {
+    await queryInterface.removeIndex("PublicationRequests", "unique_publicationRequest_lyricFileId_userId");
     await queryInterface.dropTable("PublicationRequests");
   },
 };

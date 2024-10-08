@@ -22,8 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Favorites.init({
-    lyricFileId: DataTypes.NUMBER,
-    userId: DataTypes.NUMBER
+    lyricFileId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Favorites',

@@ -47,10 +47,10 @@ import axios, {
           //? Делаем запрос на обновление токенов.
           const response = await axios.get('http://localhost:3000/api/tokens/refresh', {
             withCredentials:true
-          });          
+          });        
   
           //? Достаём новый токен из ответа.
-          accessToken = response.data.data.accessToken;
+          accessToken = response.data.accessToken;
   
           //? Устанавливаем метку повторного запроса.
           prevRequest.sent = true;

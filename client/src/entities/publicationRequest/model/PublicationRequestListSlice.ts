@@ -7,7 +7,10 @@ import {
   deletePublicationRequest,
   getAllPublicationRequests,
 } from "..";
-import { updatePublicationRequest } from "./PublicationRequestThunk";
+import {
+  getPublicationRequestsByUserId,
+  updatePublicationRequest,
+} from "./PublicationRequestThunk";
 
 const initialState: PublicationRequestListState = {
   publicationRequests: [],
@@ -21,6 +24,22 @@ const PublicationRequestListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getPublicationRequestsByUserId.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPublicationRequestsByUserId.fulfilled, (state, action) => {
+        state.loading = false;
+        state.publicationRequests = action.payload.publicationRequests;
+        state.error = null;
+      })
+      .addCase(getPublicationRequestsByUserId.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.payload?.message || "Failed to get publication requests";
+        message.error(
+          action.payload?.message || "Failed to get publication requests"
+        );
+      })
       .addCase(getAllPublicationRequests.pending, (state) => {
         state.loading = true;
       })

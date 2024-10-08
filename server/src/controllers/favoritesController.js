@@ -24,8 +24,8 @@ exports.deleteFavorite = async (req, res) => {
     try {
         const { id } = res.locals.user;
         const { lyricFileId } = req.params;
-        const favorite = await FavoriteService.deleteFavorite(id, lyricFileId);
-        res.status(200).json({ message: "Success", favorite: favorite });
+        const deletedId = await FavoriteService.deleteFavorite(id, lyricFileId);
+        res.status(200).json({ message: "Success", deletedId });
     } catch ({ message }) {
         res.status(500).json({ message: message });
     }

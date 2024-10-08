@@ -17,7 +17,7 @@ export const LyricFileItem: React.FC<LyricFileItemProps> = ({ lyricFile }) => {
   return (
     <>
       <div className="card pointer-card" onClick={handleShowCard}>
-        {lyricFile.trackName}
+        {lyricFile && lyricFile.trackName}
       </div>
     </>
   );
