@@ -3,7 +3,6 @@ const { Favorites, LyricFile } = require("../../db/models");
 class FavoriteService {
   static addFavorite = async (userId, lyricFileId) => {
     try {
-      console.log('Я тут', userId, lyricFileId);
       const favorite = await Favorites.create({
         lyricFileId: lyricFileId,
         userId: userId,
@@ -16,7 +15,6 @@ class FavoriteService {
 
   static getAllFavorites = async (userId) => {
     try {
-      console.log('Я тут', userId);
       const favorites = await Favorites.findAll({
         where: {
           userId,
