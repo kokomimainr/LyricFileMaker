@@ -58,7 +58,7 @@ export const PublicationRequestItem: React.FC<PublicationRequestItemProps> = ({
           Показать файл
         </Button>
         {publicationRequest.approved ? (
-          <Button type="danger" onClick={handleReject}>
+          <Button onClick={handleReject}>
             Отклонить
           </Button>
         ) : (

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '@/entities/user';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { ROUTES } from '@/app/router/routes';
-import styles from './SignUpForm.module.css'
 import { checkEmailExists } from '@/shared/utils/checkEmailExists';
 import "./SignUpForm.css";
 

@@ -1,5 +1,5 @@
 import FavoritesList from '@/widget/FavoritesList/FavoritesList'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 type FavoritesPageProps = {
   

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FavoriteListResponse, FavoritesListState } from ".";
+import { FavoritesListState } from ".";
 import { addFavorite, deleteFavorite, getFavorites } from "./FavoritesThunk";
 import { message } from "antd";
 

@@ -3,7 +3,6 @@ import { Avatar, Button, Col, Row, message, Typography, Card, Grid, Space } from
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
-import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import { createPublicationRequest } from "@/entities/publicationRequest";
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm"; 
 import './ProfilePage.css';
