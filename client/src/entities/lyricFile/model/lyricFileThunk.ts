@@ -54,13 +54,14 @@ export const getLyricFile = createAsyncThunk<
 
 export const createLyricFile = createAsyncThunk<
   LyricFileResponse,
-  { trackName: string, isPublic: boolean },
+  FormData,
   { rejectValue: RejectValue }
 >(
   "lyricFile/createLyricFile",
-  async ({ trackName }, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      return await LyricFileService.createLyricFile(trackName);
+
+      return await LyricFileService.createLyricFile(formData);
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
       return rejectWithValue({

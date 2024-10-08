@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Typography, message } from "antd";
+import { Button, Card, Image, Typography, message } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
@@ -9,12 +9,10 @@ import {
   deleteFavorite,
 } from "@/entities/favorite/model/FavoritesThunk";
 import { getLyricFile } from "../../model/lyricFileThunk";
-import { ROUTES } from "@/app/router/routes";
 const { Title, Paragraph } = Typography;
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { favorites } = useAppSelector((state) => state.favoriteList);
   const { user } = useAppSelector((state) => state.user);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
@@ -73,6 +71,14 @@ export const LyricFileCard: React.FC = () => {
           flexDirection: "column",
         }}
       >
+                {<Image
+            src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
+            width={200}
+              style={{
+                backgroundColor: "#ffffff",
+              }}
+            >
+            </Image>}
         <Title level={3} style={{ textAlign: "center" }}>
           {lyricFile?.trackName}
         </Title>

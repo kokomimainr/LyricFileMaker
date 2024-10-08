@@ -9,5 +9,12 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [{find: '@', replacement: path.resolve(__dirname, 'src')}]
-  }
+  },
+  // server: {
+  //   proxy: {
+  //     '/img': {
+  //       target: 'http://localhost:4000/',
+  //     },
+  //   },
+  // },
 })

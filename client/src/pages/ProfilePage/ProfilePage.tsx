@@ -14,15 +14,15 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
-import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import {
   createPublicationRequest,
-  getAllPublicationRequests,
 } from "@/entities/publicationRequest";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
 import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+
+// const screens = Breakpoint(); 
 
 const { Title, Text } = Typography;
 
@@ -34,7 +34,6 @@ const ProfilePage: React.FC = () => {
   );
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false); // Управляем модальным окном
-  const [activeButton, setActiveButton] = useState(true);
 
   const navigate = useNavigate();
 
@@ -75,6 +74,9 @@ const ProfilePage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  console.log(`${import.meta.env.VITE_IMG}/${user?.avatar}`);
+  
+
   return (
     <div className="profile-page-container">
       <Card
@@ -87,7 +89,16 @@ const ProfilePage: React.FC = () => {
       >
         <Row gutter={[16, 16]} justify="center" align="middle">
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
-            <Avatar
+          {user?.avatar ? (<Avatar
+            src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
+              size={ 169}
+              style={{
+                backgroundColor: "#fe9fad",
+                fontSize: "50px",
+                marginBottom: "20px",
+              }}
+            >
+            </Avatar>) : (<Avatar
               size={169}
               style={{
                 backgroundColor: "#fe9fad",
@@ -96,7 +107,8 @@ const ProfilePage: React.FC = () => {
               }}
             >
               {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
-            </Avatar>
+            </Avatar>)}
+            
           </Col>
           <Col xs={24} md={16}>
             <Space direction="vertical" size="middle">

@@ -25,9 +25,11 @@ export const FavoritesList: React.FC = () => {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "20px" }}>
     <div className="progress-files" style={{margin: "40px 0px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
       <Typography.Title>Избранное</Typography.Title>
+      <div style={{width: "80%", display: "flex", justifyContent: "center", gap: "20px", alignItems: "center", flexWrap: "wrap" }}>
       {favorites && favorites.length === 0 ? <h1>У вас нет избранных файлов.</h1> : favorites.map((favorite) => (
         <LyricFileItem lyricFile={favorite.LyricFile} key={favorite.lyricFileId} />
       ))}
+      </div>
     </div>
     </div>
   );

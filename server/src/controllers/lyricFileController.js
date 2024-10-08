@@ -33,9 +33,14 @@ exports.createLyricFile = async (req, res) => {
   try {
     const { id } = res.locals.user;
     const { trackName } = req.body;
+    let cover = null
+    if(req.file) {
+      cover = req.file.filename
+    }
     const lyricFile = await LyricFileService.createLyricFileService(
       id,
       trackName,
+      cover
     );
     res.status(201).json({ message: "Success", lyricFile: lyricFile });
   } catch ({ message }) {

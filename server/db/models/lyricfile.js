@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       trackName: DataTypes.TEXT,
       public: DataTypes.BOOLEAN,
       userId: DataTypes.NUMBER,
+      cover: DataTypes.TEXT
     },
     {
       sequelize,

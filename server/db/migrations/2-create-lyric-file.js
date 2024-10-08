@@ -16,7 +16,13 @@ module.exports = {
       public: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false,     },
+        defaultValue: false,  
+      },
+      cover: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'icon.png',  
+      },
       userId: {
          type: Sequelize.INTEGER,
         allowNull: false,

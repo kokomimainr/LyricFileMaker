@@ -17,20 +17,19 @@ const RightMenu: React.FC<RightMenuProps> = ({ mode }) => {
       <Menu.SubMenu
         title={
           <>
-            {user && (
-              <Avatar
-                style={{
-                  backgroundColor: "#fe9fad",
-                  verticalAlign: "middle",
-                  fontSize: "25px",
-                  textShadow: "unset",
-                }}
-                size="large"
-                gap={100}
-              >
-                {user.username ? user.username.charAt(0).toUpperCase() : "-"}
-              </Avatar>
-            )}
+            <Avatar
+              src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
+              style={{
+                backgroundColor: "#fe9fad",
+                verticalAlign: "middle",
+                fontSize: "25px",
+                textShadow: "unset",
+              }}
+              size="large"
+              gap={100}
+            >
+              {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
+            </Avatar>
             <span className="username">{user?.username}</span>
           </>
         }

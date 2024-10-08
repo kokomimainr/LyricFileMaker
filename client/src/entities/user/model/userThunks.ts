@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthResponse, User } from ".";
 import { UserService } from "../api";
 import { AxiosError } from "axios";
+import { UpdateFormData } from "../ui/ProfileUpdateForm/ProfileUpdateForm";
 
 type RejectValue = {
   message: string;
@@ -53,11 +54,11 @@ export const signUp = createAsyncThunk<
 
 export const updateUser = createAsyncThunk<
   {user: User},
-  { username: string; email: string; id: number;},
+  FormData,
   { rejectValue: RejectValue }
->('user/update', async ({ username, email, id}, { rejectWithValue }) => {
+>('user/update', async (formData, { rejectWithValue }) => {
   try {
-    return await UserService.updateUser(id, username, email);
+    return await UserService.updateUser( formData);
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;
     return rejectWithValue({
