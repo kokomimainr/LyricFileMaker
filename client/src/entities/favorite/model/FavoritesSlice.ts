@@ -7,7 +7,7 @@ const initialState: FavoritesListState = {
     favorites: [],
     error: null,
     loading: false,
-  };
+  }
 
   const favoritesSlice = createSlice({
     name: "favorites",
