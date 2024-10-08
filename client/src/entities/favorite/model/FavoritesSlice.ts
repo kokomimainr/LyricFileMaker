@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FavoriteListResponse, FavoritesListState } from ".";
+import { FavoritesListState } from ".";
 import { addFavorite, deleteFavorite, getFavorites } from "./FavoritesThunk";
 import { message } from "antd";
 
 const initialState: FavoritesListState = {
+
   favorites: [],
   error: null,
   loading: false,
 };
+
 
 const favoritesSlice = createSlice({
   name: "favorites",

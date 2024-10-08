@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import styles from "./PublicationRequestItem.module.css";
-import { PublicationRequest } from "../..";
+import React from "react";
+import { Button, Space, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import { deletePublicationRequest, getAllPublicationRequests, updatePublicationRequest } from "../../model/PublicationRequestThunk";
+import { deletePublicationRequest, updatePublicationRequest } from "../../model/PublicationRequestThunk";
+import { PublicationRequest } from "../..";
+
+const { Text } = Typography;
 
 type PublicationRequestItemProps = {
   publicationRequest: PublicationRequest;
@@ -43,22 +45,32 @@ export const PublicationRequestItem: React.FC<PublicationRequestItemProps> = ({
         publicationRequestId: publicationRequest.id,
       })
     );
-  }
+  };
 
   return (
-    <>
-      <div className={styles.container}>
-        {publicationRequest.lyricFileId}
-        {publicationRequest.approved.toString()}
-        <button onClick={handleShowFile}>Показать</button>
+    <div>
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <Text>ID файла: {publicationRequest.lyricFileId}</Text>
+        <Text>
+          Статус: {publicationRequest.approved ? "Одобрено" : "Ожидает"}
+        </Text>
+        <Button type="link" onClick={handleShowFile}>
+          Показать файл
+        </Button>
         {publicationRequest.approved ? (
-          <button onClick={handleReject}>Отклонить</button>
+          <Button onClick={handleReject}>
+            Отклонить
+          </Button>
         ) : (
-          <button onClick={handleApprove}>Принять</button>
+          <Button type="primary" onClick={handleApprove}>
+            Принять
+          </Button>
         )}
-        <button onClick={handleDelete}>Удалить заявку</button>
-      </div>
-    </>
+        <Button type="default" danger onClick={handleDelete}>
+          Удалить заявку
+        </Button>
+      </Space>
+    </div>
   );
 };
 

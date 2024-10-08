@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
-
-import { Avatar, Button, Col, Flex, message, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Avatar, Button, Col, Row, message, Typography, Card, Grid, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
 import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import { createPublicationRequest, getAllPublicationRequests } from "@/entities/publicationRequest";
 import { useState } from "react";
-
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
+import './ProfilePage.css';
+import { useNavigate } from "react-router-dom";
+
 
 const { Title, Text } = Typography;
+const { useBreakpoint } = Grid;
 
 const ProfilePage: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -20,7 +22,10 @@ const ProfilePage: React.FC = () => {
     (state) => state.publicationRequestList
   );
   const dispatch = useAppDispatch();
+  const [activeButton, setActiveButton] = useState(true);
   const [active, setActive] = useState(false);
+  const screens = useBreakpoint();
+
 
   const handleRequestPasswordReset = async () => {
     try {
@@ -29,7 +34,7 @@ const ProfilePage: React.FC = () => {
       });
       message.success("Ссылка для сброса пароля отправлена на ваш email");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       message.error("Ошибка при запросе сброса пароля");
     }
   };
@@ -51,72 +56,106 @@ const ProfilePage: React.FC = () => {
     getUserPublicationRequests();
   }, [dispatch]);
 
+
   const isActive = () => {
     setActive((prev) => !prev);
   };
 
-  return (
-    <div style={{ padding: "20px", width: "70vw" }}>
-      <Flex justify="space-evenly" align="middle" gap="40">
-        <Col style={{ margin: "70px" }}>
-          <Avatar
-            size={169}
-            style={{
-              backgroundColor: "#fe9fad",
-              verticalAlign: "middle",
-              fontSize: "50px",
-              textShadow: "unset",
-              marginBottom: "50px",
-            }}
-          >
-            {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
-          </Avatar>
-        </Col>
-        <Col style={{ marginTop: "50px" }}>
-          <Title level={3} className="column">
-            Имя:
-          </Title>
-          <Text style={{ fontSize: "20px" }}>{user?.username}</Text>
-          <br />
-          <Title level={3} className="column">
-            Email:
-          </Title>
-          <Text style={{ fontSize: "20px" }}>{user?.email}</Text>
-          <br />
-          {!active ? (
-            <Button
-              type="primary"
-              onClick={isActive}
-              style={{ marginTop: "20px" }}
-            >
-              Изменить данные
-            </Button>
-          ) : (
-            <ProfileUpdateForm isActive={isActive} />
-          )}
-        </Col>
-      </Flex>
-      {lyricFiles && (
-        <div style={{ marginTop: "40px" }}>
-          {/* <Title level={4}>Мои файлы</Title>
-        {userFiles.map((file, index) => (
-          <Card key={index} style={{ marginBottom: '10px' }}>
-            <Row justify="space-between" align="middle">
-              <Text>{file.name}</Text>
-              <Button type="link" href={file.link}>
-                Перейти
-              </Button>
-            </Row>
-          </Card>
-        ))} */}
+  const navigate = useNavigate();
 
-          {lyricFiles.length > 0 && !user?.isAdmin && (
-            <div>
-              <Title>Мои файлы</Title>
-              {lyricFiles.map((lyricFile) => (
-                <div>
-                  <LyricFileItem key={lyricFile.id} lyricFile={lyricFile} />
-                  {!lyricFile.public &&
+  return (
+    <div className="profile-page-container">
+      <Card
+        style={{
+          padding: "20px",
+          maxWidth: "100%",
+          borderRadius: "10px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        }}
+      >
+        <Row gutter={[16, 16]} justify="center" align="middle">
+          <Col xs={24} md={8} style={{ textAlign: "center" }}>
+            <Avatar
+              size={screens.md ? 169 : 100}
+              style={{
+                backgroundColor: "#fe9fad",
+                fontSize: screens.md ? "50px" : "30px",
+                marginBottom: "20px",
+              }}
+            >
+              {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
+            </Avatar>
+          </Col>
+          <Col xs={24} md={16}>
+            <Space direction="vertical" size="middle">
+              <Title level={3}>Имя:</Title>
+              <Text style={{ fontSize: "20px" }}>{user?.username}</Text>
+              <Title level={3}>Email:</Title>
+              <Text style={{ fontSize: "20px" }}>{user?.email}</Text>
+              <div className="button-profile">
+                {!active ? (
+                  <Button type="primary" onClick={isActive}>
+                    Изменить данные
+                  </Button>
+                ) : (
+                  <ProfileUpdateForm isActive={isActive} />
+                )}
+                <Button onClick={handleRequestPasswordReset}>
+                  Сбросить пароль
+                </Button>
+              </div>
+            </Space>
+          </Col>
+        </Row>
+      </Card>
+
+      {lyricFiles && lyricFiles.length > 0 && !user?.isAdmin && (
+        <div className="files-section">
+          <Title level={4}>Мои файлы</Title>
+          <Row gutter={[16, 16]} justify="center">
+            {lyricFiles?.map((lyricFile) => (
+              <Col xs={24} sm={12} md={8} lg={6} key={lyricFile.id}>
+                <Card
+                  hoverable
+                  className="lyric-file-card"
+                  style={{
+                    borderRadius: "8px",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <Title
+                    level={5}
+                    className="lyric-file-title"
+                    onClick={() => navigate(`/lyric-file-card/${lyricFile.id}`)}
+                  >
+                    {lyricFile.trackName}
+                  </Title>
+                  <Button
+                    type="default"
+                    block
+                    style={{ marginTop: "10px" }}
+                    onClick={() => navigate(`/lyric-file-card/${lyricFile.id}`)}
+                  >
+                    Перейти
+                  </Button>
+                  {!lyricFile.public && activeButton && (
+                    <Button
+                      type="primary"
+                      block
+                      style={{ marginTop: "10px" }}
+                      onClick={() => handleSetPublic(lyricFile.id)}
+                    >
+                      Сделать публичным
+                    </Button>
+                  )}
+                  {!activeButton && (
+                    <Text type="success">
+                      Заявка на публикацию отправлена 
+                    </Text>
+                  )}
+                </Card>
+              </Col>
+              {!lyricFile.public &&
                   publicationRequests &&
                   publicationRequests.length > 0 &&
                   (publicationRequests.some(
@@ -128,10 +167,8 @@ const ProfilePage: React.FC = () => {
                       Сделать публичным
                     </button>
                   ))}
-                </div>
-              ))}
-            </div>
-          )}
+            ))}
+          </Row>
         </div>
       )}
     </div>

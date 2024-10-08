@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import styles from "./AdminPage.module.css";
+import { Typography, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { ROUTES } from "@/app/router/routes";
 import { refreshAccessToken } from "@/entities/user";
 import PublicationRequestList from "@/widget/PublicationRequestList/PublicationRequestList";
 
-type AdminPageProps = {};
+const { Title } = Typography;
 
-export const AdminPage: React.FC<AdminPageProps> = ({}) => {
+export const AdminPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
@@ -20,13 +20,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({}) => {
         : navigate(ROUTES.HOME)
       : dispatch(refreshAccessToken());
   }, [user, dispatch]);
+
   return (
-    <>
-      <div className={styles.container}>
-        <h1>Админ панель</h1>
-        <PublicationRequestList />
-      </div>
-    </>
+    <Card style={{ margin: "20px", padding: "20px", borderRadius: "10px" }}>
+      <Title level={2}>Админ панель</Title>
+      <PublicationRequestList />
+    </Card>
   );
 };
 
