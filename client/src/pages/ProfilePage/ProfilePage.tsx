@@ -23,6 +23,9 @@ import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/mo
 import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+import { Breakpoint } from "antd"; // Импортируйте useBreakpoint
+
+// const screens = Breakpoint(); 
 
 const { Title, Text } = Typography;
 
@@ -92,15 +95,15 @@ const ProfilePage: React.FC = () => {
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
           {user?.avatar ? (<Avatar
             src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
-              size={screens.md ? 169 : 100}
+              size={ 169}
               style={{
                 backgroundColor: "#fe9fad",
-                fontSize: screens.md ? "50px" : "30px",
+                fontSize: "50px",
                 marginBottom: "20px",
               }}
             >
             </Avatar>) : (<Avatar
-              size={screens.md ? 169 : 100}
+              size={169}
               style={{
                 backgroundColor: "#fe9fad",
                 fontSize: "50px",
