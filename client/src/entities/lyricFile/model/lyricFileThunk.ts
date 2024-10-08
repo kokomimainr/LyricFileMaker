@@ -54,7 +54,7 @@ export const getLyricFile = createAsyncThunk<
 
 export const createLyricFile = createAsyncThunk<
   LyricFileResponse,
-  { trackName: string },
+  { trackName: string, isPublic: boolean },
   { rejectValue: RejectValue }
 >(
   "lyricFile/createLyricFile",
