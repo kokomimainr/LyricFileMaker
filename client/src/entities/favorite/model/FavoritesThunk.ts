@@ -13,10 +13,7 @@ export const getFavorites = createAsyncThunk<
   { rejectValue: RejectValue }
 >("favorite/getFavorites", async (_, { rejectWithValue }) => {
   try {
-    const response: FavoriteListResponse =
-      await FavoriteService.getFavoriteList();
-      
-    return response;
+    return await FavoriteService.getFavoriteList();;
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;
     return rejectWithValue({

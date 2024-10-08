@@ -42,11 +42,11 @@ module.exports = {
     });
     await queryInterface.addIndex("Favorites", ["lyricFileId", "userId"], {
       unique: true,
-      name: "unique_lyricFileId_userId",
+      name: "unique_favorite_lyricFileId_userId",
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeIndex("Favorites", "unique_lyricFileId_userId");
+    await queryInterface.removeIndex("Favorites", "unique_favorite_lyricFileId_userId");
     await queryInterface.dropTable("Favorites");
   },
 };

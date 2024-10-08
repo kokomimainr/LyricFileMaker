@@ -7,6 +7,7 @@ const {
   getPublicationRequests,
   deletePublicationRequest,
   updatePublicationRequest,
+  getPublicationRequestsByUserId,
 } = require("../controllers/publicationRequestController");
 
 const router = require("express").Router();
@@ -14,11 +15,12 @@ const router = require("express").Router();
 router
   .route("/")
   .post(verifyAccessToken, createPublicationRequest)
-  .get(verifyRefreshToken, getPublicationRequests);
+  .get(verifyAccessToken, getPublicationRequests);
 
 router
   .route("/:publicationRequestId")
-  .delete(verifyRefreshToken, deletePublicationRequest)
-  .put(verifyRefreshToken, updatePublicationRequest);
+  .delete(verifyAccessToken, deletePublicationRequest)
+  .put(verifyAccessToken, updatePublicationRequest)
+  .get(verifyAccessToken, getPublicationRequestsByUserId);
 
 module.exports = router;

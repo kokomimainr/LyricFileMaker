@@ -56,8 +56,6 @@ export const LyricFileCard: React.FC = () => {
       getLyricFileCard();
     }
     getUserFavorites();
-    console.log(favorites, "favorites");
-    
   }, [dispatch, lyricFileId]);
 
   return (

@@ -25,7 +25,7 @@ class FavoriteService {
           },
         ],
       });
-      return favorites.map((favorite) => favorite.get());
+      return favorites ? favorites.map((favorite) => favorite.get()) : null;
     } catch ({ message }) {
       console.error(message);
     }
