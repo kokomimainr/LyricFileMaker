@@ -1,59 +1,53 @@
-/* UserCard.css */
-.card {
-  width: 100vw;
-  height: 40vw;
-  border-radius: 0px;
- 
-  padding: 50px;
- background-color: #fff;
-  margin: auto;
+.profile-page-container {
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.card-header {
+.files-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.lyric-file-card {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.lyric-file-card:hover {
+  transform: scale(1.05);
+}
+
+.lyric-file-title {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .files-section {
+    margin-top: 20px;
+  }
+
+  .lyric-file-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .lyric-file-card {
+    margin-bottom: 20px;
+  }
+}
+
+.button-profile {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 16px; /* Отступы между кнопками */
 }
 
-.card-header__avatar {
-  margin-right: 30px;
-  background-color: #fe9fad;
- 
- 
-}
-.column {
-  margin: 15px 0 ;
-}
-
-.card-header__name {
-  margin: 0;
-  font-weight: normal;
-}
-
-.card-header__email {
-  margin: 0;
-  color: #888;
-}
-
-.card-files {
-  margin-top: 16px;
-}
-
-.card-files__title {
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-
-.card-file {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-}
-
-.card-file__name {
-  color: #333;
-}
-
-.card-file__link {
-  padding: 0;
+@media screen and (max-width: 768px) {
+  .button-profile {
+    flex-direction: column;
+    align-items: center;
+  }
 }
