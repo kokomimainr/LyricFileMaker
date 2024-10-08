@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Col, Row, message, Typography, Card, Space, Modal } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Row,
+  message,
+  Typography,
+  Card,
+  Space,
+  Modal,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
-import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm"; 
+import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
 import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
-import { createPublicationRequest, getAllPublicationRequests } from "@/entities/publicationRequest";
-import { useState } from "react";
+import {
+  createPublicationRequest,
+  getAllPublicationRequests,
+} from "@/entities/publicationRequest";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
-import './ProfilePage.css';
+import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
-import './ProfilePage.css';
-
+import "./ProfilePage.css";
 
 const { Title, Text } = Typography;
 
@@ -24,9 +35,8 @@ const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false); // Управляем модальным окном
   const [activeButton, setActiveButton] = useState(true);
-  
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   const handleRequestPasswordReset = async () => {
     try {
@@ -45,7 +55,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const getUserPublicationRequests = async () => {
-    await dispatch(getPublicationRequestsByUserId());
+    const publ = await dispatch(getPublicationRequestsByUserId());
   };
 
   const handleSetPublic = async (lyricFileId: number) => {
@@ -56,7 +66,6 @@ const ProfilePage: React.FC = () => {
     getUserFiles();
     getUserPublicationRequests();
   }, [dispatch]);
-
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -147,35 +156,26 @@ const ProfilePage: React.FC = () => {
                   >
                     Перейти
                   </Button>
-                  {!lyricFile.public && activeButton && (
-                    <Button
-                      type="primary"
-                      block
-                      style={{ marginTop: "10px" }}
-                      onClick={() => handleSetPublic(lyricFile.id)}
-                    >
-                      Сделать публичным
-                    </Button>
-                  )}
-                  {!activeButton && (
-                    <Text type="success">
-                      Заявка на публикацию отправлена 
-                    </Text>
-                  )}
+                  {!lyricFile.public &&
+                    publicationRequests &&
+                    (publicationRequests.some(
+                      (request) => request.lyricFileId === lyricFile.id
+                    ) ? (
+                      <Text type="success">
+                        Заявка на публикацию отправлена
+                      </Text>
+                    ) : (
+                      <Button
+                        type="primary"
+                        block
+                        style={{ marginTop: "10px" }}
+                        onClick={() => handleSetPublic(lyricFile.id)}
+                      >
+                        Сделать публичным
+                      </Button>
+                    ))}
                 </Card>
               </Col>
-              {!lyricFile.public &&
-                  publicationRequests &&
-                  publicationRequests.length > 0 &&
-                  (publicationRequests.some(
-                    (request) => request.lyricFileId === lyricFile.id
-                  ) ? (
-                    <p>Ваша заявка на публикацию отправлена ✔️</p>
-                  ) : (
-                    <button onClick={() => handleSetPublic(lyricFile.id)}>
-                      Сделать публичным
-                    </button>
-                  ))}
             ))}
           </Row>
         </div>
