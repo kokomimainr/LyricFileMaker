@@ -1,35 +1,36 @@
 import React, { useEffect } from "react";
-import styles from "./PublicationRequestList.module.css";
+import { List, Card } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllPublicationRequests } from "@/entities/publicationRequest";
 import { PublicationRequestItem } from "@/entities/publicationRequest/ui/PublicationRequestItem";
 
-type PublicationRequestListProps = {};
-
-export const PublicationRequestList: React.FC<
-  PublicationRequestListProps
-> = ({}) => {
-  const { publicationRequests } = useAppSelector(
-    (state) => state.publicationRequestList
-  );
-
+export const PublicationRequestList: React.FC = () => {
+  const { publicationRequests } = useAppSelector((state) => state.publicationRequestList);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllPublicationRequests());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <>
-      <div className={styles.container}>PublicationRequestList
-      {publicationRequests && [...publicationRequests].map((publicationRequest) => (
-        <PublicationRequestItem
-          key={publicationRequest.id}
-          publicationRequest={publicationRequest}
-        />
-      ))}
-      </div>
-    </>
+    <List
+      grid={{
+        gutter: 16,
+        xs: 1,
+        sm: 2,
+        md: 3,
+        lg: 4,
+        xl: 4,
+      }}
+      dataSource={publicationRequests}
+      renderItem={(publicationRequest) => (
+        <List.Item>
+          <Card hoverable>
+            <PublicationRequestItem publicationRequest={publicationRequest} />
+          </Card>
+        </List.Item>
+      )}
+    />
   );
 };
 
