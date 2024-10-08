@@ -26,7 +26,7 @@ const userSlice = createSlice({
                 state.loading = true
             })
             .addCase(refreshAccessToken.fulfilled, (state, action) => {
-                state.loading = false                 
+                state.loading = false          
                 state.user = action.payload.user
                 state.error = null
             })

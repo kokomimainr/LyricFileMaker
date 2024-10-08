@@ -1,54 +1,73 @@
-import  { useState } from 'react';
-import { Button, Input, message, Form } from 'antd';
+import { useState } from 'react';
+import { Button, Input, message, Form, Typography, Space, Card } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosInstance } from '@/shared/lib/axiosInstance';
 
+const { Title } = Typography;
+
 const ResetPasswordPage = () => {
-    const { token } = useParams();
-    const [newPassword, setNewPassword] = useState('');
-    const [comparedNewPassword, setComparedNewPassword] = useState('');
-    const navigate = useNavigate()
+  const { token } = useParams();
+  const [newPassword, setNewPassword] = useState('');
+  const [comparedNewPassword, setComparedNewPassword] = useState('');
+  const navigate = useNavigate();
 
-    const handleResetPassword = async () => {
-        try {
-            if(newPassword === comparedNewPassword){
-                await axiosInstance.post('/auth/reset-password', { token, newPassword });
-                message.success('Пароль успешно сброшен!');
-                navigate('/profile')
-            } else {
-                message.error('Пароли не совпадают') 
-            }
-          
-        } catch (error) {
-            
-            message.error('Ошибка при сбросе пароля');
-        }
-    };
+  const handleResetPassword = async () => {
+    try {
+      if (newPassword === comparedNewPassword) {
+        const response = await axiosInstance.post('/auth/reset-password', { token, newPassword });
+        console.log(response);
+        message.success('Пароль успешно сброшен!');
+        navigate('/profile');
+      } else {
+        message.error('Пароли не совпадают');
+      }
+    } catch (error) {
+      message.error('Ошибка при сбросе пароля');
+    }
+  };
 
-    return (
-        <div>
-            <Form
-      name='basic'
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      autoComplete='off'>
-            <h2>Сброс пароля</h2>
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <Card style={{ maxWidth: 400, padding: '20px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', borderRadius: '8px' }}>
+        <Title level={3} style={{ textAlign: 'center' }}>Сброс пароля</Title>
+        <Form
+          name='reset-password'
+          layout='vertical'
+          onFinish={handleResetPassword}
+        >
+          <Form.Item
+            label="Введите новый пароль"
+            name="newPassword"
+            rules={[{ required: true, message: 'Введите новый пароль' }]}
+          >
             <Input.Password
-                placeholder="Введите новый пароль"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            /> <Input.Password
-            placeholder="Подтвердите пароль"
-            value={comparedNewPassword}
-            onChange={(e) => setComparedNewPassword(e.target.value)}
-        />
-            <Button type="primary" onClick={handleResetPassword}>
-                Сбросить пароль
+              placeholder="Новый пароль"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Подтвердите пароль"
+            name="confirmPassword"
+            rules={[{ required: true, message: 'Подтвердите пароль' }]}
+          >
+            <Input.Password
+              placeholder="Подтверждение пароля"
+              value={comparedNewPassword}
+              onChange={(e) => setComparedNewPassword(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block>
+              Сбросить пароль
             </Button>
-            </Form>
-        </div>
-    );
+          </Form.Item>
+        </Form>
+      </Card>
+    </div>
+  );
 };
 
 export default ResetPasswordPage;

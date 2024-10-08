@@ -14,17 +14,17 @@ export const ProductDescription: React.FC = () => {
         </Typography.Title>
         <Flex justify="center" align="center" gap={20}>
           <Image 
-            src="/example.jpg" 
+            src="/img/interface-1.png" 
             width={140} 
             style={{ objectFit: 'cover', margin: '10px 0' }} 
           />
           <Image 
-            src="/example.jpg" 
+            src="/img/interface-2.png" 
             width={140} 
             style={{ objectFit: 'cover', margin: '10px 0' }} 
           />
           <Image 
-            src="/example.jpg" 
+            src="/img/interface-3.png" 
             width={140} 
             style={{ objectFit: 'cover', margin: '10px 0' }} 
           />

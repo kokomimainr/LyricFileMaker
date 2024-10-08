@@ -32,7 +32,6 @@ async function signUp(req, res) {
   try {
     const { user } = await userService.signUp(username, email, password);
     const { accessToken, refreshToken } = generateTokens({ user });
-    console.log(accessToken, refreshToken);
     res
       .cookie("refreshToken", refreshToken, cookiesConfig.refresh)
       .json({ user, accessToken });

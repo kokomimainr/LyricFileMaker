@@ -155,9 +155,8 @@ class UserService {
     });
 }
   async resetPassword(token, newPassword) {
-    try {
-      console.log(jwt.verify());
-      
+
+    try {      
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findOne({ where: { email: decoded.email } });
       if (!user) throw new Error('User not found');

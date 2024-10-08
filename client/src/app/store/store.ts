@@ -15,7 +15,7 @@ const store = configureStore({
     lyricFileList: lyricFileListReducer,
     lyricFile: lyricFileReducer,
     publicationRequestList: PublicationRequestListReducer,
-    favorite: favoriteReducer,
+    favoriteList: favoriteReducer,
   },
 });
 

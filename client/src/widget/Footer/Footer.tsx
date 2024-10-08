@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Typography, Row, Col } from "antd";
-import { FacebookOutlined, TwitterOutlined, InstagramOutlined } from '@ant-design/icons';
+import { FacebookOutlined, TwitterOutlined, InstagramOutlined, GithubOutlined } from '@ant-design/icons';
 import './AppFooter.css'; // Подключаем CSS файл
 
 const { Footer } = Layout;
@@ -25,7 +25,10 @@ export const AppFooter: React.FC = () => {
                 <TwitterOutlined onClick={() => window.open('https://twitter.com/FlopTropica_CEO')} style={{ fontSize: '20px', color: 'white', marginRight: '10px' }} />
               </Col>
               <Col>
-                <InstagramOutlined onClick={() => window.open('https://www.instagram.com/wearefloptropica/')} style={{ fontSize: '20px', color: 'white' }} />
+                <InstagramOutlined onClick={() => window.open('https://www.instagram.com/wearefloptropica/')} style={{ fontSize: '20px', color: 'white', marginRight: '10px' }} />
+              </Col>
+              <Col>
+              <GithubOutlined onClick={() => window.open('https://github.com/kokomimainr/LyricFileMaker')} style={{ fontSize: '20px', color: 'white' }}/>
               </Col>
             </Row>
           </Col>

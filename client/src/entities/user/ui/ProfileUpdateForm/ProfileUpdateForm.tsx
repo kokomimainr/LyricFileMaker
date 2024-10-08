@@ -23,11 +23,13 @@ type UpdateFormProps = {
   isActive: () => void;
 };
 
- const ProfileUpdateForm: React.FC<UpdateFormProps> = ({ isActive }) => {
-  const { user } = useAppSelector(state => state.user);
+
+export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({isActive}) => {
+  const { user } = useAppSelector(state => state.user)
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm(); // Создаем экземпляр формы
-  const [file, setFile]= useState(null)
+  const [form] = Form.useForm(); 
+
+
 
   const handleRequestPasswordReset = async () => {
     try {

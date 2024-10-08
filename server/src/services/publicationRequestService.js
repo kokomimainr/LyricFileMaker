@@ -13,6 +13,17 @@ class PublicationRequestService {
     }
   }
 
+  static async getPublicationRequestsByUserId(userId) {
+    try {
+      const publicationRequests = await PublicationRequest.findAll({
+        where: { userId },
+      })
+      return publicationRequests ? publicationRequests.map((publicationRequest) => publicationRequest.get()) : null;
+    } catch ({ message }) {
+      console.error(message);
+    }
+  }
+
   static async getPublicationRequests(isAdmin) {
     try {
       if (!isAdmin) {
