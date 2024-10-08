@@ -54,11 +54,11 @@ export const LyricFileList: React.FC<LyricFileListProps> = ({}) => {
         <div
           className="cards"
           style={{
-            width: "100%",
+            width: "80%",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            gap: "40px",
+            gap: "20px",
             justifyContent: "center",
           }}
         >

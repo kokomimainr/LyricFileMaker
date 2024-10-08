@@ -14,7 +14,7 @@ import { LyricFilesPage } from "@/pages/LyricFilesPage";
 import { LyricFilePage } from "@/pages/LyricFilePage";
 import { AdminPage } from "@/pages/Admin";
 import { FavoritesPage } from "@/pages/FavoritesPage";
-
+// import ProtectedRouter from "@/shared/utils/ProtectedRouter/ProtectedRouter";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +59,11 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.LYRIC_FILE_CARD,
-        element: <LyricFilePage />,
+        element: (
+          // <ProtectedRouter>
+            <LyricFilePage />
+          // </ProtectedRouter>
+        ),
       },
       {
         path: ROUTES.ADMIN,
@@ -76,4 +80,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-

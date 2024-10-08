@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "DejaVu Serif" !important;
-  src: url("./fonts/DejaVuSerif.otf") format("opentype");
+  src: url("./fonts/DejaVuSerif.ttf") format("truetype");
 }
 @font-face {
   font-family: "Arsenal" !important;

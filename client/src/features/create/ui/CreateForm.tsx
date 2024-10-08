@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
 import { clearBufferTimeCodes } from "@/entities/timeCode";
+import "./CreateForm.css";
 
 const { Title } = Typography;
 
@@ -67,7 +68,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
       {/* {lyricFile && <Title level={2}>Файл создан</Title>} */}
       <Title level={2}>Добавление файлов</Title>
       <Form
-        style={{ width: "50%" }}
+        className="form-create"
         layout="vertical"
         onFinish={handleCreateProject}
       >
