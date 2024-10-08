@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { FavoriteService } from "../api";
-import { FavoriteListResponse } from ".";
+import { FavoriteDeleteResponse, FavoriteListResponse, FavoriteResponse } from ".";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 type RejectValue = {
@@ -26,14 +26,14 @@ export const getFavorites = createAsyncThunk<
 });
 
 export const addFavorite = createAsyncThunk<
-  FavoriteListResponse,
+  FavoriteResponse,
   { lyricFileId: number },
   { rejectValue: RejectValue }
 >("favorite/addFavorite", async ({ lyricFileId }, { rejectWithValue }) => {
   try {
-    const response: FavoriteListResponse = (await FavoriteService.addFavorite(
+    const response: FavoriteResponse = (await FavoriteService.addFavorite(
       lyricFileId
-    )) as FavoriteListResponse;
+    )) as FavoriteResponse;
     return response;
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;
@@ -44,15 +44,15 @@ export const addFavorite = createAsyncThunk<
 });
 
 export const deleteFavorite = createAsyncThunk<
-  FavoriteListResponse,
+  FavoriteDeleteResponse,
   { lyricFileId: number },
   { rejectValue: RejectValue }
 >("favorite/deleteFavorite", async ({ lyricFileId }, { rejectWithValue }) => {
   try {
-    const response: FavoriteListResponse =
+    const response: FavoriteDeleteResponse =
       (await FavoriteService.deleteFavorite(
         lyricFileId
-      )) as FavoriteListResponse;
+      )) as FavoriteDeleteResponse;
     return response;
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;

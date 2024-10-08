@@ -3,12 +3,11 @@ const { Favorites, LyricFile } = require("../../db/models");
 class FavoriteService {
   static addFavorite = async (userId, lyricFileId) => {
     try {
-      console.log('Я тут', userId, lyricFileId);
       const favorite = await Favorites.create({
         lyricFileId: lyricFileId,
         userId: userId,
       });
-      return favorite.get();
+      return favorite ? favorite.get() : null;
     } catch ({ message }) {
       console.error(message);
     }
@@ -16,7 +15,6 @@ class FavoriteService {
 
   static getAllFavorites = async (userId) => {
     try {
-      console.log('Я тут', userId);
       const favorites = await Favorites.findAll({
         where: {
           userId,
@@ -35,13 +33,14 @@ class FavoriteService {
 
   static deleteFavorite = async (userId, lyricFileId) => {
     try {
-      const favorite = await Favorites.destroy({
+      const favorite = await Favorites.findOne({
         where: {
           userId,
           lyricFileId,
         },
       });
-      return favorite;
+      const isDeleted = await favorite.destroy();
+      return isDeleted ? favorite.get().id : 0;
     } catch ({ message }) {
       console.error(message);
     }

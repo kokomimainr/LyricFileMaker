@@ -8,9 +8,6 @@ router.get('/refresh', verifyRefreshToken, (req, res) => {
     user: res.locals.user,
   });
 
-  console.log(accessToken);
-  
-
   return res
   .cookie('refreshToken', refreshToken, cookiesConfig.refresh)
   .status(200)

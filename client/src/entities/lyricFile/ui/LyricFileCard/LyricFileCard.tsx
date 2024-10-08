@@ -3,61 +3,31 @@ import { Button, Card, Typography, message } from "antd";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
-import { getFavorites, addFavorite, deleteFavorite } from "@/entities/favorite/model/FavoritesThunk";
+import {
+  getFavorites,
+  addFavorite,
+  deleteFavorite,
+} from "@/entities/favorite/model/FavoritesThunk";
 import { getLyricFile } from "../../model/lyricFileThunk";
-
 const { Title, Paragraph } = Typography;
 
 export const LyricFileCard: React.FC = () => {
-  const { favorites } = useAppSelector((state) => state.favorite);
+  const dispatch = useAppDispatch();
+  const { favorites } = useAppSelector((state) => state.favoriteList);
   const { user } = useAppSelector((state) => state.user);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
   const { strings } = useAppSelector((state) => state.stringList);
   const { lyricFileId } = useParams<{ lyricFileId: string }>();
-  const dispatch = useAppDispatch();
-  const userId = user?.id;
+
   const getLyricFileCard = async () => {
     if (!lyricFileId) return;
     await dispatch(getLyricFile({ lyricFileId: +lyricFileId }));
     await dispatch(getAllStrings({ lyricFileId: +lyricFileId }));
   };
 
-  useEffect(() => {
-    getLyricFileCard();
-  }, [lyricFileId, dispatch]);
-
-  const lyricFileIdNum = Number(lyricFileId);
-
-  // Локальное состояние для отслеживания избранного
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    if (lyricFileId) {
-      dispatch(getLyricFile({ lyricFileId: lyricFileIdNum }));
-      dispatch(getAllStrings({ lyricFileId: lyricFileIdNum }));
-      dispatch(getFavorites());
-    }
-  }, [lyricFileId, dispatch, lyricFileIdNum]);
-
-  // Обновляем состояние isFavorite, когда favorites обновляется
-  useEffect(() => {
-    if (favorites) {
-      const isFav = favorites.some(
-        (fav) => fav.lyricFileId === lyricFileIdNum && fav.userId === userId
-      );
-      setIsFavorite(isFav);
-    }
-  }, [favorites, lyricFileIdNum, userId]);
-
-  const handleFavorite = async () => {
-    if (isFavorite) {
-      await dispatch(deleteFavorite({ lyricFileId: lyricFileIdNum }));
-    } else {
-      await dispatch(addFavorite({ lyricFileId: lyricFileIdNum }));
-    }
-    // Обновляем избранное после изменения
-    dispatch(getFavorites());
-  };
+  const getUserFavorites = async () => {
+    await dispatch(getFavorites());
+  }
 
   const copyToClipboard = () => {
     const textToCopy = strings
@@ -69,16 +39,59 @@ export const LyricFileCard: React.FC = () => {
     });
   };
 
+  const handleFavorite = async () => {
+    if (!lyricFileId || !user) return;
+    await dispatch(addFavorite({ lyricFileId: +lyricFileId }));
+  };
+
+  const handleUnfavorite = async () => {
+    if (!lyricFileId || !user) return;
+    await dispatch(deleteFavorite({ lyricFileId: +lyricFileId }));
+  };
+
+
+
+  useEffect(() => {
+    if(lyricFileId) {
+      getLyricFileCard();
+    }
+    getUserFavorites();
+    console.log(favorites, "favorites");
+    
+  }, [dispatch, lyricFileId]);
+
   return (
     <Card className="progress-for-file" bordered={false}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "column" }}>
-      <Title level={3} style={{ textAlign: "center" }}>
-        {lyricFile?.trackName}
-      </Title>
-      <Button type="primary" onClick={handleFavorite} style={{ marginBottom: "20px" }}>
-          {isFavorite ? "Удалить из избранного" : "Добавить в избранное"}
-        </Button>
-        </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Title level={3} style={{ textAlign: "center" }}>
+          {lyricFile?.trackName}
+        </Title>
+        {lyricFileId && favorites && favorites.length > 0 && 
+        favorites.some((fav) => fav.lyricFileId === +lyricFileId) ? (
+          <Button
+            type="primary"
+            onClick={handleUnfavorite}
+            style={{ marginBottom: "20px" }}
+          >
+            Удалить из избранного
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            onClick={handleFavorite}
+            style={{ marginBottom: "20px" }}
+          >
+            Добавить в избранное
+          </Button>
+        )}
+      </div>
       <div className="text">
         {strings ? (
           <Paragraph className="fullText">
