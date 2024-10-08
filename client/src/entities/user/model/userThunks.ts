@@ -58,9 +58,6 @@ export const updateUser = createAsyncThunk<
   { rejectValue: RejectValue }
 >('user/update', async (formData, { rejectWithValue }) => {
   try {
-
-    // console.log( username, email, avatar);
-    
     return await UserService.updateUser( formData);
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;

@@ -14,16 +14,13 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
-import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import {
   createPublicationRequest,
-  getAllPublicationRequests,
 } from "@/entities/publicationRequest";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
 import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
-import { Breakpoint } from "antd"; // Импортируйте useBreakpoint
 
 // const screens = Breakpoint(); 
 
@@ -37,7 +34,6 @@ const ProfilePage: React.FC = () => {
   );
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false); // Управляем модальным окном
-  const [activeButton, setActiveButton] = useState(true);
 
   const navigate = useNavigate();
 

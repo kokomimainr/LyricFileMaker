@@ -18,11 +18,11 @@ module.exports = {
         allowNull: false,
         defaultValue: false,  
       },
-      // cover: {
-      //   type: Sequelize.STRING,
-      //   allowNull: false,
-      //   defaultValue: '',  
-      // },
+      cover: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'icon.png',  
+      },
       userId: {
          type: Sequelize.INTEGER,
         allowNull: false,

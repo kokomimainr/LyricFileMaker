@@ -96,10 +96,7 @@ async function resetPassword(req, res) {
 async function updateUser(req, res) {
   try {
     const { username, email } = req.body;
-
-    console.log(email);
     
-
     const id = res.locals.user.id;
 
     let avatarPath = "";

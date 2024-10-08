@@ -3,6 +3,7 @@ export type LyricFile = {
   userId: number;
   trackName: string;
   public: boolean;
+  cover: string | null;
   createdAt: Date;
   updatedAt: Date;
 };

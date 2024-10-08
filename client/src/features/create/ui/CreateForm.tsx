@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Typography, message } from "antd";
+import { Form, Input, Button, Typography, message, Upload } from "antd";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { createLyricFile } from "@/entities/lyricFile";
 import { createString } from "@/entities/string";
@@ -8,10 +8,17 @@ import { ROUTES } from "@/app/router/routes";
 import FileUploader from "@/features/fileUploader/components/FileUploader";
 import { clearBufferTimeCodes } from "@/entities/timeCode";
 import "./CreateForm.css";
+import { UploadOutlined } from "@ant-design/icons";
+import { UploadChangeParam, UploadFile } from "antd/es/upload";
 
 const { Title } = Typography;
 
 const EOL = "\n";
+
+export type CreateLyricFileValues = {
+  trackName: string;
+  cover: UploadChangeParam;
+}
 
 type CreateFormProps = {};
 
@@ -19,41 +26,47 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
   const dispatcher = useAppDispatch();
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
+  const [cover, setCover] = useState<File | null>(null);
   const navigate = useNavigate();
-
 
   const splitText = (text: string) => {
     return text.split(EOL).map((text) => text.trim());
   };
 
   const handleCreateProject = async (values: any) => {
-    const response = await dispatcher(
-      createLyricFile({ trackName: values.title, isPublic: true })
-    );
-    
-    const payload = response.payload as { lyricFile: { id: number } };
-
-    if (payload) {
-      splitText(values.text).forEach((text, index) => {
-        dispatcher(
-          createString({
-            lyricFileId: payload.lyricFile.id,
-            stringNumber: index + 1,
-            text: text,
-          })
-        );
-      });
-      message.success("Файл успешно создан!");
-      setTitle("");
-      setText("");
-      navigate(ROUTES.WORKSPACE);
-    } else {
-      message.error("Ошибка при создании файла.");
+    const formData = new FormData();
+    if (cover) {
+      formData.append("cover", cover); // Используем оригинальный файл
     }
-    setTitle("");
-    setText("");
-    dispatcher(clearBufferTimeCodes())
-    navigate(ROUTES.WORKSPACE);
+    formData.append("trackName", values.title);
+  
+    try {
+      const response = await dispatcher(createLyricFile(formData));
+      const payload = response.payload as { lyricFile: { id: number } };
+  
+      if (payload) {
+        splitText(values.text).forEach((text, index) => {
+          dispatcher(
+            createString({
+              lyricFileId: payload.lyricFile.id,
+              stringNumber: index + 1,
+              text: text,
+            })
+          );
+        });
+        message.success("Файл успешно создан!");
+        setTitle("");
+        setText("");
+        setCover(null); // Очищаем значение
+        navigate(ROUTES.WORKSPACE);
+      } else {
+        message.error("Ошибка при создании файла.");
+      }
+    } catch (error) {
+      message.error("Произошла ошибка при загрузке файла.");
+    }
+  
+    dispatcher(clearBufferTimeCodes());
   };
 
   return (
@@ -86,6 +99,25 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
           <FileUploader />
         </Form.Item>
 
+        <Form.Item<CreateLyricFileValues> label="Обложка" name="cover">
+          <Upload
+            accept=".jpeg,.jpg,.png" // Ограничение на типы файлов
+            showUploadList={false}
+            beforeUpload={(file) => {
+              return false; // Предотвращаем автоматическую загрузку
+            }}
+            onChange={(info) => {
+              if (info.fileList.length > 0) {
+                const file: UploadFile<any> = info.fileList[0];
+                setCover(file.originFileObj as File); // Преобразуем в File
+              } else {
+                setCover(null); // Очищаем значение, если файл удален
+              }
+            }}
+          >
+             <Button icon={<UploadOutlined />}>Загрузить обложку</Button>
+          </Upload>
+        </Form.Item>
         <Form.Item
           label="Текст"
           name="text"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Typography, message } from "antd";
-import { useParams } from "react-router-dom";
+import { Button, Card, Image, Typography, message } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import {
@@ -59,7 +59,10 @@ export const LyricFileCard: React.FC = () => {
   }, [dispatch, lyricFileId]);
 
   return (
-    <Card className="progress-for-file" bordered={false}>
+    <>
+    {lyricFile && !lyricFile.public && user?.id !== lyricFile.userId && !user?.isAdmin ? (<div>
+      <Title style={{ textAlign: "center" }}>Такого файла нет</Title>
+    </div>) : ( <Card className="progress-for-file" bordered={false}>
       <div
         style={{
           display: "flex",
@@ -68,6 +71,14 @@ export const LyricFileCard: React.FC = () => {
           flexDirection: "column",
         }}
       >
+                {<Image
+            src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
+            width={200}
+              style={{
+                backgroundColor: "#ffffff",
+              }}
+            >
+            </Image>}
         <Title level={3} style={{ textAlign: "center" }}>
           {lyricFile?.trackName}
         </Title>
@@ -115,7 +126,9 @@ export const LyricFileCard: React.FC = () => {
           Скопировать весь текст
         </Button>
       </div>
-    </Card>
+    </Card>)}
+    </>
+   
   );
 };
 

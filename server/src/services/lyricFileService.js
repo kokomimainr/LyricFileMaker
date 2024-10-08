@@ -28,11 +28,12 @@ class LyricFileService {
     }
   };
 
-  static createLyricFileService = async (userId, trackName) => {
+  static createLyricFileService = async (userId, trackName, cover) => {
     try {
       const lyricFile = await LyricFile.create({
         userId,
         trackName,
+        cover,
       });
       return lyricFile ? lyricFile.get() : null;
     } catch ({ message }) {

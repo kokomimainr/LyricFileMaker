@@ -33,13 +33,12 @@ export class LyricFileService {
   }
 
   static async createLyricFile(
-    trackName: string,
+    formData: FormData,
   ): Promise<LyricFileResponse> {
     try {
-      const response = await axiosInstance.post("/lyric-files", {
-        trackName,
+      const response = await axiosInstance.post("/lyric-files", formData, {
+        headers: {'Content-Type': 'multipart/form-data',}
       });
-
       return response.data;
     } catch (error) {
       console.error("Error creating lyric file:", error);

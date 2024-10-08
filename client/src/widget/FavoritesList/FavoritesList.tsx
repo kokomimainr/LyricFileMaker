@@ -9,7 +9,7 @@ export const FavoritesList: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const getUserFavorites = async () => {
-    const fav = await dispatch(getFavorites());
+    await dispatch(getFavorites());
   };
 
   useEffect(() => {    
