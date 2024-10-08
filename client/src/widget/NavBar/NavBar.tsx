@@ -8,7 +8,7 @@ import "./styles/NavBar.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 export const Navbar: React.FC = () => {
-  const {user} = useAppSelector(state => state.user)
+  const { user } = useAppSelector((state) => state.user);
   const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
   const showDrawer = () => {
@@ -24,9 +24,15 @@ export const Navbar: React.FC = () => {
     <nav className="navbar">
       <Layout>
         <Layout.Header className="nav-header">
-          <div className="logo pointer" style={{ display: "flex", alignItems: "center" }} onClick={() => navigate("/")}>
+          <div
+            className="logo pointer"
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => navigate("/")}
+          >
             <img style={{ width: "40px" }} src="/img/Icon.png" alt="" />
-            <h3 style={{fontSize: "17px"}} className="brand-font">Lyric File Maker</h3>
+            <h3 style={{ fontSize: "17px" }} className="brand-font">
+              Lyric File Maker
+            </h3>
           </div>
           <div className="navbar-menu">
             <div className="leftMenu">
@@ -36,7 +42,7 @@ export const Navbar: React.FC = () => {
               <MenuOutlined />
             </Button>
             <div className="rightMenu">
-              {user && (<RightMenu mode={"horizontal"} />)}
+              {user && <RightMenu mode={"horizontal"} />}
             </div>
 
             <Drawer
@@ -46,8 +52,8 @@ export const Navbar: React.FC = () => {
               visible={visible}
               style={{ zIndex: 99999 }}
             >
-              <LeftMenu/>
-              {user && (<RightMenu mode={"inline"} />)}
+              <LeftMenu />
+              {user && <RightMenu mode={"inline"} />}
             </Drawer>
           </div>
         </Layout.Header>
