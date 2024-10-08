@@ -1,40 +1,33 @@
 import { getFavorites } from "@/entities/favorite";
 import { LyricFileItem } from "@/entities/lyricFile/ui/LyricFileItem";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import { Typography } from "antd";
 import React, { useEffect } from "react";
 
-type FavoritesListProps = {};
-
-export const FavoritesList: React.FC<FavoritesListProps> = ({}) => {
-  const {favorites} = useAppSelector((state) => state.favorite);
+export const FavoritesList: React.FC = () => {
+  const { favorites } = useAppSelector((state) => state.favorite);
   const dispatch = useAppDispatch();
 
-  const getFavoritesList = async () => {
-    await dispatch(getFavorites());
-  };
-
   useEffect(() => {
-    getFavoritesList();
+    dispatch(getFavorites());
   }, [dispatch]);
 
-  const lyricFiles = favorites.map((favorite) => favorite.LyricFile);
-  
-
-  if(!favorites) {
-    return (
-      <div>
-        looadinsg
-      </div>
-    )
+  // Проверка, если данные загружаются
+  if (!favorites) {
+    return <div>Загрузка...</div>;
   }
 
+  // Преобразование списка избранных в массив LyricFile
+  const lyricFiles = favorites.map((favorite) => favorite.LyricFile);
 
   return (
-    <div>
-      <h1>Избранное</h1>
-      {lyricFiles && lyricFiles.map((lyricFile) => (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "20px" }}>
+    <div className="progress-files" style={{margin: "40px 0px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <Typography.Title>Избранное</Typography.Title>
+      {favorites.length === 0 ? <h1>У вас нет избранных файлов.</h1> : lyricFiles.map((lyricFile) => (
         <LyricFileItem lyricFile={lyricFile} key={lyricFile.id} />
       ))}
+    </div>
     </div>
   );
 };
