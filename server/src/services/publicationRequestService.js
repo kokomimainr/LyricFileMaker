@@ -29,13 +29,13 @@ class PublicationRequestService {
     }
   }
 
-  static async deletePublicationRequest(publicationId, isAdmin) {
+  static async deletePublicationRequest(publicationRequestId, isAdmin) {
     try {
       if (!isAdmin) {
         return null;
       }
       const publicationRequest = await PublicationRequest.destroy({
-        where: { id: publicationId },
+        where: { id: publicationRequestId },
       });
       return publicationRequest ? true : null;
     } catch ({ message }) {

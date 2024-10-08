@@ -33,9 +33,9 @@ exports.getPublicationRequests = async (req, res) => {
 exports.deletePublicationRequest = async (req, res) => {
   try {
     const isAdmin = res.locals.user.isAdmin;
-    const { publicationId } = req.params;
+    const { publicationRequestId } = req.params;
     const isDeleted = await PublicationRequestService.deletePublicationRequest(
-      publicationId,
+      publicationRequestId,
       isAdmin
     );
     res.status(200).json({ message: "Success", isDeleted: isDeleted });

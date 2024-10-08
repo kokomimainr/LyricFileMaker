@@ -3,7 +3,7 @@ import styles from "./PublicationRequestItem.module.css";
 import { PublicationRequest } from "../..";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import { getAllPublicationRequests, updatePublicationRequest } from "../../model/PublicationRequestThunk";
+import { deletePublicationRequest, getAllPublicationRequests, updatePublicationRequest } from "../../model/PublicationRequestThunk";
 
 type PublicationRequestItemProps = {
   publicationRequest: PublicationRequest;
@@ -37,17 +37,26 @@ export const PublicationRequestItem: React.FC<PublicationRequestItemProps> = ({
     );
   };
 
+  const handleDelete = () => {
+    dispatch(
+      deletePublicationRequest({
+        publicationRequestId: publicationRequest.id,
+      })
+    );
+  }
+
   return (
     <>
       <div className={styles.container}>
         {publicationRequest.lyricFileId}
         {publicationRequest.approved.toString()}
-        <button onClick={handleShowFile}>показать</button>
+        <button onClick={handleShowFile}>Показать</button>
         {publicationRequest.approved ? (
-          <button onClick={handleReject}>отклонить</button>
+          <button onClick={handleReject}>Отклонить</button>
         ) : (
-          <button onClick={handleApprove}>принять</button>
+          <button onClick={handleApprove}>Принять</button>
         )}
+        <button onClick={handleDelete}>Удалить заявку</button>
       </div>
     </>
   );
