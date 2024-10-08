@@ -65,7 +65,7 @@ const ProfilePage: React.FC = () => {
       >
         <Row gutter={[16, 16]} justify="center" align="middle">
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
-            <Avatar
+          {user?.avatar ? (<Avatar
             src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
               size={screens.md ? 169 : 100}
               style={{
@@ -74,8 +74,17 @@ const ProfilePage: React.FC = () => {
                 marginBottom: "20px",
               }}
             >
+            </Avatar>) : (<Avatar
+              size={screens.md ? 169 : 100}
+              style={{
+                backgroundColor: "#fe9fad",
+                fontSize: screens.md ? "50px" : "30px",
+                marginBottom: "20px",
+              }}
+            >
               {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
-            </Avatar>
+            </Avatar>)}
+            
           </Col>
           <Col xs={24} md={16}>
             <Space direction="vertical" size="middle">
