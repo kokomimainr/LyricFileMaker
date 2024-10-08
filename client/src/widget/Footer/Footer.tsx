@@ -15,7 +15,7 @@ export const AppFooter: React.FC = () => {
             <Typography.Text style={{ color: 'white' }}>Email: juicypussy@AmAnTur04Ka.com</Typography.Text><br />
             <Typography.Text style={{ color: 'white' }}>Телефон: +7 (123) 456-78-90</Typography.Text>
           </Col>
-          <Col span={8}>
+          <Col style={{display: 'flex', alignItems: 'end', flexDirection: 'column'}} span={8}>
             <Typography.Title level={5} style={{ color: 'white' }}>Социальные сети</Typography.Title>
             <Row>
               <Col>
