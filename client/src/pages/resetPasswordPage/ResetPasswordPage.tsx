@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, message, Form, Typography, Space, Card } from 'antd';
+import { Button, Input, message, Form, Typography, Card } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosInstance } from '@/shared/lib/axiosInstance';
 

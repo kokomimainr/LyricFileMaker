@@ -103,7 +103,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
           <Upload
             accept=".jpeg,.jpg,.png" // Ограничение на типы файлов
             showUploadList={false}
-            beforeUpload={(file) => {
+            beforeUpload={() => {
               return false; // Предотвращаем автоматическую загрузку
             }}
             onChange={(info) => {

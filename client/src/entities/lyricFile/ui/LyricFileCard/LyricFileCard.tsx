@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Card, Image, Typography, message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import {
@@ -11,8 +11,6 @@ import {
 import { getLyricFile } from "../../model/lyricFileThunk";
 import { DownloadOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
-
-const EOL = "\n";
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import type { FormProps } from "antd";
-import { Avatar, Button, Form, Input, message, Upload } from "antd";
+import { Button, Form, Input, message, Upload } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { unwrapResult } from "@reduxjs/toolkit";
 import styles from "./ProfileUpdateForm.module.css";
 import { checkEmailExists } from "@/shared/utils/checkEmailExists";
-import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { updateUser } from "../../model/userThunks";
 import { UploadChangeParam } from "antd/es/upload";
 import { UploadOutlined } from "@ant-design/icons";
@@ -99,7 +98,7 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({ isActive }) => {
           <Upload
             accept=".jpeg,.jpg,.png" // Ограничение на типы файлов
             showUploadList={false}
-            beforeUpload={(file) => {
+            beforeUpload={() => {
               return false; // Предотвращаем автоматическую загрузку
             }}
             onChange={(info) => {
