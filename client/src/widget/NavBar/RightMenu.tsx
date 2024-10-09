@@ -16,22 +16,46 @@ const RightMenu: React.FC<RightMenuProps> = ({ mode }) => {
     <Menu mode={mode}>
       <Menu.SubMenu
         title={
-          <>
+          <div style={{ display: "flex", alignItems: "center", padding: "0", margin: "0" }}>
+            {user?.avatar ? null : (
+              <Avatar
+                style={{
+                  backgroundColor: "#fe9fad",
+                  fontSize: "25px",
+                  textShadow: "unset",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: user?.avatar ? "50px" : "40px",
+                  height: user?.avatar ? "50px" : "40px",
+                }}
+                size={user?.avatar ? "large" : "default"}
+                gap={100}
+              >
+                {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
+              </Avatar>
+            )}
             <Avatar
-              src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
+              src={user?.avatar ? `${import.meta.env.VITE_IMG}/${user?.avatar}` : undefined}
               style={{
                 backgroundColor: "#fe9fad",
-                verticalAlign: "middle",
                 fontSize: "25px",
                 textShadow: "unset",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: user?.avatar ? "50px" : "40px",
+                height: user?.avatar ? "50px" : "40px",
               }}
-              size="large"
+              size={user?.avatar ? "large" : "default"}
               gap={100}
             >
               {user?.username ? user.username.charAt(0).toUpperCase() : "-"}
             </Avatar>
-            <span className="username">{user?.username}</span>
-          </>
+            <span className="username" style={{ marginLeft: "10px", lineHeight: "1" }}>
+              {user?.username}
+            </span>
+          </div>
         }
       >
         <Menu.Item key="about-us" onClick={() => navigate("/profile")}>

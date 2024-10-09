@@ -52,6 +52,14 @@
   .navbar-menu .rightMenu {
     float: right;
   }
+
+  .ant-menu-overflow{
+    background-color: transparent;
+  }
+  
+  .ant-menu-submenu-title {
+    line-height: 3;
+  }  
   
   .menuButton {
     float: right;
@@ -86,7 +94,7 @@
     margin-left: 8px;
   }
   
-  @ (max-width: 767px) {
+  @media (max-width: 767px) {
     .ant-menu{
     flex-direction: column;
     }
