@@ -9,6 +9,7 @@ import {
   Card,
   Space,
   Modal,
+  Image,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
@@ -91,7 +92,7 @@ const ProfilePage: React.FC = () => {
           <Col xs={24} md={8} style={{ textAlign: "center" }}>
           {user?.avatar ? (<Avatar
             src={`${import.meta.env.VITE_IMG}/${user?.avatar}`}
-              size={ 169}
+              size={169}
               style={{
                 backgroundColor: "#fe9fad",
                 fontSize: "50px",
@@ -142,17 +143,14 @@ const ProfilePage: React.FC = () => {
       {lyricFiles && lyricFiles.length > 0 && (
         <div className="files-section">
           <Title level={4}>Мои файлы</Title>
-          <Row gutter={[16, 16]} justify="center">
+          <div className="files-container">
             {lyricFiles?.map((lyricFile) => (
-              <Col xs={24} sm={12} md={8} lg={6} key={lyricFile.id}>
                 <Card
                   hoverable
                   className="lyric-file-card"
-                  style={{
-                    borderRadius: "8px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  }}
                 >
+                  {}
+                  <Image src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}/>
                   <Title
                     level={5}
                     className="lyric-file-title"
@@ -187,9 +185,8 @@ const ProfilePage: React.FC = () => {
                       </Button>
                     ))}
                 </Card>
-              </Col>
             ))}
-          </Row>
+            </div>
         </div>
       )}
     </div>

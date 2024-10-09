@@ -1,34 +1,29 @@
-.card{
-    width: 190px;
-    height: 130px; 
+.custom-card {
+    width: 200px;
     text-align: center;
-    word-break: break-all;
-    padding: 25px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 18px;
-    background-color: #ffffff;
-    display: flex; /* Используем flexbox */
-    align-items: center; /* Центрируем содержимое по вертикали */
-    justify-content: center; /* Центрируем содержимое по горизонтали */
-    transition: box-shadow 0.3s ease;
-}
-
-.pointer-card{
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid #c9c9c9;
+  }
+  
+  .pointer-card {
     cursor: pointer;
-    transition: 0.5s ease;
-}
-
-.pointer-card:hover{
-    transform: scale(1.1);
-    box-shadow: 0 0 10px 1px #fe3553b6;
-}
-
-@media screen and (max-width: 1200px) {
-    .card{
-        width: 100px !important;
-        height: auto !important;
-        font-size: small;
-        padding: 10px;
+  }
+  
+  .pointer-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 1px 1px rgba(254, 53, 83, 0.7);
+  }
+  
+  /* Prevent word breaking and allow wrapping */
+  .track-name {
+    white-space: normal; /* Allows wrapping to the next line */
+    word-break: normal;  /* Prevents breaking words */
+    overflow: visible;   /* Ensures text is fully visible */
+  }
+  
+  /* Responsive design */
+  @media screen and (max-width: 1200px) {
+    .custom-card {
+      font-size: small;
     }
-}
+  }  

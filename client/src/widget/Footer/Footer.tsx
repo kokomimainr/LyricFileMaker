@@ -12,8 +12,7 @@ export const AppFooter: React.FC = () => {
         <Row justify="space-around">
           <Col span={8}>
             <Typography.Title level={5} style={{ color: 'white' }}>Контакты</Typography.Title>
-            <Typography.Text style={{ color: 'white' }}>Email: juicypussy@AmAnTur04Ka.com</Typography.Text><br />
-            <Typography.Text style={{ color: 'white' }}>Телефон: +7 (123) 456-78-90</Typography.Text>
+            <Typography.Text style={{ color: 'white' }}>Email: lyric.file.maker@mail.ru</Typography.Text>
           </Col>
           <Col style={{display: 'flex', alignItems: 'end', flexDirection: 'column'}} span={8}>
             <Typography.Title level={5} style={{ color: 'white' }}>Социальные сети</Typography.Title>

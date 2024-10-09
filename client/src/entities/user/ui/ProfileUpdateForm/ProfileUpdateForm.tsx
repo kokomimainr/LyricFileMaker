@@ -8,6 +8,7 @@ import { checkEmailExists } from "@/shared/utils/checkEmailExists";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { updateUser } from "../../model/userThunks";
 import { UploadChangeParam } from "antd/es/upload";
+import { UploadOutlined } from "@ant-design/icons";
 
 export type UpdateFormData = {
   username: string;
@@ -24,18 +25,6 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({ isActive }) => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-
-  const handleRequestPasswordReset = async () => {
-    try {
-      await axiosInstance.post("/auth/request-reset-password", {
-        email: user?.email,
-      });
-      message.success("Инструкция по сбросу пароля отправлена на ваш email!");
-    } catch (error) {
-      console.error(error);
-      message.error("Ошибка при запросе сброса пароля");
-    }
-  };
 
   const onFinish: FormProps<UpdateFormData>["onFinish"] = async (
     values: UpdateFormData
@@ -116,26 +105,19 @@ export const ProfileUpdateForm: React.FC<UpdateFormProps> = ({ isActive }) => {
             onChange={(info) => {
               if (info.fileList.length > 0) {
                 const file = info.fileList[0];
-                form.setFieldsValue({ avatar: file }); // Устанавливаем файл в состояние формы
+                form.setFieldsValue({ avatar: file });
+                message.success(`${file.name} успешно загружен!`);
+                // Устанавливаем файл в состояние формы
               } else {
                 form.setFieldsValue({ avatar: undefined }); // Очищаем значение, если файл удален
               }
             }}
           >
-            <Button>Загрузить аватар</Button>
+            <Button icon={<UploadOutlined />}>Загрузить аватар</Button>
           </Upload>
         </Form.Item>
 
-        <Button
-          type="primary"
-          htmlType="button"
-          style={{ margin: "20px", marginLeft: "78px" }}
-          onClick={handleRequestPasswordReset}
-        >
-          Изменить пароль
-        </Button>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Сохранить изменения
           </Button>
