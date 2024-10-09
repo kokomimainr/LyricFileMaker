@@ -52,7 +52,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const getUserPublicationRequests = async () => {
-    const publ = await dispatch(getPublicationRequestsByUserId());
+    await dispatch(getPublicationRequestsByUserId());
   };
 
   const handleSetPublic = async (lyricFileId: number) => {

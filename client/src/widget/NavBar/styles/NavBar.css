@@ -49,17 +49,23 @@
     float: left;
   }
   
+  .ant-avatar {
+    margin-top: 15px !important;
+  }
+  
   .navbar-menu .rightMenu {
     float: right;
+    display: flex;
+    align-items: center !important;
   }
 
   .ant-menu-overflow{
     background-color: transparent;
   }
-  
-  .ant-menu-submenu-title {
-    line-height: 3;
-  }  
+
+.ant-menu-submenu-horizontal::after {
+  display: none;
+}
   
   .menuButton {
     float: right;

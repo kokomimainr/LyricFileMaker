@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthResponse, User } from ".";
 import { UserService } from "../api";
 import { AxiosError } from "axios";
-import { UpdateFormData } from "../ui/ProfileUpdateForm/ProfileUpdateForm";
 
 type RejectValue = {
   message: string;

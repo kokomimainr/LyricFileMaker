@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/shared/hooks/reduxHooks';
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom';
 
 type ProtectedRouterProps = {
