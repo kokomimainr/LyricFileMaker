@@ -15,15 +15,12 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { getLyricFileByUserId } from "@/entities/lyricFile";
 import { ProfileUpdateForm } from "@/entities/user/ui/ProfileUpdateForm";
-import {
-  createPublicationRequest,
-} from "@/entities/publicationRequest";
+import { createPublicationRequest } from "@/entities/publicationRequest";
 import { getPublicationRequestsByUserId } from "@/entities/publicationRequest/model/PublicationRequestThunk";
 import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
-import "./ProfilePage.css";
 
-// const screens = Breakpoint(); 
+// const screens = Breakpoint();
 
 const { Title, Text } = Typography;
 
@@ -76,7 +73,6 @@ const ProfilePage: React.FC = () => {
   };
 
   console.log(`${import.meta.env.VITE_IMG}/${user?.avatar}`);
-  
 
   return (
     <div className="profile-page-container">
