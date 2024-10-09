@@ -24,13 +24,18 @@ export const SignUpForm: React.FC = () => {
   ) => {
     try {
         const emailExists = await checkEmailExists(values.email);
-        if (!emailExists) {
-          message.error('Email does not exist. Please enter a valid email.');
+        if (emailExists) {
+
+          const resultAction = await dispatch(signUp(values));
+          unwrapResult(resultAction);
+          navigate(ROUTES.HOME);
+
+          
+        } else {
+          message.error('Email не существует. Пожалуйста, введите действительный адрес электронной почты.');
           return;
         }
-      const resultAction = await dispatch(signUp(values));
-      unwrapResult(resultAction);
-      navigate(ROUTES.HOME);
+     
     } catch (error) {
       console.error("Sign up failed:", error);
     }
