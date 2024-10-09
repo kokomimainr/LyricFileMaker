@@ -9,7 +9,10 @@ import {
   deleteFavorite,
 } from "@/entities/favorite/model/FavoritesThunk";
 import { getLyricFile } from "../../model/lyricFileThunk";
+import { DownloadOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
+
+const EOL = "\n";
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +30,7 @@ export const LyricFileCard: React.FC = () => {
 
   const getUserFavorites = async () => {
     await dispatch(getFavorites());
-  }
+  };
 
   const copyToClipboard = () => {
     const textToCopy = strings
@@ -49,10 +52,23 @@ export const LyricFileCard: React.FC = () => {
     await dispatch(deleteFavorite({ lyricFileId: +lyricFileId }));
   };
 
-
+  const handleDownload = async () => {
+    const textToCopy = strings
+      ?.map((string) => `${string.TimeCodes?.[0]?.time || ""} ${string.text}`)
+      .join("\n");
+    const blob = new Blob([textToCopy || ""], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${lyricFile?.trackName.replace(/ /g, "_")}.lrc`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
-    if(lyricFileId) {
+    if (lyricFileId) {
       getLyricFileCard();
     }
     getUserFavorites();
@@ -60,75 +76,94 @@ export const LyricFileCard: React.FC = () => {
 
   return (
     <>
-    {lyricFile && !lyricFile.public && user?.id !== lyricFile.userId && !user?.isAdmin ? (<div>
-      <Title style={{ textAlign: "center" }}>Такого файла нет</Title>
-    </div>) : ( <Card className="progress-for-file" bordered={false}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-                {<Image
-            src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
-            width={200}
-              style={{
-                backgroundColor: "#ffffff",
-              }}
+      {lyricFile &&
+      !lyricFile.public &&
+      user?.id !== lyricFile.userId &&
+      !user?.isAdmin ? (
+        <div>
+          <Title style={{ textAlign: "center" }}>Такого файла нет</Title>
+        </div>
+      ) : (
+        <Card className="progress-for-file" bordered={false}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            {
+              <Image
+                src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
+                width={200}
+                style={{
+                  backgroundColor: "#ffffff",
+                }}
+              ></Image>
+            }
+            <Title level={3} style={{ textAlign: "center" }}>
+              {lyricFile?.trackName}
+            </Title>
+            {lyricFileId &&
+            favorites &&
+            favorites.length > 0 &&
+            favorites.some((fav) => fav.lyricFileId === +lyricFileId) ? (
+              <Button
+                type="primary"
+                icon={<StarFilled />}
+                onClick={handleUnfavorite}
+                style={{ marginBottom: "20px" }}
+              >
+                Удалить из избранного
+              </Button>
+            ) : (
+              <Button
+                type="dashed"
+                icon={<StarOutlined />}
+                onClick={handleFavorite}
+                style={{ marginBottom: "20px" }}
+              >
+                Добавить в избранное
+              </Button>
+            )}
+          </div>
+          <div className="text">
+            {strings ? (
+              <Paragraph className="fullText">
+                {strings.map((string, index) => (
+                  <div key={index}>
+                    {`${string.TimeCodes?.[0]?.time || ""} ${string.text}`}
+                    <br />
+                  </div>
+                ))}
+              </Paragraph>
+            ) : (
+              <Paragraph>Загрузка...</Paragraph>
+            )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <Button type="primary" onClick={copyToClipboard}>
+              Скопировать весь текст
+            </Button>
+            <Button
+              type="primary"
+              icon={<DownloadOutlined />}
+              onClick={handleDownload}
             >
-            </Image>}
-        <Title level={3} style={{ textAlign: "center" }}>
-          {lyricFile?.trackName}
-        </Title>
-        {lyricFileId && favorites && favorites.length > 0 && 
-        favorites.some((fav) => fav.lyricFileId === +lyricFileId) ? (
-          <Button
-            type="primary"
-            onClick={handleUnfavorite}
-            style={{ marginBottom: "20px" }}
-          >
-            Удалить из избранного
-          </Button>
-        ) : (
-          <Button
-            type="primary"
-            onClick={handleFavorite}
-            style={{ marginBottom: "20px" }}
-          >
-            Добавить в избранное
-          </Button>
-        )}
-      </div>
-      <div className="text">
-        {strings ? (
-          <Paragraph className="fullText">
-            {strings.map((string, index) => (
-              <div key={index}>
-                {`${string.TimeCodes?.[0]?.time || ""} ${string.text}`}
-                <br />
-              </div>
-            ))}
-          </Paragraph>
-        ) : (
-          <Paragraph>Загрузка...</Paragraph>
-        )}
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button type="primary" onClick={copyToClipboard}>
-          Скопировать весь текст
-        </Button>
-      </div>
-    </Card>)}
+              Скачать файл
+            </Button>
+          </div>
+        </Card>
+      )}
     </>
-   
   );
 };
 
