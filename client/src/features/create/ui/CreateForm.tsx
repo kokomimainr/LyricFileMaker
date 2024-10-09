@@ -110,6 +110,7 @@ export const CreateForm: React.FC<CreateFormProps> = () => {
               if (info.fileList.length > 0) {
                 const file: UploadFile<any> = info.fileList[0];
                 setCover(file.originFileObj as File); // Преобразуем в File
+                message.success(`${file.name} загружен успешно.`);
               } else {
                 setCover(null); // Очищаем значение, если файл удален
               }
