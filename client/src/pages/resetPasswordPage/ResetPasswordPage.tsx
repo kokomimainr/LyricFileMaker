@@ -38,7 +38,12 @@ const ResetPasswordPage = () => {
           <Form.Item
             label="Введите новый пароль"
             name="newPassword"
-            rules={[{ required: true, message: 'Введите новый пароль' }]}
+            rules={[{ required: true, message: 'Введите новый пароль' },
+              {
+                min: 6,
+                message: "Пароль должен содержать минимум 6 символов!",
+              },
+            ]}
           >
             <Input.Password
               placeholder="Новый пароль"
@@ -50,7 +55,12 @@ const ResetPasswordPage = () => {
           <Form.Item
             label="Подтвердите пароль"
             name="confirmPassword"
-            rules={[{ required: true, message: 'Подтвердите пароль' }]}
+            rules={[{ required: true, message: 'Подтвердите пароль' },
+              {
+                min: 6,
+                message: "Пароль должен содержать минимум 6 символов!",
+              },
+            ]}
           >
             <Input.Password
               placeholder="Подтверждение пароля"
