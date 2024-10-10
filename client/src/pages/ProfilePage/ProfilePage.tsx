@@ -146,11 +146,12 @@ const ProfilePage: React.FC = () => {
                   className="lyric-file-card"
                 >
                   {}
-                  <Image src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}/>
+                  <Image src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`} style={{ width: "160px", height: "160px", objectFit: "cover", borderRadius: "3px" }}/>
                   <Title
                     level={5}
                     className="lyric-file-title"
                     onClick={() => navigate(`/lyric-file-card/${lyricFile.id}`)}
+                    style={{ marginTop: "10px" }}
                   >
                     {lyricFile.trackName}
                   </Title>

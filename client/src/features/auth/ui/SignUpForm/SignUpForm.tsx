@@ -24,6 +24,7 @@ export const SignUpForm: React.FC = () => {
   ) => {
     try {
         const emailExists = await checkEmailExists(values.email);
+        
         if (emailExists) {
 
           const resultAction = await dispatch(signUp(values));

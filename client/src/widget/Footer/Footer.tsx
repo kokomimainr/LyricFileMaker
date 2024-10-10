@@ -12,10 +12,10 @@ export const AppFooter: React.FC = () => {
         <Row justify="space-around">
           <Col span={8}>
             <Typography.Title level={5} style={{ color: 'white' }}>Контакты</Typography.Title>
-            <Typography.Text style={{ color: 'white' }}>Email: lyric.file.maker@mail.ru</Typography.Text>
+            <Typography.Text style={{ color: 'white', whiteSpace: "nowrap" }}>Email: lyric.file.maker@mail.ru</Typography.Text>
           </Col>
           <Col style={{display: 'flex', alignItems: 'end', flexDirection: 'column'}} span={8}>
-            <Typography.Title level={5} style={{ color: 'white' }}>Социальные сети</Typography.Title>
+            <Typography.Title level={5} style={{ color: 'white', whiteSpace: "nowrap"  }}>Социальные сети</Typography.Title>
             <Row>
               <Col>
                 <FacebookOutlined onClick={() => window.open('https://www.facebook.com/groups/510139854623229/')} style={{ fontSize: '20px', color: 'white', marginRight: '10px' }} />
