@@ -18,13 +18,13 @@ async function checkEmailExistence(req, res) {
     );
 
     const { data } = response;
-
-    if (data.data && data.data.result === 'undeliverable') {
+    
+    if (data.data && data.data.result === 'undeliverable' ) {
       return res.status(200).json({ exists: false });
     }
 
     return res.status(200).json({
-      exists: data.data.result === 'deliverable',
+      exists: data.data.result === 'deliverable' || 'risky',
       message: data.data.status,
     });
   } catch (error) {

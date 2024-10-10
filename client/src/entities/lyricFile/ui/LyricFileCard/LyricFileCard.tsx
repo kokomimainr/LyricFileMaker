@@ -97,10 +97,14 @@ export const LyricFileCard: React.FC = () => {
                 width={200}
                 style={{
                   backgroundColor: "#ffffff",
+                  objectFit: "cover",
+                  borderRadius: "5px",
+                  width: "200px",
+                  height: "200px",
                 }}
               ></Image>
             }
-            <Title level={3} style={{ textAlign: "center" }}>
+            <Title level={3} style={{ textAlign: "center", marginTop: "20px" }}>
               {lyricFile?.trackName}
             </Title>
             {lyricFileId &&

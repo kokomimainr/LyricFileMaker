@@ -25,7 +25,7 @@ export const LyricFileItem: React.FC<LyricFileItemProps> = ({ lyricFile }) => {
           src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
           preview={false}
           alt="cover"
-          style={{ width: "100%", height: "130px", objectFit: "contain" }}
+          style={{ width: "130px", height: "130px", objectFit: "cover", borderRadius: "3px" , marginTop: "30px" }}
         />
       }
     >
