@@ -28,13 +28,13 @@ class UserService {
     });
 
     await transporter.sendMail({
-      from: '"👻" <lyric.file.maker@mail.ru>',
+      from: `"👻" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Добро пожаловать на Lyric File Maker!",
       html: `<div style="text-align: center;">
       <h1>Здравствуйте, ${user.username}!</h1>
 
-<p> Спасибо за регистрацию на <a href="http://localhost:5173/">Lyric File Maker</a>! <br/><br/>
+<p> Спасибо за регистрацию на <a href=${process.env.CLIENT_URL}>Lyric File Maker</a>! <br/><br/>
 
 Мы рады приветствовать вас в нашем сообществе.<br/>
 
@@ -70,13 +70,13 @@ class UserService {
     });
 
     await transporter.sendMail({
-      from: '"👻" <lyric.file.maker@mail.ru>',
+      from: `"👻" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Успешная авторизация на Lyric File Maker!",
       html: `<div style="text-align: center;">
       <h1>Здравствуйте, ${user.username}!</h1>
 
-<p> Вы успешно вошли в свою учетную запись на <a href="http://localhost:5173/">Lyric File Maker</a>. <br/> <br/> 
+<p> Вы успешно вошли в свою учетную запись на <a href=${process.env.CLIENT_URL}>Lyric File Maker</a>. <br/> <br/> 
 
 Теперь вы можете наслаждаться всеми функциями и возможностями, которые мы предлагаем. <br/> 
 
@@ -122,7 +122,7 @@ class UserService {
       expiresIn: "1h",
     });
 
-    const resetLink = `http://localhost:5173/reset-password/${token}`;
+    const resetLink = `${process.env.CLIENT_URL}reset-password/${token}`;
 
     // Настройка Nodemailer
     const transporter = nodemailer.createTransport({
@@ -136,13 +136,13 @@ class UserService {
     });
 
     await transporter.sendMail({
-      from: '"👻" <lyric.file.maker@mail.ru>',
+      from: `"👻" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Сброс пароля LFM",
       html: `<div style="text-align: center;">
       <h1>Здравствуйте, ${user.username}!</h1>
 
-<p>Мы получили запрос на сброс пароля для вашей учетной записи на <a href="http://localhost:5173/">Lyric File Maker</a>.<br/>
+<p>Мы получили запрос на сброс пароля для вашей учетной записи на <a href=${process.env.CLIENT_URL}>Lyric File Maker</a>.<br/>
 <br/>
 
 Чтобы установить новый пароль, пожалуйста, перейдите по следующей ссылке:<br/>
