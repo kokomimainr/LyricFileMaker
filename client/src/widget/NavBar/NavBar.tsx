@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
             style={{ display: "flex", alignItems: "center" }}
             onClick={() => navigate("/")}
           >
-            <img style={{ width: "40px" }} src="/img/Icon.png" alt="" />
+            <img style={{ width: "40px" }} src="/img/icon.png" alt="" />
             <h3 style={{ fontSize: "17px" }} className="brand-font">
               Lyric File Maker
             </h3>

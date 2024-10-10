@@ -100,7 +100,7 @@
     margin-left: 8px;
   }
   
-  @media (max-width: 767px) {
+  @media (max-width: 860px) {
     .ant-menu{
     flex-direction: column;
     }
@@ -125,6 +125,10 @@
   
     .username {
       display: inline-block;
+    }
+
+    .ant-menu-overflow {
+      display: none;
     }
   }
   

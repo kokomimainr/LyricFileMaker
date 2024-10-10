@@ -16,21 +16,31 @@ export const LyricFileItem: React.FC<LyricFileItemProps> = ({ lyricFile }) => {
   };
 
   return (
-    <Card
-      className="pointer-card custom-card"
-      hoverable
-      onClick={handleShowCard}
-      cover={
-        <Image
-          src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
-          preview={false}
-          alt="cover"
-          style={{ width: "130px", height: "130px", objectFit: "cover", borderRadius: "3px" , marginTop: "30px" }}
-        />
-      }
-    >
-      <span className="track-name">{lyricFile.trackName}</span>
-    </Card>
+    <>
+      {lyricFile && (
+        <Card
+          className="pointer-card custom-card"
+          hoverable
+          onClick={handleShowCard}
+          cover={
+            <Image
+              src={`${import.meta.env.VITE_IMG}/${lyricFile?.cover}`}
+              preview={false}
+              alt="cover"
+              style={{
+                width: "130px",
+                height: "130px",
+                objectFit: "cover",
+                borderRadius: "3px",
+                marginTop: "30px",
+              }}
+            />
+          }
+        >
+          <span className="track-name">{lyricFile.trackName}</span>
+        </Card>
+      )}
+    </>
   );
 };
 

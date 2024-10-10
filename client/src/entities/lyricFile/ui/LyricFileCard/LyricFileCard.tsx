@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Card, Image, Typography, message } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getAllStrings } from "@/entities/string";
 import {
@@ -8,12 +8,18 @@ import {
   addFavorite,
   deleteFavorite,
 } from "@/entities/favorite/model/FavoritesThunk";
-import { getLyricFile } from "../../model/lyricFileThunk";
-import { DownloadOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
+import { deleteLyricFile, getLyricFile } from "../../model/lyricFileThunk";
+import {
+  DeleteFilled,
+  DownloadOutlined,
+  StarFilled,
+  StarOutlined,
+} from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { favorites } = useAppSelector((state) => state.favoriteList);
   const { user } = useAppSelector((state) => state.user);
   const { lyricFile } = useAppSelector((state) => state.lyricFile);
@@ -65,6 +71,12 @@ export const LyricFileCard: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleDelete = async () => {
+    if (!lyricFileId || !user) return;
+    await dispatch(deleteLyricFile({ lyricFileId: +lyricFileId }));
+    navigate(-1)
+  };
+
   useEffect(() => {
     if (lyricFileId) {
       getLyricFileCard();
@@ -79,7 +91,9 @@ export const LyricFileCard: React.FC = () => {
       user?.id !== lyricFile.userId &&
       !user?.isAdmin ? (
         <div>
-          <Title style={{ textAlign: "center" }}>Такого файла нет</Title>
+          <Title style={{ textAlign: "center" }}>
+            Такого файла не существует
+          </Title>
         </div>
       ) : (
         <Card className="progress-for-file" bordered={false}>
@@ -107,27 +121,41 @@ export const LyricFileCard: React.FC = () => {
             <Title level={3} style={{ textAlign: "center", marginTop: "20px" }}>
               {lyricFile?.trackName}
             </Title>
-            {lyricFileId &&
-            favorites &&
-            favorites.length > 0 &&
-            favorites.some((fav) => fav.lyricFileId === +lyricFileId) ? (
-              <Button
-                type="primary"
-                icon={<StarFilled />}
-                onClick={handleUnfavorite}
-                style={{ marginBottom: "20px" }}
-              >
-                Удалить из избранного
-              </Button>
-            ) : (
+            {user?.isAdmin ? (
               <Button
                 type="dashed"
-                icon={<StarOutlined />}
-                onClick={handleFavorite}
+                icon={<DeleteFilled />}
                 style={{ marginBottom: "20px" }}
+                onClick={handleDelete}
               >
-                Добавить в избранное
+                Удалить файл
               </Button>
+            ) : (
+              <>
+              
+                {lyricFileId &&
+                favorites &&
+                favorites.length > 0 &&
+                favorites.some((fav) => fav.lyricFileId === +lyricFileId) ? (
+                  <Button
+                    type="primary"
+                    icon={<StarFilled />}
+                    onClick={handleUnfavorite}
+                    style={{ marginBottom: "20px" }}
+                  >
+                    Удалить из избранного
+                  </Button>
+                ) : (
+                  <Button
+                    type="dashed"
+                    icon={<StarOutlined />}
+                    onClick={handleFavorite}
+                    style={{ marginBottom: "20px" }}
+                  >
+                    Добавить в избранное
+                  </Button>
+                )}
+              </>
             )}
           </div>
           <div className="text">
@@ -162,6 +190,16 @@ export const LyricFileCard: React.FC = () => {
             >
               Скачать файл
             </Button>
+            {user?.id === lyricFile?.userId && (
+                <Button
+                type="dashed"
+                icon={<DeleteFilled />}
+                style={{ marginBottom: "20px" }}
+                onClick={handleDelete}
+              >
+                Удалить файл
+              </Button>
+              )}
           </div>
         </Card>
       )}

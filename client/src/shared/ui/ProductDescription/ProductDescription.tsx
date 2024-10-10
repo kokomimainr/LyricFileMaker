@@ -15,18 +15,18 @@ export const ProductDescription: React.FC = () => {
         <Flex justify="center" align="center" gap={20}>
           <Image 
             src="/img/interface-1.png" 
-            width={140} 
-            style={{ objectFit: 'cover', margin: '10px 0' }} 
+            width={250} 
+            style={{ objectFit: 'cover', margin: '10px 0', boxShadow: '0 5px 10px #8d8093' }} 
           />
           <Image 
             src="/img/interface-2.png" 
-            width={140} 
-            style={{ objectFit: 'cover', margin: '10px 0' }} 
+            width={250} 
+            style={{ objectFit: 'cover', margin: '10px 0', boxShadow: '0 5px 10px #8d8093' }} 
           />
           <Image 
             src="/img/interface-3.png" 
-            width={140} 
-            style={{ objectFit: 'cover', margin: '10px 0' }} 
+            width={250} 
+            style={{ objectFit: 'cover', margin: '10px 0', boxShadow: '0 5px 10px #8d8093' }} 
           />
         </Flex>
         <Paragraph className="description-text" style={{ marginTop: '60px' }}>

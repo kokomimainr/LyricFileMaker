@@ -5,34 +5,37 @@ const jwt = require("jsonwebtoken");
 
 class UserService {
   async signUp(username, email, password) {
-    const [user, isCreated] = await User.findOrCreate({
-      where: { email },
-      defaults: { username, email, password: await bcrypt.hash(password, 10) },
-    });
+    try {
 
-    if (!isCreated) {
-      throw new Error("User already exists");
-    }
+      const isCreated = await User.findOne({ where: { email } });
+      if (isCreated) {
+        throw new Error("Пользователь уже зарегистрирован");
+      }
 
-    const plainUser = user.get();
-    delete plainUser.password;
+      if (email === process.env.EMAIL_USER) {
+        await User.create({
+          username,
+          email,
+          isAdmin: true,
+          password: await bcrypt.hash(password, 10),
+        });
+      }
+      const transporter = nodemailer.createTransport({
+        host: "smtp.mail.ru",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.mail.ru",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"👻" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Добро пожаловать на Lyric File Maker!",
-      html: `<div style="text-align: center;">
-      <h1>Здравствуйте, ${user.username}!</h1>
+      await transporter.sendMail({
+        from: `"👻" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: "Добро пожаловать на Lyric File Maker!",
+        html: `<div style="text-align: center;">
+    <h1>Здравствуйте, ${username}!</h1>
 
 <p> Спасибо за регистрацию на <a href=${process.env.CLIENT_URL}>Lyric File Maker</a>! <br/><br/>
 
@@ -45,8 +48,23 @@ class UserService {
 
 С уважением,  <br/>
 Команда LFM</p></div>`,
-    });
-    return { user: plainUser };
+      });
+
+      const user = await User.create({
+        username,
+        email,
+        password: await bcrypt.hash(password, 10),
+      });
+
+      const plainUser = user.get();
+      delete plainUser.password;
+
+      return { user: plainUser };
+    } catch (error) {
+      let err ;
+      error.message === "Пользователь уже зарегистрирован" ? err = error.message : err = "Такой электронной почты не существует";
+      throw new Error(err);
+    }
   }
 
   async signIn(email, password) {
@@ -54,7 +72,7 @@ class UserService {
     if (!user) throw new Error("User not found");
 
     const isCorrectPassword = await bcrypt.compare(password, user.password);
-    if (!isCorrectPassword) throw new Error("Incorrect email or password");
+    if (!isCorrectPassword) throw new Error("Неверный адрес электронной почты или пароль");
 
     const plainUser = user.get();
     delete plainUser.password;
@@ -80,7 +98,7 @@ class UserService {
       }
     } catch (error) {
       console.error(error);
-      throw new Error("Database error occurred while updating the user.");
+      throw new Error("При обновлении пользователя произошла ошибка базы данных.");
     }
   }
 
@@ -136,7 +154,7 @@ class UserService {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findOne({ where: { email: decoded.email } });
-      if (!user) throw new Error("User not found");
+      if (!user) throw new Error("Пользователь не найден");
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await user.update({ password: hashedPassword });

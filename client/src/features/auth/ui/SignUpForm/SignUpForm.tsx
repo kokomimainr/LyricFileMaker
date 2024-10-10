@@ -42,6 +42,10 @@ export const SignUpForm: React.FC = () => {
     }
   };
 
+  const handleAuthorization = () => {
+    navigate(ROUTES.SIGNIN);
+  };
+
   return (
     <div className="container">
       <h1 className="regText">Регистрация </h1>
@@ -84,7 +88,6 @@ export const SignUpForm: React.FC = () => {
           label="Пароль"
           name="password"
           hasFeedback
-          tooltip={<span>Пожалуйста, введите свой пароль</span>}
           validateDebounce={1000}
           rules={[
             { required: true, message: "Пожалуйста, введите свой пароль!" },
@@ -96,7 +99,9 @@ export const SignUpForm: React.FC = () => {
         >
           <Input.Password />
         </Form.Item>
-
+        <a onClick={handleAuthorization} style={{ display: 'block', textAlign: 'center', marginTop: '10px' }}>
+          Уже есть аккаунт?
+        </a>
         <Form.Item className="button-reg">
           <Button type="primary" htmlType="submit">
             Регистрация

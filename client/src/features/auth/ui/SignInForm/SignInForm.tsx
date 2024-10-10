@@ -58,6 +58,9 @@ export const SignInForm: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleRegistration = async () => {
+    navigate(ROUTES.SIGNUP);
+  };
 
   return (
     <div className="container">
@@ -92,7 +95,6 @@ export const SignInForm: React.FC = () => {
           label="Пароль"
           name="password"
           hasFeedback
-          tooltip={<span>Пожалуйста, введите свой пароль</span>}
           validateDebounce={1000}
           rules={[
             { required: true, message: "Пожалуйста, введите свой пароль!" },
@@ -104,6 +106,9 @@ export const SignInForm: React.FC = () => {
         >
           <Input.Password />
         </Form.Item>
+        <a onClick={handleRegistration} style={{ display: 'block', textAlign: 'center', marginTop: '10px' }}>
+          Впервые у нас?
+        </a>
         <a onClick={showModal} style={{ display: 'block', textAlign: 'center', marginTop: '10px' }}>
           Забыли пароль?
         </a>

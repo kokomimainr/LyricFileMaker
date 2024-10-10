@@ -28,7 +28,7 @@ export const signIn = createAsyncThunk<
   { rejectValue: RejectValue }
 >("user/signIn", async ({ email, password }, { rejectWithValue }) => {
   try {
-    return await UserService.signIn(email, password);
+    return await UserService.signIn(email.toLowerCase(), password);
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;
     return rejectWithValue({
@@ -42,7 +42,7 @@ export const signUp = createAsyncThunk<
   { rejectValue: RejectValue }
 >('user/signUp', async ({ username, email, password }, { rejectWithValue }) => {
   try {
-    return await UserService.signUp(username, email, password);
+    return await UserService.signUp(username, email.toLowerCase(), password);
   } catch (error) {
     const err = error as AxiosError<{ message: string }>;
     return rejectWithValue({
