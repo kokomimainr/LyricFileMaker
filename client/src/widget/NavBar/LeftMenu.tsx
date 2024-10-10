@@ -32,9 +32,17 @@ const LeftMenu: React.FC<LeftMenuProps> = ({}) => {
           </Menu.Item>
         </>
       ) : user.isAdmin ? (
-        <Menu.Item key="admin-panel" onClick={() => navigate(ROUTES.ADMIN)}>
-          Панель администратора
-        </Menu.Item>
+        <>
+          <Menu.Item key="admin-panel" onClick={() => navigate(ROUTES.ADMIN)}>
+            Панель администратора
+          </Menu.Item>
+          <Menu.Item
+            key="lyric-files"
+            onClick={() => navigate(ROUTES.LYRIC_FILES)}
+          >
+            Готовые файлы
+          </Menu.Item>
+        </>
       ) : (
         <>
           <Menu.Item

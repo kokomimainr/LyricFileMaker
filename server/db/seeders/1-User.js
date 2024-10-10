@@ -8,22 +8,10 @@ module.exports = {
       "Users",
       [
         {
-          username: "John Doe",
-          email: "aaok412@gmail.com",
-          password: await bcrypt.hash('123456', 10),
-          isAdmin: false,
-        },
-        {
-          username: "Jane Doe",
-          email: "Jane@example.com",
-          password: await bcrypt.hash('123', 10),
-          isAdmin: false,
-        },
-        {
-          username: "Bob Doe",
-          email: "1@1.com",
-          password: await bcrypt.hash('1', 10),
-          isAdmin: false,
+          username: "ADMIN",
+          email: "lyric.file.maker@mail.ru",
+          password: await bcrypt.hash('adminadmin', 10),
+          isAdmin: true,
         },
       ],
       {}

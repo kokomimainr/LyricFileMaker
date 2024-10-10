@@ -1,6 +1,6 @@
 
 
-@font-face {
+/* @font-face {
   font-family: "DejaVu Serif" !important;
   src: url("./fonts/DejaVuSerif.ttf") format("truetype");
 }
@@ -23,10 +23,15 @@
 @font-face {
   font-family: "Cormorant Infant" !important;
   src: url('./fonts/CormorantInfant-Regular.ttf') format('truetype');
+} */
+@font-face {
+  font-family: "Lora" ;
+  src: url('./fonts/Lora-Regular.ttf') format('truetype');
 }
 
 * {
-  font-family: "DejaVu Serif" !important; 
+  font-family: "Lora" !important;
+  /* font-family: "DejaVu Serif" !important;  */
   /* font-family: "Reey" !important; */
   /* font-family: "Arsenal" !important; */
   /* font-family: "Playfair Display" !important; */

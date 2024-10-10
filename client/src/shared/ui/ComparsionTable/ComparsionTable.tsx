@@ -3,10 +3,13 @@ import { Button, Layout, Table, Typography } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./ComparsionTable.css";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { ROUTES } from "@/app/router/routes";
 
 const { Content } = Layout;
 
 export const ComparisonTable: React.FC = () => {
+  const {user} = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dataSource = [
     {
@@ -56,18 +59,15 @@ export const ComparisonTable: React.FC = () => {
     },
   ];
 
-  // const { ref, inView } = useInView({
-  //   threshold: 0.1, // Порог срабатывания
-  //   triggerOnce: true, // Вернуть true, чтобы следить за состоянием только один раз
-  // });
+  const handleShowMore = async () => {
+    user? navigate(ROUTES.CONSTRUCTOR) : navigate(ROUTES.SIGNIN);
+  }
 
   return (
     <Layout
-      // ref={ref}
       className="comparison-container"
       style={{ padding: "20px" }}
     >
-      {/* {inView && ( */}
         <>
           <div
             style={{
@@ -89,14 +89,12 @@ export const ComparisonTable: React.FC = () => {
               bordered
             />
             <div style={{ textAlign: "center", margin: "20px 0" }}>
-              <Button type="primary" onClick={() => navigate("/products")}>
-                {" "}
-                Подробнее
+              <Button type="primary" onClick={handleShowMore}>
+                Попробуйте сами
               </Button>
             </div>
           </Content>
         </>
-      {/* )} */}
     </Layout>
   );
 };

@@ -6,18 +6,6 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Favorites",
       [
-        {
-          userId: 1,
-          lyricFileId: 1,
-        },
-        {
-          userId: 2,
-          lyricFileId: 1,
-        },
-        {
-          userId: 3,
-          lyricFileId: 1,
-        },
       ],
       {}
     );
