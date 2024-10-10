@@ -59,36 +59,6 @@ class UserService {
     const plainUser = user.get();
     delete plainUser.password;
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.mail.ru",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"👻" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Успешная авторизация на Lyric File Maker!",
-      html: `<div style="text-align: center;">
-      <h1>Здравствуйте, ${user.username}!</h1>
-
-<p> Вы успешно вошли в свою учетную запись на <a href=${process.env.CLIENT_URL}>Lyric File Maker</a>. <br/> <br/> 
-
-Теперь вы можете наслаждаться всеми функциями и возможностями, которые мы предлагаем. <br/> 
-
-Если у вас возникли вопросы или вам нужна помощь, наша служба поддержки всегда готова помочь. <br/> 
-
-Спасибо, что выбрали нас! <br/> 
-
-<br/>
-
-С уважением,  <br/>
-Команда LFM</p></div>`,
-    });
     return { user: plainUser };
   }
 
@@ -122,7 +92,7 @@ class UserService {
       expiresIn: "1h",
     });
 
-    const resetLink = `${process.env.CLIENT_URL}reset-password/${token}`;
+    const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
 
     // Настройка Nodemailer
     const transporter = nodemailer.createTransport({
