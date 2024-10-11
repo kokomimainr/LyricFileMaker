@@ -1,25 +1,13 @@
-.progress-for-file {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90vw; /* Увеличиваем ширину для мобильных устройств */
-    max-width: 600px; /* Максимальная ширина контейнера */
-    border-radius: 10px;
-    padding: 20px; /* Увеличенные отступы */
-    background-color: #ffffff;
-    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.134);
-    margin: 20px auto; /* Центрирование контейнера с отступами */
+.progress-button-for-file {
+    display: flex !important;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.text {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Заполнение контейнера */
-}
-
-.fullText {
-    font-size: 14px; /* Уменьшенный размер текста */
-    color: #333; /* Цвет текста */
-    white-space: pre-wrap; /* Сохранение пробелов и переносов строк */
-    margin: 10px 0; /* Отступы вокруг текста */
+@media screen and (max-width: 900px) {
+    .progress-button-for-file{
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 }
