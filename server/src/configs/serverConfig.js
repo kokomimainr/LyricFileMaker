@@ -16,7 +16,7 @@ const corsConfig = {
 const configureApp = () => {
   app.use(cors(corsConfig));
   app.use(cookieParser());
-  app.use(morgan('dev'));
+  // app.use(morgan('dev'));
   app.use(express.static(path.join(__dirname, '../..', 'public')));
   app.use(express.static(path.join(__dirname, '../..', 'public', 'dist')));
   app.use(express.urlencoded({ extended: true }));
