@@ -1,4 +1,4 @@
-const { LyricFile } = require("../../db/models");
+const { LyricFile, User } = require("../../db/models");
 
 class LyricFileService {
   static getAllLyricFilesService = async (user) => {
@@ -60,6 +60,11 @@ class LyricFileService {
 
   static deleteLyricFileService = async (lyricFileId, userId) => {
     try {
+      const user = await User.findOne({ where: { id: userId } });
+      if(user.isAdmin) {
+        await LyricFile.destroy({ where: { id: lyricFileId } });
+        return true;
+      }
       await LyricFile.destroy({ where: { id: lyricFileId, userId } });
       return true;
     } catch ({ message }) {
