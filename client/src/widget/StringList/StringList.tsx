@@ -75,7 +75,7 @@ export const StringList: React.FC<StringListProps> = ({
 
     const formattedTime = `[${String(minutes).padStart(2, "0")}:${String(
       seconds
-    ).padStart(2, "0")}:${String(milliseconds).padStart(2, "0")}]`;
+    ).padStart(2, "0")}.${String(milliseconds).padStart(2, "0")}]`;
 
     return formattedTime;
   };
