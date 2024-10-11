@@ -1,0 +1,64 @@
+.profile-page-container {
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.files-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.lyric-file-card {
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 220px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.lyric-file-card:hover {
+  transform: scale(1.05);
+}
+
+.lyric-file-title {
+  cursor: pointer;
+}
+
+.files-container{
+  display: flex; 
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .files-section {
+    margin-top: 20px;
+  }
+
+  .lyric-file-card {
+    margin-bottom: 20px;
+    width: 75%;
+  }
+}
+
+
+.button-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px; /* Отступы между кнопками */
+}
+
+@media screen and (max-width: 768px) {
+  .button-profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ant-space{
+    display: flex;
+  }
+}
+

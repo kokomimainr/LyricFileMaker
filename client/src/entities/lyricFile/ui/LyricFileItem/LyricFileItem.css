@@ -1,0 +1,30 @@
+.custom-card {
+    width: 200px;
+    height: 250px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid #c9c9c9;
+  }
+  
+  .pointer-card {
+    cursor: pointer;
+  }
+  
+  .pointer-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 1px 1px rgba(254, 53, 83, 0.7);
+  }
+  
+  /* Prevent word breaking and allow wrapping */
+  .track-name {
+    white-space: normal; /* Allows wrapping to the next line */
+    word-break: normal;  /* Prevents breaking words */
+    overflow: visible;   /* Ensures text is fully visible */
+  }
+  
+  /* Responsive design */
+  @media screen and (max-width: 1200px) {
+    .custom-card {
+      font-size: small;
+    }
+  }  

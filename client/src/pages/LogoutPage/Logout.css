@@ -1,0 +1,49 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0; /* Убираем margin-top */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px; /* Увеличенные отступы */
+  border-radius: 12px; /* Закругленные углы */
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.233); /* Тень */
+  background-color: #ffffff;
+}
+
+.text {
+  font-size: 24px; /* Размер текста */
+  margin-bottom: 20px; /* Отступ снизу */
+  text-align: center; /* Центрируем текст */
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 20px; /* Промежуток между кнопками */
+}
+
+.button {
+  padding: 10px 20px; /* Отступы для кнопок */
+  font-size: 20px; /* Размер текста кнопок */
+}
+
+.cancelButton {
+  border: 1px solid #424242;
+}
+
+@media (max-width: 1200px) {
+  .wrapper {
+      margin-top: 0; /* Убираем margin-top для мобильных устройств */
+      width: 100%;
+  }
+
+  .container {
+      width: 80%; /* Увеличиваем ширину контейнера */
+      max-width: 600px; /* Максимальная ширина для контейнера */
+  }
+}

@@ -1,0 +1,13 @@
+.progress-button-for-file {
+    display: flex !important;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+    .progress-button-for-file{
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
