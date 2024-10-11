@@ -16,6 +16,7 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
+import "./LyricFileCard.css";
 
 export const LyricFileCard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -173,12 +174,7 @@ export const LyricFileCard: React.FC = () => {
             )}
           </div>
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "10px",
-              marginBottom: "10px",
-            }}
+            className="progress-button-for-file"
           >
             <Button type="primary" onClick={copyToClipboard}>
               Скопировать весь текст
